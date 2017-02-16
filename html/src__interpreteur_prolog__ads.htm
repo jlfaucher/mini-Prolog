@@ -1,0 +1,30 @@
+<HEAD><TITLE>interpreteur_prolog.ads</TITLE></HEAD>
+<BODY>
+<HR><DIV ALIGN="center"><H1> File : interpreteur_prolog.ads </H1></DIV><HR>
+<PRE>
+<EM><FONT SIZE=-1>   1 </FONT></EM><FONT COLOR=green><EM>-- Fichier INTERPRE.ADS</EM></FONT>
+<EM><FONT SIZE=-1>   2 </FONT></EM><FONT COLOR=green><EM>-- Spécifications du package de l'interpréteur PROLOG.</EM></FONT>
+<EM><FONT SIZE=-1>   3 </FONT></EM><FONT COLOR=green><EM>-- Algorithmes extraits de "L'ANATOMIE DE PROLOG" par Michel Van Caneghem.</EM></FONT>
+<EM><FONT SIZE=-1>   4 </FONT></EM>
+<EM><FONT SIZE=-1>   5 </FONT></EM>
+<EM><FONT SIZE=-1>   6 </FONT></EM><FONT COLOR=green><EM>----------------------------------------------------------------------------------------------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1>   7 </FONT></EM>
+<EM><FONT SIZE=-1>   8 </FONT></EM>
+<EM><FONT SIZE=-1>   9 </FONT></EM><b>package</b> <A HREF="src__interpreteur_prolog__adb.htm#16_14">Interpreteur_Prolog</A><FONT COLOR=red><A NAME="9_9"></A></FONT> <b>is</b>
+<EM><FONT SIZE=-1>  10 </FONT></EM>
+<EM><FONT SIZE=-1>  11 </FONT></EM>   <FONT COLOR=green><EM>---------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1>  12 </FONT></EM>   <FONT COLOR=green><EM>-- Les exceptions susceptibles d'etre levées.</EM></FONT>
+<EM><FONT SIZE=-1>  13 </FONT></EM>   <FONT COLOR=green><EM>---------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1>  14 </FONT></EM>   <FONT COLOR=red><A NAME="14_4">Pile_Subst_Pleine</A></FONT> : <b>exception</b>;
+<EM><FONT SIZE=-1>  15 </FONT></EM>   <FONT COLOR=red><A NAME="15_4">Pile_Sauve_Pleine</A></FONT> : <b>exception</b>;
+<EM><FONT SIZE=-1>  16 </FONT></EM>   <FONT COLOR=red><A NAME="16_4">Pile_Nomvar_Pleine</A></FONT>: <b>exception</b>;
+<EM><FONT SIZE=-1>  17 </FONT></EM>   <FONT COLOR=red><A NAME="17_4">Pile_Eq_Pleine</A></FONT>    : <b>exception</b>;
+<EM><FONT SIZE=-1>  18 </FONT></EM>   <FONT COLOR=red><A NAME="18_4">Pile_Etape_Pleine</A></FONT> : <b>exception</b>;
+<EM><FONT SIZE=-1>  19 </FONT></EM>   <FONT COLOR=red><A NAME="19_4">Pile_Choix_Pleine</A></FONT> : <b>exception</b>;
+<EM><FONT SIZE=-1>  20 </FONT></EM>   <FONT COLOR=red><A NAME="20_4">Pile_Ren_Pleine</A></FONT>   : <b>exception</b>;
+<EM><FONT SIZE=-1>  21 </FONT></EM>
+<EM><FONT SIZE=-1>  22 </FONT></EM>   <b>procedure</b> <A HREF="src__interpreteur_prolog__adb.htm#1864_14">Driver_Prolog</A><FONT COLOR=red><A NAME="22_14"></A></FONT>;
+<EM><FONT SIZE=-1>  23 </FONT></EM>
+<EM><FONT SIZE=-1>  24 </FONT></EM>
+<EM><FONT SIZE=-1>  25 </FONT></EM><b>end</b> <A HREF="src__interpreteur_prolog__ads.htm#9_9">Interpreteur_Prolog</A>
+</PRE></BODY></HTML>

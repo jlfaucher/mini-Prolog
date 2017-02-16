@@ -1,0 +1,24 @@
+<HEAD><TITLE>int32_io.adb</TITLE></HEAD>
+<BODY>
+<HR><DIV ALIGN="center"><H1> File : int32_io.adb </H1></DIV><HR>
+<PRE>
+<EM><FONT SIZE=-1>   1 </FONT></EM><FONT COLOR=green><EM>-- Fichier INT32_IO.ADA</EM></FONT>
+<EM><FONT SIZE=-1>   2 </FONT></EM><FONT COLOR=green><EM>-- Package d'entrées-sorties pour les entiers de 32 bits et de 16 bits.</EM></FONT>
+<EM><FONT SIZE=-1>   3 </FONT></EM>
+<EM><FONT SIZE=-1>   4 </FONT></EM><b>with</b> <A HREF="text_io__ads.htm#24_9">Text_Io</A>;
+<EM><FONT SIZE=-1>   5 </FONT></EM>
+<EM><FONT SIZE=-1>   6 </FONT></EM><b>package</b> <b>body</b> <A HREF="src__int32_io__ads.htm#4_9">Int32_Io</A><FONT COLOR=red><A NAME="6_14"></A></FONT> <b>is</b>
+<EM><FONT SIZE=-1>   7 </FONT></EM>   <b>package</b> <FONT COLOR=red><A NAME="7_12">Int32io</A></FONT> <b>is</b> <b>new</b> <A HREF="text_io__ads.htm#24_9">Text_Io</A>.Integer_Io(<A HREF="src__int32_io__ads.htm#5_9">Int32</A>);
+<EM><FONT SIZE=-1>   8 </FONT></EM>
+<EM><FONT SIZE=-1>   9 </FONT></EM>   <b>procedure</b> <A HREF="src__int32_io__ads.htm#6_14">Put</A><FONT COLOR=red><A NAME="9_14"></A></FONT>(<A HREF="src__int32_io__ads.htm#6_18">Item</A><FONT COLOR=red><A NAME="9_18"></A></FONT> : <b>in</b> <A HREF="src__int32_io__ads.htm#5_9">Int32</A>; <A HREF="src__int32_io__ads.htm#6_35">Width</A><FONT COLOR=red><A NAME="9_35"></A></FONT> : <b>in</b> Natural := 0) <b>is</b>
+<EM><FONT SIZE=-1>  10 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1>  11 </FONT></EM>      <A HREF="src__int32_io__adb.htm#7_12">Int32io</A>.Put(<A HREF="src__int32_io__ads.htm#6_18">Item</A>, <A HREF="src__int32_io__ads.htm#6_35">Width</A>);
+<EM><FONT SIZE=-1>  12 </FONT></EM>   <b>end</b> <A HREF="src__int32_io__ads.htm#6_14">Put</A>;
+<EM><FONT SIZE=-1>  13 </FONT></EM>
+<EM><FONT SIZE=-1>  14 </FONT></EM>   <b>procedure</b> <A HREF="src__int32_io__ads.htm#7_14">Put</A><FONT COLOR=red><A NAME="14_14"></A></FONT>(<A HREF="src__int32_io__ads.htm#7_18">Item</A><FONT COLOR=red><A NAME="14_18"></A></FONT> : <b>in</b> Integer; <A HREF="src__int32_io__ads.htm#7_37">Width</A><FONT COLOR=red><A NAME="14_37"></A></FONT> : <b>in</b> Natural := 0) <b>is</b>
+<EM><FONT SIZE=-1>  15 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1>  16 </FONT></EM>      <A HREF="src__int32_io__adb.htm#7_12">Int32io</A>.Put(<A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__int32_io__ads.htm#7_18">Item</A>), <A HREF="src__int32_io__ads.htm#7_37">Width</A>);
+<EM><FONT SIZE=-1>  17 </FONT></EM>   <b>end</b> <A HREF="src__int32_io__ads.htm#7_14">Put</A>;
+<EM><FONT SIZE=-1>  18 </FONT></EM>
+<EM><FONT SIZE=-1>  19 </FONT></EM><b>end</b> <A HREF="src__int32_io__ads.htm#4_9">Int32_Io</A>
+</PRE></BODY></HTML>

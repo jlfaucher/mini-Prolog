@@ -1,0 +1,1007 @@
+<HEAD><TITLE>es_prolog.adb</TITLE></HEAD>
+<BODY>
+<HR><DIV ALIGN="center"><H1> File : es_prolog.adb </H1></DIV><HR>
+<PRE>
+<EM><FONT SIZE=-1>   1 </FONT></EM><FONT COLOR=green><EM>-- Fichier ENT_SOR.ADB</EM></FONT>
+<EM><FONT SIZE=-1>   2 </FONT></EM><FONT COLOR=green><EM>-- Package d'entrée/sortie de l'interpréteur PROLOG.</EM></FONT>
+<EM><FONT SIZE=-1>   3 </FONT></EM>
+<EM><FONT SIZE=-1>   4 </FONT></EM>
+<EM><FONT SIZE=-1>   5 </FONT></EM><b>with</b> <A HREF="text_io__ads.htm#24_9">Text_Io</A>; <b>use</b> <A HREF="text_io__ads.htm#24_9">Text_Io</A>;
+<EM><FONT SIZE=-1>   6 </FONT></EM><b>with</b> <A HREF="src__int32_io__ads.htm#4_9">Int32_Io</A>; <b>use</b> <A HREF="src__int32_io__ads.htm#4_9">Int32_Io</A>;
+<EM><FONT SIZE=-1>   7 </FONT></EM><b>with</b> <A HREF="src__objets_prolog__ads.htm#8_9">Objets_Prolog</A>; <b>use</b> <A HREF="src__objets_prolog__ads.htm#8_9">Objets_Prolog</A>;
+<EM><FONT SIZE=-1>   8 </FONT></EM><b>with</b> <A HREF="src__infos__adb.htm#7_11">Infos</A>;
+<EM><FONT SIZE=-1>   9 </FONT></EM>
+<EM><FONT SIZE=-1>  10 </FONT></EM>
+<EM><FONT SIZE=-1>  11 </FONT></EM><FONT COLOR=green><EM>----------------------------------------------------------------------------------------------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1>  12 </FONT></EM>
+<EM><FONT SIZE=-1>  13 </FONT></EM>
+<EM><FONT SIZE=-1>  14 </FONT></EM><b>package</b> <b>body</b> <A HREF="src__es_prolog__ads.htm#11_9">Es_Prolog</A><FONT COLOR=red><A NAME="14_14"></A></FONT> <b>is</b>
+<EM><FONT SIZE=-1>  15 </FONT></EM>
+<EM><FONT SIZE=-1>  16 </FONT></EM>
+<EM><FONT SIZE=-1>  17 </FONT></EM>   <FONT COLOR=green><EM>----------------------------</EM></FONT>
+<EM><FONT SIZE=-1>  18 </FONT></EM>   <FONT COLOR=green><EM>-- Les symboles pré-définis.</EM></FONT>
+<EM><FONT SIZE=-1>  19 </FONT></EM>   <FONT COLOR=green><EM>----------------------------</EM></FONT>
+<EM><FONT SIZE=-1>  20 </FONT></EM>   <FONT COLOR=red><A NAME="20_4">Liste_Vide</A></FONT>           : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("[]");
+<EM><FONT SIZE=-1>  21 </FONT></EM>   <FONT COLOR=red><A NAME="21_4">Vecteur_Vide</A></FONT>         : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("()");
+<EM><FONT SIZE=-1>  22 </FONT></EM>   <FONT COLOR=red><A NAME="22_4">S_Puissance</A></FONT>          : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("^");
+<EM><FONT SIZE=-1>  23 </FONT></EM>   <FONT COLOR=red><A NAME="23_4">S_Slash</A></FONT>              : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("/");
+<EM><FONT SIZE=-1>  24 </FONT></EM>   <FONT COLOR=red><A NAME="24_4">S_Etoile</A></FONT>             : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("*");
+<EM><FONT SIZE=-1>  25 </FONT></EM>   <FONT COLOR=red><A NAME="25_4">S_Moins</A></FONT>              : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("-");
+<EM><FONT SIZE=-1>  26 </FONT></EM>   <FONT COLOR=red><A NAME="26_4">S_Plus</A></FONT>               : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("+");
+<EM><FONT SIZE=-1>  27 </FONT></EM>   <FONT COLOR=red><A NAME="27_4">S_Sup</A></FONT>                : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("&gt;");
+<EM><FONT SIZE=-1>  28 </FONT></EM>   <FONT COLOR=red><A NAME="28_4">S_Sup_Egal</A></FONT>           : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("&gt;=");
+<EM><FONT SIZE=-1>  29 </FONT></EM>   <FONT COLOR=red><A NAME="29_4">S_Inf</A></FONT>                : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("&lt;");
+<EM><FONT SIZE=-1>  30 </FONT></EM>   <FONT COLOR=red><A NAME="30_4">S_Egal_Inf</A></FONT>           : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("=&lt;");
+<EM><FONT SIZE=-1>  31 </FONT></EM>   <FONT COLOR=red><A NAME="31_4">S_Egal</A></FONT>               : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("=");
+<EM><FONT SIZE=-1>  32 </FONT></EM>   <FONT COLOR=red><A NAME="32_4">S_Par_Gauche</A></FONT>         : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("(");
+<EM><FONT SIZE=-1>  33 </FONT></EM>   <FONT COLOR=red><A NAME="33_4">S_Par_Droite</A></FONT>         : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>(")");
+<EM><FONT SIZE=-1>  34 </FONT></EM>   <FONT COLOR=red><A NAME="34_4">S_Point</A></FONT>              : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>(".");
+<EM><FONT SIZE=-1>  35 </FONT></EM>   <FONT COLOR=red><A NAME="35_4">S_Point_Cr</A></FONT>           : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>('.' &amp; Ascii.Cr);
+<EM><FONT SIZE=-1>  36 </FONT></EM>   <FONT COLOR=red><A NAME="36_4">S_Point_Virgule</A></FONT>      : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>(";");
+<EM><FONT SIZE=-1>  37 </FONT></EM>   <FONT COLOR=red><A NAME="37_4">S_2points_Moins</A></FONT>      : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>(":-");
+<EM><FONT SIZE=-1>  38 </FONT></EM>   <FONT COLOR=red><A NAME="38_4">S_Virgule</A></FONT>            : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>(",");
+<EM><FONT SIZE=-1>  39 </FONT></EM>   <FONT COLOR=red><A NAME="39_4">S_Is</A></FONT>                 : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("is");
+<EM><FONT SIZE=-1>  40 </FONT></EM>   <FONT COLOR=red><A NAME="40_4">S_Egal_Egal</A></FONT>          : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("==");
+<EM><FONT SIZE=-1>  41 </FONT></EM>   <FONT COLOR=red><A NAME="41_4">S_Egal_Point_Point</A></FONT>   : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("=..");
+<EM><FONT SIZE=-1>  42 </FONT></EM>   <FONT COLOR=red><A NAME="42_4">S_Egal_2points_Egal</A></FONT>  : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("=:=");
+<EM><FONT SIZE=-1>  43 </FONT></EM>   <FONT COLOR=red><A NAME="43_4">S_Egal_Antislash_Egal</A></FONT> : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("=\=");
+<EM><FONT SIZE=-1>  44 </FONT></EM>   <FONT COLOR=red><A NAME="44_4">S_Antislash_Plus</A></FONT>     : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("\+");
+<EM><FONT SIZE=-1>  45 </FONT></EM>   <FONT COLOR=red><A NAME="45_4">S_Antislash_Egal</A></FONT>     : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("\=");
+<EM><FONT SIZE=-1>  46 </FONT></EM>   <FONT COLOR=red><A NAME="46_4">S_Antislash_Egal_Egal</A></FONT> : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("\==");
+<EM><FONT SIZE=-1>  47 </FONT></EM>   <FONT COLOR=red><A NAME="47_4">S_Arobasque_Inf</A></FONT>      : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("@&lt;");
+<EM><FONT SIZE=-1>  48 </FONT></EM>   <FONT COLOR=red><A NAME="48_4">S_Arobasque_Sup</A></FONT>      : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("@&gt;");
+<EM><FONT SIZE=-1>  49 </FONT></EM>   <FONT COLOR=red><A NAME="49_4">S_Arobasque_Sup_Egal</A></FONT> : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("@&gt;=");
+<EM><FONT SIZE=-1>  50 </FONT></EM>   <FONT COLOR=red><A NAME="50_4">S_Arobasque_Egal_Inf</A></FONT> : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("@=&lt;");
+<EM><FONT SIZE=-1>  51 </FONT></EM>   <FONT COLOR=red><A NAME="51_4">S_Slash_Slash</A></FONT>        : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("//");
+<EM><FONT SIZE=-1>  52 </FONT></EM>   <FONT COLOR=red><A NAME="52_4">S_Crochet_Gauche</A></FONT>     : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("[");
+<EM><FONT SIZE=-1>  53 </FONT></EM>   <FONT COLOR=red><A NAME="53_4">S_Crochet_Droit</A></FONT>      : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("]");
+<EM><FONT SIZE=-1>  54 </FONT></EM>   <FONT COLOR=red><A NAME="54_4">S_Barre_V</A></FONT>            : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("|");
+<EM><FONT SIZE=-1>  55 </FONT></EM>   <FONT COLOR=red><A NAME="55_4">S_Mod</A></FONT>                : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("mod");
+<EM><FONT SIZE=-1>  56 </FONT></EM>   <FONT COLOR=red><A NAME="56_4">S_Not</A></FONT>                : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("not");
+<EM><FONT SIZE=-1>  57 </FONT></EM>
+<EM><FONT SIZE=-1>  58 </FONT></EM>
+<EM><FONT SIZE=-1>  59 </FONT></EM>   <FONT COLOR=green><EM>-----------------------------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1>  60 </FONT></EM>   <FONT COLOR=green><EM>-- Les types et les variables nécessaires à l'analyse syntaxique.</EM></FONT>
+<EM><FONT SIZE=-1>  61 </FONT></EM>   <FONT COLOR=green><EM>-----------------------------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1>  62 </FONT></EM>
+<EM><FONT SIZE=-1>  63 </FONT></EM>
+<EM><FONT SIZE=-1>  64 </FONT></EM>   <FONT COLOR=red><A NAME="64_4">Sortie_Analyse_Passe1</A></FONT> : Boolean; <FONT COLOR=green><EM>-- Le seul moyen trouvé de distinguer a,(b,c) de a,b,c (à améliorer !)</EM></FONT>
+<EM><FONT SIZE=-1>  65 </FONT></EM>
+<EM><FONT SIZE=-1>  66 </FONT></EM>
+<EM><FONT SIZE=-1>  67 </FONT></EM>   <FONT COLOR=green><EM>-- La parenthese droite, le ']' et le '|' sont des séparateurs.</EM></FONT>
+<EM><FONT SIZE=-1>  68 </FONT></EM>   <b>type</b> A_Delimiteur <b>is</b> <b>array</b>(Positive <b>range</b> &lt;&gt;) <b>of</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>;
+<EM><FONT SIZE=-1>  69 </FONT></EM>   <FONT COLOR=red><A NAME="69_4">Delimit</A></FONT> : <b>constant</b> A_Delimiteur := (<A HREF="src__es_prolog__adb.htm#33_4">S_Par_Droite</A>, <A HREF="src__es_prolog__adb.htm#53_4">S_Crochet_Droit</A>, <A HREF="src__es_prolog__adb.htm#54_4">S_Barre_V</A>);
+<EM><FONT SIZE=-1>  70 </FONT></EM>
+<EM><FONT SIZE=-1>  71 </FONT></EM>
+<EM><FONT SIZE=-1>  72 </FONT></EM>   <FONT COLOR=green><EM>-- Le point suivi d'un retour chariot indique que l'utilisateur a terminé sa saisie.</EM></FONT>
+<EM><FONT SIZE=-1>  73 </FONT></EM>   <b>type</b> A_Terminateur <b>is</b> <b>array</b>(Positive <b>range</b> &lt;&gt;) <b>of</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>;
+<EM><FONT SIZE=-1>  74 </FONT></EM>   <FONT COLOR=red><A NAME="74_4">Terminat</A></FONT> : <b>constant</b> A_Terminateur := (1 =&gt; <A HREF="src__es_prolog__adb.htm#35_4">S_Point_Cr</A>);
+<EM><FONT SIZE=-1>  75 </FONT></EM>
+<EM><FONT SIZE=-1>  76 </FONT></EM>
+<EM><FONT SIZE=-1>  77 </FONT></EM>   <FONT COLOR=green><EM>-- Les opérateurs sont caractérisés par une priorité gauche et une priorité droite.</EM></FONT>
+<EM><FONT SIZE=-1>  78 </FONT></EM>
+<EM><FONT SIZE=-1>  79 </FONT></EM>   <b>subtype</b> <FONT COLOR=red><A NAME="79_12">Priorite</A></FONT> <b>is</b> Natural;                             <FONT COLOR=green><EM>-- La priorité des opérateurs.</EM></FONT>
+<EM><FONT SIZE=-1>  80 </FONT></EM>   <FONT COLOR=red><A NAME="80_4">Priorite_Prefixe_Unaire</A></FONT> : <b>constant</b> <A HREF="src__es_prolog__adb.htm#79_12">Priorite</A> := 800;      <FONT COLOR=green><EM>-- Servira pour le signe moins unaire. ex : -2.</EM></FONT>
+<EM><FONT SIZE=-1>  81 </FONT></EM>
+<EM><FONT SIZE=-1>  82 </FONT></EM>   <b>type</b> <FONT COLOR=red><A NAME="82_9">Type_Operateur</A></FONT> <b>is</b> (<FONT COLOR=red><A NAME="82_28">Libre</A></FONT>,   <FONT COLOR=green><EM>-- Entrée non utilisée dans la table des opérateurs</EM></FONT>
+<EM><FONT SIZE=-1>  83 </FONT></EM>      <FONT COLOR=red><A NAME="83_7">Prefixe</A></FONT>,                      <FONT COLOR=green><EM>-- Forme op expr</EM></FONT>
+<EM><FONT SIZE=-1>  84 </FONT></EM>      <FONT COLOR=red><A NAME="84_7">Infixe</A></FONT>,                       <FONT COLOR=green><EM>-- Forme E1 op E2 op E3...</EM></FONT>
+<EM><FONT SIZE=-1>  85 </FONT></EM>      <FONT COLOR=red><A NAME="85_7">Postfixe</A></FONT>);                    <FONT COLOR=green><EM>-- Forme expr op</EM></FONT>
+<EM><FONT SIZE=-1>  86 </FONT></EM>   <FONT COLOR=green><EM>-- Un opérateur peut etre à la fois préfixé, infixé et postfixé.</EM></FONT>
+<EM><FONT SIZE=-1>  87 </FONT></EM>   <FONT COLOR=green><EM>-- C'est le contexte qui permettra de choisir le bon type d'opérateur.</EM></FONT>
+<EM><FONT SIZE=-1>  88 </FONT></EM>
+<EM><FONT SIZE=-1>  89 </FONT></EM>
+<EM><FONT SIZE=-1>  90 </FONT></EM>   <b>type</b> <FONT COLOR=red><A NAME="90_9">Operateur</A></FONT> <b>is</b> <b>record</b>
+<EM><FONT SIZE=-1>  91 </FONT></EM>      <FONT COLOR=red><A NAME="91_7">Op</A></FONT>             : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__es_prolog__adb.htm#20_4">Liste_Vide</A>;
+<EM><FONT SIZE=-1>  92 </FONT></EM>      <FONT COLOR=red><A NAME="92_7">Type_Op</A></FONT>        : <A HREF="src__es_prolog__adb.htm#82_9">Type_Operateur</A> := <A HREF="src__es_prolog__adb.htm#82_28">Libre</A>;
+<EM><FONT SIZE=-1>  93 </FONT></EM>      <FONT COLOR=red><A NAME="93_7">Prio_G</A></FONT>, <FONT COLOR=red><A NAME="93_15">Prio_D</A></FONT> : <A HREF="src__es_prolog__adb.htm#79_12">Priorite</A>;
+<EM><FONT SIZE=-1>  94 </FONT></EM>      <FONT COLOR=red><A NAME="94_7">Multiple</A></FONT>       : Boolean; <FONT COLOR=green><EM>-- Ne concerne que les opérateurs infixes. (Codage dense).</EM></FONT>
+<EM><FONT SIZE=-1>  95 </FONT></EM>   <b>end</b> <b>record</b>;
+<EM><FONT SIZE=-1>  96 </FONT></EM>
+<EM><FONT SIZE=-1>  97 </FONT></EM>   <FONT COLOR=green><EM>--pragma PACK(OPERATEUR);  -- Pour loger sur 10 octets plutot que 12.</EM></FONT>
+<EM><FONT SIZE=-1>  98 </FONT></EM>
+<EM><FONT SIZE=-1>  99 </FONT></EM>
+<EM><FONT SIZE=-1> 100 </FONT></EM>   <FONT COLOR=red><A NAME="100_4">Carac_Op</A></FONT> : <b>array</b>(<A HREF="src__es_prolog__adb.htm#83_7">Prefixe</A>..<A HREF="src__es_prolog__adb.htm#85_7">Postfixe</A>) <b>of</b> <A HREF="src__es_prolog__adb.htm#90_9">Operateur</A>; <FONT COLOR=green><EM>-- Servira lors de l'analyse syntaxique : voir la fonction ANALYSE.</EM></FONT>
+<EM><FONT SIZE=-1> 101 </FONT></EM>
+<EM><FONT SIZE=-1> 102 </FONT></EM>   <FONT COLOR=red><A NAME="102_4">Nbre_Max_Operateurs</A></FONT> : <b>constant</b> := 100;
+<EM><FONT SIZE=-1> 103 </FONT></EM>   <b>subtype</b> <FONT COLOR=red><A NAME="103_12">Indice_Table_Op</A></FONT> <b>is</b> Positive <b>range</b> 1..<A HREF="src__es_prolog__adb.htm#102_4">Nbre_Max_Operateurs</A>;
+<EM><FONT SIZE=-1> 104 </FONT></EM>
+<EM><FONT SIZE=-1> 105 </FONT></EM>   <FONT COLOR=red><A NAME="105_4">Topop</A></FONT> : <A HREF="src__es_prolog__adb.htm#103_12">Indice_Table_Op</A>; <FONT COLOR=green><EM>-- Sera initialisé au moment de l'élaboration du package.</EM></FONT>
+<EM><FONT SIZE=-1> 106 </FONT></EM>   <FONT COLOR=red><A NAME="106_4">Table_Op</A></FONT> : <b>array</b>(<A HREF="src__es_prolog__adb.htm#103_12">Indice_Table_Op</A>) <b>of</b> <A HREF="src__es_prolog__adb.htm#90_9">Operateur</A> :=
+<EM><FONT SIZE=-1> 107 </FONT></EM>      <FONT COLOR=green><EM>-----------------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 108 </FONT></EM>      ( (<A HREF="src__es_prolog__adb.htm#56_4">S_Not</A>,               <A HREF="src__es_prolog__adb.htm#83_7">Prefixe</A>,    0,  400, False),
+<EM><FONT SIZE=-1> 109 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#37_4">S_2points_Moins</A>,       <A HREF="src__es_prolog__adb.htm#83_7">Prefixe</A>,    0,   10, False),
+<EM><FONT SIZE=-1> 110 </FONT></EM>      <FONT COLOR=green><EM>-----------------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 111 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#32_4">S_Par_Gauche</A>,          <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,  2000,    0, False),
+<EM><FONT SIZE=-1> 112 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#22_4">S_Puissance</A>,           <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,   900,  899, False),
+<EM><FONT SIZE=-1> 113 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#55_4">S_Mod</A>,                 <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,   700,  700, False),
+<EM><FONT SIZE=-1> 114 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#23_4">S_Slash</A>,               <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,   700,  700, False),
+<EM><FONT SIZE=-1> 115 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#24_4">S_Etoile</A>,              <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,   700,  700, True),
+<EM><FONT SIZE=-1> 116 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#25_4">S_Moins</A>,               <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,   600,  600, True),
+<EM><FONT SIZE=-1> 117 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#26_4">S_Plus</A>,                <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,   600,  600, True),
+<EM><FONT SIZE=-1> 118 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#27_4">S_Sup</A>,                 <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,   500,  500, True),
+<EM><FONT SIZE=-1> 119 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#28_4">S_Sup_Egal</A>,            <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,   500,  500, True),
+<EM><FONT SIZE=-1> 120 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#29_4">S_Inf</A>,                 <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,   500,  500, True),
+<EM><FONT SIZE=-1> 121 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#30_4">S_Egal_Inf</A>,            <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,   500,  500, True),
+<EM><FONT SIZE=-1> 122 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#31_4">S_Egal</A>,                <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,   500,  500, True),
+<EM><FONT SIZE=-1> 123 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#40_4">S_Egal_Egal</A>,           <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,   500,  500, True),
+<EM><FONT SIZE=-1> 124 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#41_4">S_Egal_Point_Point</A>,    <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,   500,  500, True),
+<EM><FONT SIZE=-1> 125 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#42_4">S_Egal_2points_Egal</A>,   <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,   500,  500, True),
+<EM><FONT SIZE=-1> 126 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#43_4">S_Egal_Antislash_Egal</A>, <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,   500,  500, True),
+<EM><FONT SIZE=-1> 127 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#44_4">S_Antislash_Plus</A>,      <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,   500,  500, True),
+<EM><FONT SIZE=-1> 128 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#45_4">S_Antislash_Egal</A>,      <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,   500,  500, True),
+<EM><FONT SIZE=-1> 129 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#46_4">S_Antislash_Egal_Egal</A>, <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,   500,  500, True),
+<EM><FONT SIZE=-1> 130 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#47_4">S_Arobasque_Inf</A>,       <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,   500,  500, True),
+<EM><FONT SIZE=-1> 131 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#48_4">S_Arobasque_Sup</A>,       <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,   500,  500, True),
+<EM><FONT SIZE=-1> 132 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#49_4">S_Arobasque_Sup_Egal</A>,  <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,   500,  500, True),
+<EM><FONT SIZE=-1> 133 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#50_4">S_Arobasque_Egal_Inf</A>,  <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,   500,  500, True),
+<EM><FONT SIZE=-1> 134 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#40_4">S_Egal_Egal</A>,           <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,   500,  500, True),
+<EM><FONT SIZE=-1> 135 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#39_4">S_Is</A>,                  <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,   300,  300, True),
+<EM><FONT SIZE=-1> 136 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#54_4">S_Barre_V</A>,             <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,     0,   30, False),  <FONT COLOR=green><EM>-- Pour interdire expression du genre [a,b|c,d]</EM></FONT>
+<EM><FONT SIZE=-1> 137 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#38_4">S_Virgule</A>,             <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,    30,   29, True),
+<EM><FONT SIZE=-1> 138 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#36_4">S_Point_Virgule</A>,       <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,    20,   20, True),
+<EM><FONT SIZE=-1> 139 </FONT></EM>      (<A HREF="src__es_prolog__adb.htm#37_4">S_2points_Moins</A>,       <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>,    10,   10, False),
+<EM><FONT SIZE=-1> 140 </FONT></EM>      <FONT COLOR=green><EM>-----------------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 141 </FONT></EM>      <b>others</b> =&gt; (<A HREF="src__es_prolog__adb.htm#20_4">Liste_Vide</A>,  <A HREF="src__es_prolog__adb.htm#82_28">Libre</A>,      0,    0,  False) );
+<EM><FONT SIZE=-1> 142 </FONT></EM>   <FONT COLOR=green><EM>-----------------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 143 </FONT></EM>
+<EM><FONT SIZE=-1> 144 </FONT></EM>
+<EM><FONT SIZE=-1> 145 </FONT></EM>   <FONT COLOR=red><A NAME="145_4">Taille_Token_Maxi</A></FONT> : <b>constant</b> Positive := 3;
+<EM><FONT SIZE=-1> 146 </FONT></EM>   <b>type</b> A_Token <b>is</b> <b>array</b>(Positive <b>range</b> &lt;&gt;) <b>of</b> String(1..<A HREF="src__es_prolog__adb.htm#145_4">Taille_Token_Maxi</A>);
+<EM><FONT SIZE=-1> 147 </FONT></EM>
+<EM><FONT SIZE=-1> 148 </FONT></EM>   <FONT COLOR=green><EM>-- ATTENTION ! Respecter l'ordre d'apparition :</EM></FONT>
+<EM><FONT SIZE=-1> 149 </FONT></EM>   <FONT COLOR=green><EM>-- De la chaine la plus courte à la chaine la plus longue, lorsque les n 1ers caracteres sont égaux.</EM></FONT>
+<EM><FONT SIZE=-1> 150 </FONT></EM>   <FONT COLOR=green><EM>-- Si le token a moins de TAILLE_TOKEN_MAXI caracteres alors on complete avec des espaces.</EM></FONT>
+<EM><FONT SIZE=-1> 151 </FONT></EM>   <FONT COLOR=red><A NAME="151_4">Table_Token</A></FONT> : <b>constant</b> A_Token :=
+<EM><FONT SIZE=-1> 152 </FONT></EM>      ("== ", "=&lt; ", "=..", "=:=", "=\=",
+<EM><FONT SIZE=-1> 153 </FONT></EM>      "&gt;= ",
+<EM><FONT SIZE=-1> 154 </FONT></EM>      "\+ ", "\= ", "\==",
+<EM><FONT SIZE=-1> 155 </FONT></EM>      "@&lt; ", "@&gt; ", "@&gt;=", "@=&lt;",
+<EM><FONT SIZE=-1> 156 </FONT></EM>      "// ",
+<EM><FONT SIZE=-1> 157 </FONT></EM>      ":- ",
+<EM><FONT SIZE=-1> 158 </FONT></EM>      "/\ ",
+<EM><FONT SIZE=-1> 159 </FONT></EM>      "\/ " );
+<EM><FONT SIZE=-1> 160 </FONT></EM>
+<EM><FONT SIZE=-1> 161 </FONT></EM>
+<EM><FONT SIZE=-1> 162 </FONT></EM>   <FONT COLOR=green><EM>-- Les entrées se font caractere par caractere, ce qui permet de ne pas imposer de longueur maximale à une ligne.</EM></FONT>
+<EM><FONT SIZE=-1> 163 </FONT></EM>   <FONT COLOR=green><EM>-- La lecture des tokens ci-dessus pose un probleme : Il faut anticiper la lecture des caracteres afin de savoir si ce qui suit</EM></FONT>
+<EM><FONT SIZE=-1> 164 </FONT></EM>   <FONT COLOR=green><EM>-- est un token. Comme on ne peut pas anticiper la lecture, il faut lire les caracteres et les placer dans un buffer de</EM></FONT>
+<EM><FONT SIZE=-1> 165 </FONT></EM>   <FONT COLOR=green><EM>-- relecture si ces caracteres ne correspondent à aucun des token ci-dessus.</EM></FONT>
+<EM><FONT SIZE=-1> 166 </FONT></EM>   <FONT COLOR=red><A NAME="166_4">Buffer_Relecture</A></FONT> : String(1..<A HREF="src__es_prolog__adb.htm#145_4">Taille_Token_Maxi</A>);
+<EM><FONT SIZE=-1> 167 </FONT></EM>   <FONT COLOR=red><A NAME="167_4">Tete_Buffer</A></FONT>  : Positive := <A HREF="src__es_prolog__adb.htm#166_4">Buffer_Relecture</A>'First;
+<EM><FONT SIZE=-1> 168 </FONT></EM>   <FONT COLOR=red><A NAME="168_4">Queue_Buffer</A></FONT> : Positive := <A HREF="src__es_prolog__adb.htm#167_4">Tete_Buffer</A>;
+<EM><FONT SIZE=-1> 169 </FONT></EM>
+<EM><FONT SIZE=-1> 170 </FONT></EM>
+<EM><FONT SIZE=-1> 171 </FONT></EM>   <FONT COLOR=green><EM>------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 172 </FONT></EM>   <FONT COLOR=green><EM>-- Les constantes messages d'erreur.</EM></FONT>
+<EM><FONT SIZE=-1> 173 </FONT></EM>   <FONT COLOR=green><EM>------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 174 </FONT></EM>   <FONT COLOR=red><A NAME="174_4">Missing_2nd_Quote</A></FONT>      : <b>constant</b> String := "missing 2nd quote";
+<EM><FONT SIZE=-1> 175 </FONT></EM>   <FONT COLOR=red><A NAME="175_4">Used_As_Argument</A></FONT>       : <b>constant</b> String := "used as argument";
+<EM><FONT SIZE=-1> 176 </FONT></EM>   <FONT COLOR=red><A NAME="176_4">Used_As_Prefix_Operator</A></FONT>: <b>constant</b> String := "used as prefix operator";
+<EM><FONT SIZE=-1> 177 </FONT></EM>   <FONT COLOR=red><A NAME="177_4">Operator_Not_Found</A></FONT>     : <b>constant</b> String := "operator not found";
+<EM><FONT SIZE=-1> 178 </FONT></EM>   <FONT COLOR=red><A NAME="178_4">Or_Operator_Not_Found</A></FONT>  : <b>constant</b> String := "or " &amp; <A HREF="src__es_prolog__adb.htm#177_4">Operator_Not_Found</A>;
+<EM><FONT SIZE=-1> 179 </FONT></EM>   <FONT COLOR=red><A NAME="179_4">Syntax_Error</A></FONT>           : <b>constant</b> String := "Syntax Error !  ";
+<EM><FONT SIZE=-1> 180 </FONT></EM>   <FONT COLOR=red><A NAME="180_4">Not_Found</A></FONT>              : <b>constant</b> String := "not found";
+<EM><FONT SIZE=-1> 181 </FONT></EM>   <FONT COLOR=red><A NAME="181_4">File_Not_Found</A></FONT>         : <b>constant</b> String := "File not found ";
+<EM><FONT SIZE=-1> 182 </FONT></EM>   <FONT COLOR=red><A NAME="182_4">Overflow_Error</A></FONT>         : <b>constant</b> String := "Overflow error !";
+<EM><FONT SIZE=-1> 183 </FONT></EM>
+<EM><FONT SIZE=-1> 184 </FONT></EM>
+<EM><FONT SIZE=-1> 185 </FONT></EM>   <FONT COLOR=green><EM>--------------------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 186 </FONT></EM>   <FONT COLOR=green><EM>-- Déclaration du fichier d'entrée et de sortie courant.</EM></FONT>
+<EM><FONT SIZE=-1> 187 </FONT></EM>   <FONT COLOR=green><EM>--------------------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 188 </FONT></EM>   <FONT COLOR=red><A NAME="188_4">Entree_Courante</A></FONT> : File_Type;
+<EM><FONT SIZE=-1> 189 </FONT></EM>   <FONT COLOR=red><A NAME="189_4">Sortie_Courante</A></FONT> : File_Type;
+<EM><FONT SIZE=-1> 190 </FONT></EM>
+<EM><FONT SIZE=-1> 191 </FONT></EM>
+<EM><FONT SIZE=-1> 192 </FONT></EM>   <FONT COLOR=green><EM>----------------</EM></FONT>
+<EM><FONT SIZE=-1> 193 </FONT></EM>   <FONT COLOR=green><EM>-- Informations.</EM></FONT>
+<EM><FONT SIZE=-1> 194 </FONT></EM>   <FONT COLOR=green><EM>----------------</EM></FONT>
+<EM><FONT SIZE=-1> 195 </FONT></EM>
+<EM><FONT SIZE=-1> 196 </FONT></EM>
+<EM><FONT SIZE=-1> 197 </FONT></EM>   <b>procedure</b> <A HREF="src__es_prolog__ads.htm#27_14">Informations</A><FONT COLOR=red><A NAME="197_14"></A></FONT> <b>is</b>
+<EM><FONT SIZE=-1> 198 </FONT></EM>      <FONT COLOR=red><A NAME="198_7">Taille</A></FONT> : Integer;
+<EM><FONT SIZE=-1> 199 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 200 </FONT></EM>      <A HREF="src__es_prolog__adb.htm#198_7">Taille</A> := <A HREF="src__es_prolog__adb.htm#90_9">Operateur</A>'Size / 8;
+<EM><FONT SIZE=-1> 201 </FONT></EM>      <A HREF="src__infos__adb.htm#7_11">Infos</A>("Table des operateurs",
+<EM><FONT SIZE=-1> 202 </FONT></EM>         <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__es_prolog__adb.htm#198_7">Taille</A>), -1, -1, <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__es_prolog__adb.htm#102_4">Nbre_Max_Operateurs</A>), <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__es_prolog__adb.htm#102_4">Nbre_Max_Operateurs</A>) * <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__es_prolog__adb.htm#198_7">Taille</A>));
+<EM><FONT SIZE=-1> 203 </FONT></EM>      <A HREF="src__es_prolog__adb.htm#198_7">Taille</A> := <A HREF="src__es_prolog__adb.htm#145_4">Taille_Token_Maxi</A>;
+<EM><FONT SIZE=-1> 204 </FONT></EM>      <A HREF="src__infos__adb.htm#7_11">Infos</A>("Table des tokens",
+<EM><FONT SIZE=-1> 205 </FONT></EM>         <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__es_prolog__adb.htm#198_7">Taille</A>), -1, -1, <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__es_prolog__adb.htm#151_4">Table_Token</A>'Length), <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__es_prolog__adb.htm#151_4">Table_Token</A>'Length) * <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__es_prolog__adb.htm#198_7">Taille</A>));
+<EM><FONT SIZE=-1> 206 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__ads.htm#27_14">Informations</A>;
+<EM><FONT SIZE=-1> 207 </FONT></EM>
+<EM><FONT SIZE=-1> 208 </FONT></EM>
+<EM><FONT SIZE=-1> 209 </FONT></EM>   <FONT COLOR=green><EM>-----------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 210 </FONT></EM>   <FONT COLOR=green><EM>-- Les primitives d'écriture d'un objet PROLOG.</EM></FONT>
+<EM><FONT SIZE=-1> 211 </FONT></EM>   <FONT COLOR=green><EM>-----------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 212 </FONT></EM>
+<EM><FONT SIZE=-1> 213 </FONT></EM>
+<EM><FONT SIZE=-1> 214 </FONT></EM>   <b>procedure</b> <A HREF="src__es_prolog__ads.htm#59_14">Ecrit</A><FONT COLOR=red><A NAME="214_14"></A></FONT>(<A HREF="src__es_prolog__ads.htm#59_20">Objet</A><FONT COLOR=red><A NAME="214_20"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>; <A HREF="src__es_prolog__ads.htm#59_33">Avec_Quote</A><FONT COLOR=red><A NAME="214_33"></A></FONT> : Boolean := True) <b>is</b> <FONT COLOR=green><EM>-- Ecrit l'objet PROLOG sur la sortie standard.</EM></FONT>
+<EM><FONT SIZE=-1> 215 </FONT></EM>
+<EM><FONT SIZE=-1> 216 </FONT></EM>
+<EM><FONT SIZE=-1> 217 </FONT></EM>      <b>procedure</b> <A HREF="src__es_prolog__adb.htm#260_17">Ecrit_Obj</A><FONT COLOR=red><A NAME="217_17"></A></FONT>(<A HREF="src__es_prolog__adb.htm#260_27">Objet</A><FONT COLOR=red><A NAME="217_27"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>); <FONT COLOR=green><EM>-- Référence en avant.</EM></FONT>
+<EM><FONT SIZE=-1> 218 </FONT></EM>
+<EM><FONT SIZE=-1> 219 </FONT></EM>
+<EM><FONT SIZE=-1> 220 </FONT></EM>      <FONT COLOR=green><EM>-- Inclus dans ECRIT.</EM></FONT>
+<EM><FONT SIZE=-1> 221 </FONT></EM>      <b>procedure</b> <A HREF="src__es_prolog__adb.htm#221_17">Ecrit_Liste</A><FONT COLOR=red><A NAME="221_17"></A></FONT>(<FONT COLOR=red><A NAME="221_29">Objet</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>is</b>
+<EM><FONT SIZE=-1> 222 </FONT></EM>         <FONT COLOR=green><EM>-- En entrée : OBJET = la liste à afficher.</EM></FONT>
+<EM><FONT SIZE=-1> 223 </FONT></EM>         <FONT COLOR=green><EM>-- Exemple de sortie : [E1, E2, ..., En]   ou   [E1, E2, ... En|Em]</EM></FONT>
+<EM><FONT SIZE=-1> 224 </FONT></EM>         <FONT COLOR=red><A NAME="224_10">Obj</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__es_prolog__adb.htm#221_29">Objet</A>;
+<EM><FONT SIZE=-1> 225 </FONT></EM>      <b>begin</b>
+<EM><FONT SIZE=-1> 226 </FONT></EM>         Put('[');
+<EM><FONT SIZE=-1> 227 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#217_17">Ecrit_Obj</A>(<A HREF="src__objets_prolog__ads.htm#96_13">Premier</A>(<A HREF="src__es_prolog__adb.htm#224_10">Obj</A>));
+<EM><FONT SIZE=-1> 228 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#224_10">Obj</A> := <A HREF="src__objets_prolog__ads.htm#97_13">Reste</A>(<A HREF="src__es_prolog__adb.htm#224_10">Obj</A>);
+<EM><FONT SIZE=-1> 229 </FONT></EM>         <b>loop</b>
+<EM><FONT SIZE=-1> 230 </FONT></EM>            <b>if</b> <b>not</b> <A HREF="src__objets_prolog__ads.htm#78_13">Doublet_L</A>(<A HREF="src__es_prolog__adb.htm#224_10">Obj</A>) <b>then</b>
+<EM><FONT SIZE=-1> 231 </FONT></EM>               <b>if</b> <b>not</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#224_10">Obj</A>, <A HREF="src__es_prolog__adb.htm#20_4">Liste_Vide</A>) <b>then</b> Put('|'); <A HREF="src__es_prolog__adb.htm#217_17">Ecrit_Obj</A>(<A HREF="src__es_prolog__adb.htm#224_10">Obj</A>); <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 232 </FONT></EM>               <b>exit</b>;
+<EM><FONT SIZE=-1> 233 </FONT></EM>            <b>else</b>
+<EM><FONT SIZE=-1> 234 </FONT></EM>               Put(", ");
+<EM><FONT SIZE=-1> 235 </FONT></EM>               <A HREF="src__es_prolog__adb.htm#217_17">Ecrit_Obj</A>(<A HREF="src__objets_prolog__ads.htm#96_13">Premier</A>(<A HREF="src__es_prolog__adb.htm#224_10">Obj</A>));
+<EM><FONT SIZE=-1> 236 </FONT></EM>               <A HREF="src__es_prolog__adb.htm#224_10">Obj</A> := <A HREF="src__objets_prolog__ads.htm#97_13">Reste</A>(<A HREF="src__es_prolog__adb.htm#224_10">Obj</A>);
+<EM><FONT SIZE=-1> 237 </FONT></EM>            <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 238 </FONT></EM>         <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 239 </FONT></EM>         Put(']');
+<EM><FONT SIZE=-1> 240 </FONT></EM>      <b>end</b> <A HREF="src__es_prolog__adb.htm#221_17">Ecrit_Liste</A>;
+<EM><FONT SIZE=-1> 241 </FONT></EM>
+<EM><FONT SIZE=-1> 242 </FONT></EM>
+<EM><FONT SIZE=-1> 243 </FONT></EM>      <FONT COLOR=green><EM>-- Inclus dans ECRIT.</EM></FONT>
+<EM><FONT SIZE=-1> 244 </FONT></EM>      <b>procedure</b> <A HREF="src__es_prolog__adb.htm#244_17">Ecrit_Vecteur</A><FONT COLOR=red><A NAME="244_17"></A></FONT>(<FONT COLOR=red><A NAME="244_31">Objet</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>is</b>
+<EM><FONT SIZE=-1> 245 </FONT></EM>         <FONT COLOR=green><EM>-- En entrée : OBJET = le vecteur à afficher. Exemple de sortie : (E1, E2, ..., En).</EM></FONT>
+<EM><FONT SIZE=-1> 246 </FONT></EM>         <FONT COLOR=red><A NAME="246_10">Obj</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__es_prolog__adb.htm#244_31">Objet</A>;
+<EM><FONT SIZE=-1> 247 </FONT></EM>      <b>begin</b>
+<EM><FONT SIZE=-1> 248 </FONT></EM>         Put('(');
+<EM><FONT SIZE=-1> 249 </FONT></EM>         <b>loop</b>
+<EM><FONT SIZE=-1> 250 </FONT></EM>            <A HREF="src__es_prolog__adb.htm#217_17">Ecrit_Obj</A>(<A HREF="src__objets_prolog__ads.htm#96_13">Premier</A>(<A HREF="src__es_prolog__adb.htm#246_10">Obj</A>));
+<EM><FONT SIZE=-1> 251 </FONT></EM>            <A HREF="src__es_prolog__adb.htm#246_10">Obj</A> := <A HREF="src__objets_prolog__ads.htm#97_13">Reste</A>(<A HREF="src__es_prolog__adb.htm#246_10">Obj</A>);
+<EM><FONT SIZE=-1> 252 </FONT></EM>            <b>exit</b> <b>when</b> <b>not</b> <A HREF="src__objets_prolog__ads.htm#76_13">Doublet_V</A>(<A HREF="src__es_prolog__adb.htm#246_10">Obj</A>);
+<EM><FONT SIZE=-1> 253 </FONT></EM>            Put(", ");
+<EM><FONT SIZE=-1> 254 </FONT></EM>         <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 255 </FONT></EM>         Put(')');
+<EM><FONT SIZE=-1> 256 </FONT></EM>      <b>end</b> <A HREF="src__es_prolog__adb.htm#244_17">Ecrit_Vecteur</A>;
+<EM><FONT SIZE=-1> 257 </FONT></EM>
+<EM><FONT SIZE=-1> 258 </FONT></EM>
+<EM><FONT SIZE=-1> 259 </FONT></EM>      <FONT COLOR=green><EM>-- Inclus dans ECRIT.</EM></FONT>
+<EM><FONT SIZE=-1> 260 </FONT></EM>      <b>procedure</b> <A HREF="src__es_prolog__adb.htm#217_17">Ecrit_Obj</A><FONT COLOR=red><A NAME="260_17"></A></FONT>(<A HREF="src__es_prolog__adb.htm#217_27">Objet</A><FONT COLOR=red><A NAME="260_27"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>is</b> <FONT COLOR=green><EM>-- Ecrit l'objet PROLOG sur la sortie standard.</EM></FONT>
+<EM><FONT SIZE=-1> 261 </FONT></EM>      <b>begin</b>
+<EM><FONT SIZE=-1> 262 </FONT></EM>         <b>if</b> <A HREF="src__objets_prolog__ads.htm#74_13">Symbole</A>(<A HREF="src__es_prolog__adb.htm#217_27">Objet</A>) <b>then</b>
+<EM><FONT SIZE=-1> 263 </FONT></EM>            <A HREF="src__objets_prolog__ads.htm#90_14">Symbole_Chaine</A>(<A HREF="src__es_prolog__adb.htm#217_27">Objet</A>, <A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>, <A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A>, <A HREF="src__objets_prolog__ads.htm#34_4">Pname_Print_Quote</A>); <FONT COLOR=green><EM>-- Représentation externe brute du symbole</EM></FONT>
+<EM><FONT SIZE=-1> 264 </FONT></EM>            <b>if</b> <A HREF="src__objets_prolog__ads.htm#34_4">Pname_Print_Quote</A> <b>and</b> <A HREF="src__es_prolog__ads.htm#59_33">Avec_Quote</A> <b>then</b> Put('''); <b>end</b> <b>if</b>; <FONT COLOR=green><EM>-- Si nécessaire on entoure avec des quotes '...'</EM></FONT>
+<EM><FONT SIZE=-1> 265 </FONT></EM>            <b>for</b> <FONT COLOR=red><A NAME="265_17">I</A></FONT> <b>in</b> 1..<A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A> <b>loop</b>
+<EM><FONT SIZE=-1> 266 </FONT></EM>               <b>if</b> <A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>(<A HREF="src__es_prolog__adb.htm#265_17">I</A>) = ''' <b>and</b> <A HREF="src__es_prolog__ads.htm#59_33">Avec_Quote</A> <b>then</b>
+<EM><FONT SIZE=-1> 267 </FONT></EM>                  Put("''"); <FONT COLOR=green><EM>-- Si une quote alors on double la quote (convention)</EM></FONT>
+<EM><FONT SIZE=-1> 268 </FONT></EM>               <b>else</b>
+<EM><FONT SIZE=-1> 269 </FONT></EM>                  Put(<A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>(<A HREF="src__es_prolog__adb.htm#265_17">I</A>));
+<EM><FONT SIZE=-1> 270 </FONT></EM>               <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 271 </FONT></EM>            <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 272 </FONT></EM>            <b>if</b> <A HREF="src__objets_prolog__ads.htm#34_4">Pname_Print_Quote</A> <b>and</b> <A HREF="src__es_prolog__ads.htm#59_33">Avec_Quote</A> <b>then</b> Put('''); <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 273 </FONT></EM>         <b>elsif</b> <A HREF="src__objets_prolog__ads.htm#73_13">Entier</A>(<A HREF="src__es_prolog__adb.htm#217_27">Objet</A>) <b>then</b> <A HREF="src__int32_io__ads.htm#7_14">Put</A>(<A HREF="src__objets_prolog__ads.htm#93_13">Entier_Val</A>(<A HREF="src__es_prolog__adb.htm#217_27">Objet</A>), 1);
+<EM><FONT SIZE=-1> 274 </FONT></EM>         <b>elsif</b> <A HREF="src__objets_prolog__ads.htm#80_13">Variable</A>(<A HREF="src__es_prolog__adb.htm#217_27">Objet</A>) <b>then</b>
+<EM><FONT SIZE=-1> 275 </FONT></EM>            Put('_');
+<EM><FONT SIZE=-1> 276 </FONT></EM>            <b>if</b> <A HREF="src__objets_prolog__ads.htm#94_13">Variable_Rang</A>(<A HREF="src__es_prolog__adb.htm#217_27">Objet</A>) /= 0 <b>then</b> <A HREF="src__int32_io__ads.htm#7_14">Put</A>(<A HREF="src__objets_prolog__ads.htm#94_13">Variable_Rang</A>(<A HREF="src__es_prolog__adb.htm#217_27">Objet</A>), 1); <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 277 </FONT></EM>         <b>elsif</b> <A HREF="src__objets_prolog__ads.htm#78_13">Doublet_L</A>(<A HREF="src__es_prolog__adb.htm#217_27">Objet</A>) <b>then</b> <FONT COLOR=green><EM>-- Forme [E1, E2, ..., En|Em]</EM></FONT>
+<EM><FONT SIZE=-1> 278 </FONT></EM>            <A HREF="src__es_prolog__adb.htm#221_17">Ecrit_Liste</A>(<A HREF="src__es_prolog__adb.htm#217_27">Objet</A>);
+<EM><FONT SIZE=-1> 279 </FONT></EM>         <b>elsif</b> <A HREF="src__objets_prolog__ads.htm#76_13">Doublet_V</A>(<A HREF="src__es_prolog__adb.htm#217_27">Objet</A>) <b>then</b> <FONT COLOR=green><EM>-- Forme (E1, E2, ..., En)</EM></FONT>
+<EM><FONT SIZE=-1> 280 </FONT></EM>            <A HREF="src__es_prolog__adb.htm#244_17">Ecrit_Vecteur</A>(<A HREF="src__es_prolog__adb.htm#217_27">Objet</A>);
+<EM><FONT SIZE=-1> 281 </FONT></EM>         <b>elsif</b> <A HREF="src__objets_prolog__ads.htm#77_13">Doublet_F</A>(<A HREF="src__es_prolog__adb.htm#217_27">Objet</A>) <b>then</b> <FONT COLOR=green><EM>-- Forme f(...)</EM></FONT>
+<EM><FONT SIZE=-1> 282 </FONT></EM>            <A HREF="src__es_prolog__adb.htm#217_17">Ecrit_Obj</A>(<A HREF="src__objets_prolog__ads.htm#96_13">Premier</A>(<A HREF="src__es_prolog__adb.htm#217_27">Objet</A>));
+<EM><FONT SIZE=-1> 283 </FONT></EM>            <b>if</b> <A HREF="src__objets_prolog__ads.htm#79_13">Doublet</A>(<A HREF="src__objets_prolog__ads.htm#97_13">Reste</A>(<A HREF="src__es_prolog__adb.htm#217_27">Objet</A>)) <b>then</b>
+<EM><FONT SIZE=-1> 284 </FONT></EM>               <A HREF="src__es_prolog__adb.htm#217_17">Ecrit_Obj</A>(<A HREF="src__objets_prolog__ads.htm#97_13">Reste</A>(<A HREF="src__es_prolog__adb.htm#217_27">Objet</A>));
+<EM><FONT SIZE=-1> 285 </FONT></EM>            <b>else</b>
+<EM><FONT SIZE=-1> 286 </FONT></EM>               <A HREF="src__es_prolog__adb.htm#217_17">Ecrit_Obj</A>(<A HREF="src__es_prolog__adb.htm#21_4">Vecteur_Vide</A>);
+<EM><FONT SIZE=-1> 287 </FONT></EM>            <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 288 </FONT></EM>         <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 289 </FONT></EM>      <b>end</b> <A HREF="src__es_prolog__adb.htm#217_17">Ecrit_Obj</A>;
+<EM><FONT SIZE=-1> 290 </FONT></EM>
+<EM><FONT SIZE=-1> 291 </FONT></EM>
+<EM><FONT SIZE=-1> 292 </FONT></EM>   <b>begin</b> <FONT COLOR=green><EM>-- ECRIT</EM></FONT>
+<EM><FONT SIZE=-1> 293 </FONT></EM>      <A HREF="src__es_prolog__adb.htm#217_17">Ecrit_Obj</A>(<A HREF="src__es_prolog__ads.htm#59_20">Objet</A>);
+<EM><FONT SIZE=-1> 294 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__ads.htm#59_14">Ecrit</A>;
+<EM><FONT SIZE=-1> 295 </FONT></EM>
+<EM><FONT SIZE=-1> 296 </FONT></EM>
+<EM><FONT SIZE=-1> 297 </FONT></EM>   <FONT COLOR=green><EM>----------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 298 </FONT></EM>   <FONT COLOR=green><EM>-- Gestion des erreurs de syntaxe.</EM></FONT>
+<EM><FONT SIZE=-1> 299 </FONT></EM>   <FONT COLOR=green><EM>----------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 300 </FONT></EM>
+<EM><FONT SIZE=-1> 301 </FONT></EM>
+<EM><FONT SIZE=-1> 302 </FONT></EM>   <b>procedure</b> <A HREF="src__es_prolog__ads.htm#42_14">Vide_Entree</A><FONT COLOR=red><A NAME="302_14"></A></FONT> <b>is</b> <FONT COLOR=green><EM>-- Vide le tampon d'entrée, suite à une erreur de syntaxe.</EM></FONT>
+<EM><FONT SIZE=-1> 303 </FONT></EM>      <FONT COLOR=red><A NAME="303_7">Sauve_Echo</A></FONT> : Boolean := <A HREF="src__es_prolog__ads.htm#35_4">Echo</A>;
+<EM><FONT SIZE=-1> 304 </FONT></EM>      <FONT COLOR=red><A NAME="304_7">Pas_Fichier</A></FONT> : Boolean := Name(Standard_Input) = Name(Current_Input);
+<EM><FONT SIZE=-1> 305 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 306 </FONT></EM>      <A HREF="src__es_prolog__ads.htm#35_4">Echo</A> := True;
+<EM><FONT SIZE=-1> 307 </FONT></EM>      <b>loop</b>
+<EM><FONT SIZE=-1> 308 </FONT></EM>         <b>if</b> <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> = <A HREF="src__es_prolog__ads.htm#33_4">Fin_De_Fichier</A> <b>then</b> <b>exit</b>;
+<EM><FONT SIZE=-1> 309 </FONT></EM>         <b>elsif</b> <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> = '.' <b>then</b>
+<EM><FONT SIZE=-1> 310 </FONT></EM>            <b>if</b> <A HREF="src__es_prolog__ads.htm#43_13">Lit_Carac</A> &lt;= ' ' <b>or</b> <b>else</b> <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> = '%' <b>then</b> <b>exit</b>; <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 311 </FONT></EM>         <b>elsif</b> <A HREF="src__es_prolog__adb.htm#304_7">Pas_Fichier</A> <b>and</b> <b>then</b> <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> = Ascii.Cr <b>then</b> <b>exit</b>; <FONT COLOR=green><EM>-- Si entrée depuis clavier alors on arrete si &lt;CR&gt;.</EM></FONT>
+<EM><FONT SIZE=-1> 312 </FONT></EM>         <b>else</b>
+<EM><FONT SIZE=-1> 313 </FONT></EM>            <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> := <A HREF="src__es_prolog__ads.htm#43_13">Lit_Carac</A>;
+<EM><FONT SIZE=-1> 314 </FONT></EM>         <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 315 </FONT></EM>      <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 316 </FONT></EM>      <A HREF="src__es_prolog__ads.htm#35_4">Echo</A> := <A HREF="src__es_prolog__adb.htm#303_7">Sauve_Echo</A>;
+<EM><FONT SIZE=-1> 317 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__ads.htm#42_14">Vide_Entree</A>;
+<EM><FONT SIZE=-1> 318 </FONT></EM>
+<EM><FONT SIZE=-1> 319 </FONT></EM>
+<EM><FONT SIZE=-1> 320 </FONT></EM>   <b>procedure</b> <A HREF="src__es_prolog__adb.htm#320_14">Syntaxe</A><FONT COLOR=red><A NAME="320_14"></A></FONT>(<FONT COLOR=red><A NAME="320_22">Msg</A></FONT> : String) <b>is</b> <FONT COLOR=green><EM>-- Juste un message à afficher.</EM></FONT>
+<EM><FONT SIZE=-1> 321 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 322 </FONT></EM>      New_Line;
+<EM><FONT SIZE=-1> 323 </FONT></EM>      Put(<A HREF="src__es_prolog__adb.htm#179_4">Syntax_Error</A>);
+<EM><FONT SIZE=-1> 324 </FONT></EM>      Put_Line(<A HREF="src__es_prolog__adb.htm#320_22">Msg</A>);
+<EM><FONT SIZE=-1> 325 </FONT></EM>      <A HREF="src__es_prolog__ads.htm#42_14">Vide_Entree</A>;
+<EM><FONT SIZE=-1> 326 </FONT></EM>      <b>raise</b> <A HREF="src__es_prolog__ads.htm#17_4">Erreur_De_Syntaxe</A>;
+<EM><FONT SIZE=-1> 327 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#320_14">Syntaxe</A>;
+<EM><FONT SIZE=-1> 328 </FONT></EM>
+<EM><FONT SIZE=-1> 329 </FONT></EM>
+<EM><FONT SIZE=-1> 330 </FONT></EM>   <b>procedure</b> <A HREF="src__es_prolog__adb.htm#330_14">Syntaxe</A><FONT COLOR=red><A NAME="330_14"></A></FONT>(<FONT COLOR=red><A NAME="330_22">Objet</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>; <FONT COLOR=red><A NAME="330_35">Msg</A></FONT> : String) <b>is</b> <FONT COLOR=green><EM>-- Un objet PROLOG et un message à afficher.</EM></FONT>
+<EM><FONT SIZE=-1> 331 </FONT></EM>      <FONT COLOR=red><A NAME="331_7">Obj</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__es_prolog__adb.htm#330_22">Objet</A>;
+<EM><FONT SIZE=-1> 332 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 333 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#331_7">Obj</A>, <A HREF="src__es_prolog__adb.htm#35_4">S_Point_Cr</A>) <b>then</b> <A HREF="src__es_prolog__adb.htm#331_7">Obj</A> := <A HREF="src__es_prolog__adb.htm#34_4">S_Point</A>; <b>end</b> <b>if</b>; <FONT COLOR=green><EM>-- Remplacé car affichage provoque retour à la ligne.</EM></FONT>
+<EM><FONT SIZE=-1> 334 </FONT></EM>      New_Line;
+<EM><FONT SIZE=-1> 335 </FONT></EM>      Put(<A HREF="src__es_prolog__adb.htm#179_4">Syntax_Error</A>);
+<EM><FONT SIZE=-1> 336 </FONT></EM>      Put('''); <A HREF="src__es_prolog__ads.htm#59_14">Ecrit</A>(<A HREF="src__es_prolog__adb.htm#331_7">Obj</A>); Put(''');
+<EM><FONT SIZE=-1> 337 </FONT></EM>      Put(' ');
+<EM><FONT SIZE=-1> 338 </FONT></EM>      Put_Line(<A HREF="src__es_prolog__adb.htm#330_35">Msg</A>);
+<EM><FONT SIZE=-1> 339 </FONT></EM>      <A HREF="src__es_prolog__ads.htm#42_14">Vide_Entree</A>;
+<EM><FONT SIZE=-1> 340 </FONT></EM>      <b>raise</b> <A HREF="src__es_prolog__ads.htm#17_4">Erreur_De_Syntaxe</A>;
+<EM><FONT SIZE=-1> 341 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#330_14">Syntaxe</A>;
+<EM><FONT SIZE=-1> 342 </FONT></EM>
+<EM><FONT SIZE=-1> 343 </FONT></EM>
+<EM><FONT SIZE=-1> 344 </FONT></EM>   <FONT COLOR=green><EM>-------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 345 </FONT></EM>   <FONT COLOR=green><EM>-- Entrée de bas niveau (niveau caractere).</EM></FONT>
+<EM><FONT SIZE=-1> 346 </FONT></EM>   <FONT COLOR=green><EM>-------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 347 </FONT></EM>
+<EM><FONT SIZE=-1> 348 </FONT></EM>
+<EM><FONT SIZE=-1> 349 </FONT></EM>   <b>procedure</b> <A HREF="src__es_prolog__ads.htm#40_14">Entree_Standard</A><FONT COLOR=red><A NAME="349_14"></A></FONT> <b>is</b> <FONT COLOR=green><EM>-- Entrée depuis l'unité standard par défaut.</EM></FONT>
+<EM><FONT SIZE=-1> 350 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 351 </FONT></EM>      <b>if</b> Is_Open(<A HREF="src__es_prolog__adb.htm#188_4">Entree_Courante</A>) <b>then</b> Close(<A HREF="src__es_prolog__adb.htm#188_4">Entree_Courante</A>); <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 352 </FONT></EM>      Set_Input(Standard_Input);
+<EM><FONT SIZE=-1> 353 </FONT></EM>      <A HREF="src__es_prolog__ads.htm#37_4">Entree_Depuis_Standard</A> := True;
+<EM><FONT SIZE=-1> 354 </FONT></EM>      <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> := ' ';
+<EM><FONT SIZE=-1> 355 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__ads.htm#40_14">Entree_Standard</A>;
+<EM><FONT SIZE=-1> 356 </FONT></EM>
+<EM><FONT SIZE=-1> 357 </FONT></EM>
+<EM><FONT SIZE=-1> 358 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__ads.htm#41_13">Entree_Fichier</A><FONT COLOR=red><A NAME="358_13"></A></FONT>(<A HREF="src__es_prolog__ads.htm#41_28">Symb</A><FONT COLOR=red><A NAME="358_28"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b> <FONT COLOR=green><EM>-- Entrée depuis le fichier indiqué par le symbole SYMB.</EM></FONT>
+<EM><FONT SIZE=-1> 359 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 360 </FONT></EM>      <A HREF="src__objets_prolog__ads.htm#90_14">Symbole_Chaine</A>(<A HREF="src__es_prolog__ads.htm#41_28">Symb</A>, <A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>, <A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A>, <A HREF="src__objets_prolog__ads.htm#34_4">Pname_Print_Quote</A>);
+<EM><FONT SIZE=-1> 361 </FONT></EM>      <b>if</b> Is_Open(<A HREF="src__es_prolog__adb.htm#188_4">Entree_Courante</A>) <b>then</b> Close(<A HREF="src__es_prolog__adb.htm#188_4">Entree_Courante</A>); <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 362 </FONT></EM>      Open(<A HREF="src__es_prolog__adb.htm#188_4">Entree_Courante</A>, In_File, <A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>(1..<A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A>));
+<EM><FONT SIZE=-1> 363 </FONT></EM>      Set_Input(<A HREF="src__es_prolog__adb.htm#188_4">Entree_Courante</A>);
+<EM><FONT SIZE=-1> 364 </FONT></EM>      <A HREF="src__es_prolog__ads.htm#37_4">Entree_Depuis_Standard</A> := Name(Current_Input) = Name(Standard_Input);
+<EM><FONT SIZE=-1> 365 </FONT></EM>      <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> := ' ';
+<EM><FONT SIZE=-1> 366 </FONT></EM>      <b>return</b> True;
+<EM><FONT SIZE=-1> 367 </FONT></EM>   <b>exception</b>
+<EM><FONT SIZE=-1> 368 </FONT></EM>      <b>when</b> Name_Error =&gt;
+<EM><FONT SIZE=-1> 369 </FONT></EM>         Put(<A HREF="src__es_prolog__adb.htm#181_4">File_Not_Found</A>);
+<EM><FONT SIZE=-1> 370 </FONT></EM>         Put('"'); Put(Pname_Buffer(1..Pname_Long)); Put('"'); New_Line;
+<EM><FONT SIZE=-1> 371 </FONT></EM>         <A HREF="src__es_prolog__ads.htm#40_14">Entree_Standard</A>;
+<EM><FONT SIZE=-1> 372 </FONT></EM>         <b>return</b> False;
+<EM><FONT SIZE=-1> 373 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__ads.htm#41_13">Entree_Fichier</A>;
+<EM><FONT SIZE=-1> 374 </FONT></EM>
+<EM><FONT SIZE=-1> 375 </FONT></EM>
+<EM><FONT SIZE=-1> 376 </FONT></EM>   <b>procedure</b> <A HREF="src__es_prolog__adb.htm#376_14">Ecrit_Buffer_Relecture</A><FONT COLOR=red><A NAME="376_14"></A></FONT>(<FONT COLOR=red><A NAME="376_37">C</A></FONT>: Character) <b>is</b> <FONT COLOR=green><EM>-- Place le caractere dans le buffer de re-lecture.</EM></FONT>
+<EM><FONT SIZE=-1> 377 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 378 </FONT></EM>      <A HREF="src__es_prolog__adb.htm#166_4">Buffer_Relecture</A>(<A HREF="src__es_prolog__adb.htm#167_4">Tete_Buffer</A>) := <A HREF="src__es_prolog__adb.htm#376_37">C</A>;
+<EM><FONT SIZE=-1> 379 </FONT></EM>      <A HREF="src__es_prolog__adb.htm#167_4">Tete_Buffer</A> := <A HREF="src__es_prolog__adb.htm#167_4">Tete_Buffer</A> + 1;
+<EM><FONT SIZE=-1> 380 </FONT></EM>      <b>if</b> <A HREF="src__es_prolog__adb.htm#167_4">Tete_Buffer</A> &gt; <A HREF="src__es_prolog__adb.htm#166_4">Buffer_Relecture</A>'Last <b>then</b>
+<EM><FONT SIZE=-1> 381 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#167_4">Tete_Buffer</A> := <A HREF="src__es_prolog__adb.htm#166_4">Buffer_Relecture</A>'First;
+<EM><FONT SIZE=-1> 382 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 383 </FONT></EM>      <b>if</b> <A HREF="src__es_prolog__adb.htm#167_4">Tete_Buffer</A> = <A HREF="src__es_prolog__adb.htm#168_4">Queue_Buffer</A> <b>then</b>
+<EM><FONT SIZE=-1> 384 </FONT></EM>         <b>raise</b> <A HREF="src__es_prolog__ads.htm#20_4">Buffer_Relect_Plein</A>;
+<EM><FONT SIZE=-1> 385 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 386 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#376_14">Ecrit_Buffer_Relecture</A>;
+<EM><FONT SIZE=-1> 387 </FONT></EM>
+<EM><FONT SIZE=-1> 388 </FONT></EM>
+<EM><FONT SIZE=-1> 389 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#389_13">Buffer_Relecture_Vide</A><FONT COLOR=red><A NAME="389_13"></A></FONT> <b>return</b> Boolean <b>is</b> <FONT COLOR=green><EM>-- Renvoie vrai si le buffer de re-lecture est vide.</EM></FONT>
+<EM><FONT SIZE=-1> 390 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 391 </FONT></EM>      <b>return</b> <A HREF="src__es_prolog__adb.htm#167_4">Tete_Buffer</A> = <A HREF="src__es_prolog__adb.htm#168_4">Queue_Buffer</A>;
+<EM><FONT SIZE=-1> 392 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#389_13">Buffer_Relecture_Vide</A>;
+<EM><FONT SIZE=-1> 393 </FONT></EM>
+<EM><FONT SIZE=-1> 394 </FONT></EM>
+<EM><FONT SIZE=-1> 395 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#395_13">Lit_Buffer_Relecture</A><FONT COLOR=red><A NAME="395_13"></A></FONT> <b>return</b> Character <b>is</b> <FONT COLOR=green><EM>-- Lecture depuis le buffer de re-lecture.</EM></FONT>
+<EM><FONT SIZE=-1> 396 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 397 </FONT></EM>      <b>if</b> <A HREF="src__es_prolog__adb.htm#389_13">Buffer_Relecture_Vide</A> <b>then</b>
+<EM><FONT SIZE=-1> 398 </FONT></EM>         <b>raise</b> <A HREF="src__es_prolog__ads.htm#21_4">Buffer_Relect_Vide</A>;
+<EM><FONT SIZE=-1> 399 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 400 </FONT></EM>      <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> := <A HREF="src__es_prolog__adb.htm#166_4">Buffer_Relecture</A>(<A HREF="src__es_prolog__adb.htm#168_4">Queue_Buffer</A>);
+<EM><FONT SIZE=-1> 401 </FONT></EM>      <A HREF="src__es_prolog__adb.htm#168_4">Queue_Buffer</A> := <A HREF="src__es_prolog__adb.htm#168_4">Queue_Buffer</A> + 1;
+<EM><FONT SIZE=-1> 402 </FONT></EM>      <b>if</b> <A HREF="src__es_prolog__adb.htm#168_4">Queue_Buffer</A> &gt; <A HREF="src__es_prolog__adb.htm#166_4">Buffer_Relecture</A>'Last <b>then</b>
+<EM><FONT SIZE=-1> 403 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#168_4">Queue_Buffer</A> := <A HREF="src__es_prolog__adb.htm#166_4">Buffer_Relecture</A>'First;
+<EM><FONT SIZE=-1> 404 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 405 </FONT></EM>      <b>return</b> <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A>;
+<EM><FONT SIZE=-1> 406 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#395_13">Lit_Buffer_Relecture</A>;
+<EM><FONT SIZE=-1> 407 </FONT></EM>
+<EM><FONT SIZE=-1> 408 </FONT></EM>
+<EM><FONT SIZE=-1> 409 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__ads.htm#43_13">Lit_Carac</A><FONT COLOR=red><A NAME="409_13"></A></FONT> <b>return</b> Character <b>is</b> <FONT COLOR=green><EM>-- Lecture d'un caractere. Ne reconnait pas les commentaires.</EM></FONT>
+<EM><FONT SIZE=-1> 410 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 411 </FONT></EM>      <b>if</b> <b>not</b> <A HREF="src__es_prolog__adb.htm#389_13">Buffer_Relecture_Vide</A> <b>then</b>
+<EM><FONT SIZE=-1> 412 </FONT></EM>         <b>return</b> <A HREF="src__es_prolog__adb.htm#395_13">Lit_Buffer_Relecture</A>;
+<EM><FONT SIZE=-1> 413 </FONT></EM>      <b>elsif</b> End_Of_Line <b>then</b>
+<EM><FONT SIZE=-1> 414 </FONT></EM>         Skip_Line;
+<EM><FONT SIZE=-1> 415 </FONT></EM>         <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> := Ascii.Cr;
+<EM><FONT SIZE=-1> 416 </FONT></EM>         <b>if</b> <A HREF="src__es_prolog__ads.htm#35_4">Echo</A> <b>then</b> New_Line; <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 417 </FONT></EM>         <b>return</b> Ascii.Cr;
+<EM><FONT SIZE=-1> 418 </FONT></EM>      <b>else</b>
+<EM><FONT SIZE=-1> 419 </FONT></EM>         Get(<A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A>);
+<EM><FONT SIZE=-1> 420 </FONT></EM>         <b>if</b> <A HREF="src__es_prolog__ads.htm#35_4">Echo</A> <b>then</b> Put(<A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A>); <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 421 </FONT></EM>         <b>if</b> <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> = Ascii.Eot <b>then</b> <A HREF="src__objets_prolog__ads.htm#47_14">Debug</A>; <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 422 </FONT></EM>         <b>if</b> <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> = Ascii.Enq <b>then</b> <A HREF="src__es_prolog__ads.htm#35_4">Echo</A> := <b>not</b> <A HREF="src__es_prolog__ads.htm#35_4">Echo</A>; <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 423 </FONT></EM>         <b>return</b> <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A>;
+<EM><FONT SIZE=-1> 424 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 425 </FONT></EM>   <b>exception</b>
+<EM><FONT SIZE=-1> 426 </FONT></EM>      <b>when</b> End_Error =&gt; <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> := <A HREF="src__es_prolog__ads.htm#33_4">Fin_De_Fichier</A>;
+<EM><FONT SIZE=-1> 427 </FONT></EM>         <b>return</b> <A HREF="src__es_prolog__ads.htm#33_4">Fin_De_Fichier</A>;
+<EM><FONT SIZE=-1> 428 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__ads.htm#43_13">Lit_Carac</A>;
+<EM><FONT SIZE=-1> 429 </FONT></EM>
+<EM><FONT SIZE=-1> 430 </FONT></EM>
+<EM><FONT SIZE=-1> 431 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__ads.htm#44_13">Caractere_Significatif</A><FONT COLOR=red><A NAME="431_13"></A></FONT>(<A HREF="src__es_prolog__ads.htm#44_36">C</A><FONT COLOR=red><A NAME="431_36"></A></FONT> : Character) <b>return</b> Character <b>is</b> <FONT COLOR=green><EM>-- Renvoie le 1er caractere significatif à partir de C.</EM></FONT>
+<EM><FONT SIZE=-1> 432 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 433 </FONT></EM>      <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> := <A HREF="src__es_prolog__ads.htm#44_36">C</A>;
+<EM><FONT SIZE=-1> 434 </FONT></EM>      <b>loop</b>
+<EM><FONT SIZE=-1> 435 </FONT></EM>         <b>if</b> <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> = '%' <b>then</b>                             <FONT COLOR=green><EM>-- Début de commentaire</EM></FONT>
+<EM><FONT SIZE=-1> 436 </FONT></EM>            <b>while</b> <A HREF="src__es_prolog__ads.htm#43_13">Lit_Carac</A> /= <A HREF="src__es_prolog__ads.htm#33_4">Fin_De_Fichier</A> <b>and</b> <b>then</b>      <FONT COLOR=green><EM>-- Recherche la fin de la ligne</EM></FONT>
+<EM><FONT SIZE=-1> 437 </FONT></EM>                  <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> /= Ascii.Cr <b>loop</b> <b>null</b>; <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 438 </FONT></EM>         <b>elsif</b> <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> = <A HREF="src__es_prolog__ads.htm#33_4">Fin_De_Fichier</A> <b>or</b> <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> &gt; ' ' <b>then</b> <b>return</b> <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A>;
+<EM><FONT SIZE=-1> 439 </FONT></EM>         <b>elsif</b> <A HREF="src__es_prolog__ads.htm#43_13">Lit_Carac</A> /= '%' <b>and</b> <b>then</b>
+<EM><FONT SIZE=-1> 440 </FONT></EM>               (<A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> = <A HREF="src__es_prolog__ads.htm#33_4">Fin_De_Fichier</A> <b>or</b> <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> &gt; ' ') <b>then</b> <b>return</b> <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A>;
+<EM><FONT SIZE=-1> 441 </FONT></EM>         <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 442 </FONT></EM>      <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 443 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__ads.htm#44_13">Caractere_Significatif</A>;
+<EM><FONT SIZE=-1> 444 </FONT></EM>
+<EM><FONT SIZE=-1> 445 </FONT></EM>
+<EM><FONT SIZE=-1> 446 </FONT></EM>   <FONT COLOR=green><EM>------------------------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 447 </FONT></EM>   <FONT COLOR=green><EM>-- Entrée de niveau intermédiaire : reconnaissance de token.</EM></FONT>
+<EM><FONT SIZE=-1> 448 </FONT></EM>   <FONT COLOR=green><EM>------------------------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 449 </FONT></EM>
+<EM><FONT SIZE=-1> 450 </FONT></EM>
+<EM><FONT SIZE=-1> 451 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#451_13">Val_Chiffre</A><FONT COLOR=red><A NAME="451_13"></A></FONT>(<FONT COLOR=red><A NAME="451_25">C</A></FONT> : Character) <b>return</b> Natural <b>is</b> <FONT COLOR=green><EM>-- Renvoie la valeur entre 0 et 9 du caractere C dans '0'..'9'.</EM></FONT>
+<EM><FONT SIZE=-1> 452 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 453 </FONT></EM>      <b>return</b> Character'Pos(<A HREF="src__es_prolog__adb.htm#451_25">C</A>) - Character'Pos('0');
+<EM><FONT SIZE=-1> 454 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#451_13">Val_Chiffre</A>;
+<EM><FONT SIZE=-1> 455 </FONT></EM>
+<EM><FONT SIZE=-1> 456 </FONT></EM>
+<EM><FONT SIZE=-1> 457 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#457_13">Lit_Nombre</A><FONT COLOR=red><A NAME="457_13"></A></FONT> <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b> <FONT COLOR=green><EM>-- On part d'un caractere déjà lu.</EM></FONT>
+<EM><FONT SIZE=-1> 458 </FONT></EM>      <FONT COLOR=red><A NAME="458_7">V</A></FONT> : <A HREF="src__objets_prolog__ads.htm#30_12">Type_Nombre</A> := <A HREF="src__es_prolog__adb.htm#451_13">Val_Chiffre</A>(<A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A>); <FONT COLOR=green><EM>-- TYPE_NOMBRE fourni par le package OBJETS_PROLOG.</EM></FONT>
+<EM><FONT SIZE=-1> 459 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 460 </FONT></EM>      <b>while</b> <A HREF="src__es_prolog__ads.htm#43_13">Lit_Carac</A> <b>in</b> '0'..'9' <b>loop</b>
+<EM><FONT SIZE=-1> 461 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#458_7">V</A> := <A HREF="src__es_prolog__adb.htm#458_7">V</A> * 10 + <A HREF="src__es_prolog__adb.htm#451_13">Val_Chiffre</A>(<A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A>);
+<EM><FONT SIZE=-1> 462 </FONT></EM>      <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 463 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#109_13">Cree_Entier</A>(<A HREF="src__es_prolog__adb.htm#458_7">V</A>);
+<EM><FONT SIZE=-1> 464 </FONT></EM>   <b>exception</b>
+<EM><FONT SIZE=-1> 465 </FONT></EM>      <b>when</b> Numeric_Error =&gt; Put_Line(<A HREF="src__es_prolog__adb.htm#182_4">Overflow_Error</A>);
+<EM><FONT SIZE=-1> 466 </FONT></EM>         <A HREF="src__es_prolog__ads.htm#42_14">Vide_Entree</A>;
+<EM><FONT SIZE=-1> 467 </FONT></EM>         <b>raise</b> <A HREF="src__es_prolog__ads.htm#17_4">Erreur_De_Syntaxe</A>;
+<EM><FONT SIZE=-1> 468 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#457_13">Lit_Nombre</A>;
+<EM><FONT SIZE=-1> 469 </FONT></EM>
+<EM><FONT SIZE=-1> 470 </FONT></EM>
+<EM><FONT SIZE=-1> 471 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#471_13">Caractere_De_Symbole</A><FONT COLOR=red><A NAME="471_13"></A></FONT>(<FONT COLOR=red><A NAME="471_34">C</A></FONT> : Character) <b>return</b> Boolean <b>is</b> <FONT COLOR=green><EM>-- Caracteres autorisés dans un symbole non quoté</EM></FONT>
+<EM><FONT SIZE=-1> 472 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 473 </FONT></EM>      <b>return</b> <A HREF="src__es_prolog__adb.htm#471_34">C</A> <b>in</b> 'A'..'Z' <b>or</b> <b>else</b>
+<EM><FONT SIZE=-1> 474 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#471_34">C</A> <b>in</b> 'a'..'z' <b>or</b> <b>else</b>
+<EM><FONT SIZE=-1> 475 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#471_34">C</A> <b>in</b> '0'..'9' <b>or</b> <b>else</b>
+<EM><FONT SIZE=-1> 476 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#471_34">C</A> = '_'         <b>or</b> <b>else</b>
+<EM><FONT SIZE=-1> 477 </FONT></EM>         Character'Pos(<A HREF="src__es_prolog__adb.htm#471_34">C</A>) <b>in</b> 129..154; <FONT COLOR=green><EM>-- Tous les caracteres accentués</EM></FONT>
+<EM><FONT SIZE=-1> 478 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#471_13">Caractere_De_Symbole</A>;
+<EM><FONT SIZE=-1> 479 </FONT></EM>
+<EM><FONT SIZE=-1> 480 </FONT></EM>
+<EM><FONT SIZE=-1> 481 </FONT></EM>   <b>procedure</b> <A HREF="src__es_prolog__adb.htm#481_14">Lit_Symbvar</A><FONT COLOR=red><A NAME="481_14"></A></FONT> <b>is</b> <FONT COLOR=green><EM>-- On part d'un caractere déjà lu.</EM></FONT>
+<EM><FONT SIZE=-1> 482 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 483 </FONT></EM>      <A HREF="src__objets_prolog__ads.htm#34_4">Pname_Print_Quote</A> := False;
+<EM><FONT SIZE=-1> 484 </FONT></EM>      <b>for</b> <FONT COLOR=red><A NAME="484_11">I</A></FONT> <b>in</b> <A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>'<b>range</b> <b>loop</b>
+<EM><FONT SIZE=-1> 485 </FONT></EM>         <A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>(<A HREF="src__es_prolog__adb.htm#484_11">I</A>) := <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A>;
+<EM><FONT SIZE=-1> 486 </FONT></EM>         <b>if</b> <b>not</b> <A HREF="src__es_prolog__adb.htm#471_13">Caractere_De_Symbole</A>(<A HREF="src__es_prolog__ads.htm#43_13">Lit_Carac</A>) <b>then</b>
+<EM><FONT SIZE=-1> 487 </FONT></EM>            <A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A> := <A HREF="src__es_prolog__adb.htm#484_11">I</A>;
+<EM><FONT SIZE=-1> 488 </FONT></EM>            <b>return</b>;
+<EM><FONT SIZE=-1> 489 </FONT></EM>         <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 490 </FONT></EM>      <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 491 </FONT></EM>      <FONT COLOR=green><EM>-- Ici le buffer est plein. On va rechercher la fin du symbole sans stocker les caracteres rencontrés.</EM></FONT>
+<EM><FONT SIZE=-1> 492 </FONT></EM>      <b>while</b> <A HREF="src__es_prolog__adb.htm#471_13">Caractere_De_Symbole</A>(<A HREF="src__es_prolog__ads.htm#43_13">Lit_Carac</A>) <b>loop</b>
+<EM><FONT SIZE=-1> 493 </FONT></EM>         <b>null</b>;
+<EM><FONT SIZE=-1> 494 </FONT></EM>      <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 495 </FONT></EM>      <A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A> := <A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>'Last;
+<EM><FONT SIZE=-1> 496 </FONT></EM>      <b>return</b>;
+<EM><FONT SIZE=-1> 497 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#481_14">Lit_Symbvar</A>;
+<EM><FONT SIZE=-1> 498 </FONT></EM>
+<EM><FONT SIZE=-1> 499 </FONT></EM>
+<EM><FONT SIZE=-1> 500 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#500_13">Lit_Symbole</A><FONT COLOR=red><A NAME="500_13"></A></FONT> <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b> <FONT COLOR=green><EM>-- Lecture d'un symbole. On a déjà lu le 1er caractere.</EM></FONT>
+<EM><FONT SIZE=-1> 501 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 502 </FONT></EM>      <A HREF="src__es_prolog__adb.htm#481_14">Lit_Symbvar</A>;
+<EM><FONT SIZE=-1> 503 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>(<A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>(1..<A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A>), <A HREF="src__objets_prolog__ads.htm#34_4">Pname_Print_Quote</A>);
+<EM><FONT SIZE=-1> 504 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#500_13">Lit_Symbole</A>;
+<EM><FONT SIZE=-1> 505 </FONT></EM>
+<EM><FONT SIZE=-1> 506 </FONT></EM>
+<EM><FONT SIZE=-1> 507 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#507_13">Lit_Variable</A><FONT COLOR=red><A NAME="507_13"></A></FONT> <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b> <FONT COLOR=green><EM>-- Lecture d'une variable. On a déjà lu le 1er caractere (majuscule).</EM></FONT>
+<EM><FONT SIZE=-1> 508 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 509 </FONT></EM>      <A HREF="src__es_prolog__adb.htm#481_14">Lit_Symbvar</A>;
+<EM><FONT SIZE=-1> 510 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#106_13">Cree_Variable</A>(<A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>(1..<A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A>));
+<EM><FONT SIZE=-1> 511 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#507_13">Lit_Variable</A>;
+<EM><FONT SIZE=-1> 512 </FONT></EM>
+<EM><FONT SIZE=-1> 513 </FONT></EM>
+<EM><FONT SIZE=-1> 514 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#514_13">Lit_Symbchaine</A><FONT COLOR=red><A NAME="514_13"></A></FONT> <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b> <FONT COLOR=green><EM>-- On part d'un caractere déjà lu et qui est ' (quote).</EM></FONT>
+<EM><FONT SIZE=-1> 515 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 516 </FONT></EM>      <A HREF="src__objets_prolog__ads.htm#34_4">Pname_Print_Quote</A> := False; <FONT COLOR=green><EM>-- Passera à vrai si la chaine contient des break-characters.</EM></FONT>
+<EM><FONT SIZE=-1> 517 </FONT></EM>      <A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A> := 0;
+<EM><FONT SIZE=-1> 518 </FONT></EM>      <b>loop</b>
+<EM><FONT SIZE=-1> 519 </FONT></EM>         <b>if</b> <A HREF="src__es_prolog__ads.htm#43_13">Lit_Carac</A> = <A HREF="src__es_prolog__ads.htm#33_4">Fin_De_Fichier</A> <b>then</b>
+<EM><FONT SIZE=-1> 520 </FONT></EM>            <A HREF="src__es_prolog__adb.htm#320_14">Syntaxe</A>(<A HREF="src__es_prolog__adb.htm#174_4">Missing_2nd_Quote</A>);
+<EM><FONT SIZE=-1> 521 </FONT></EM>         <b>elsif</b> <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> = Ascii.Cr <b>then</b> <FONT COLOR=green><EM>-- Une fin de ligne est codée par CR + LF.</EM></FONT>
+<EM><FONT SIZE=-1> 522 </FONT></EM>            <A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A> := <A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A> + 1;
+<EM><FONT SIZE=-1> 523 </FONT></EM>            <b>exit</b> <b>when</b> <A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A> &gt; <A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>'Length;
+<EM><FONT SIZE=-1> 524 </FONT></EM>            <A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>(<A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A>) := Ascii.Cr;
+<EM><FONT SIZE=-1> 525 </FONT></EM>            <A HREF="src__objets_prolog__ads.htm#34_4">Pname_Print_Quote</A> := True; <FONT COLOR=green><EM>-- A partir d'ici on est sur que le CR a été stocké.</EM></FONT>
+<EM><FONT SIZE=-1> 526 </FONT></EM>            <A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A> := <A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A> + 1;
+<EM><FONT SIZE=-1> 527 </FONT></EM>            <b>exit</b> <b>when</b> <A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A> &gt; <A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>'Length;
+<EM><FONT SIZE=-1> 528 </FONT></EM>            <A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>(<A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A>) := Ascii.Lf;
+<EM><FONT SIZE=-1> 529 </FONT></EM>         <b>elsif</b> <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> = ''' <b>then</b>
+<EM><FONT SIZE=-1> 530 </FONT></EM>            <b>if</b> <A HREF="src__es_prolog__ads.htm#43_13">Lit_Carac</A> = ''' <b>then</b> <FONT COLOR=green><EM>-- Une double quote signifie une quote dans la chaine.</EM></FONT>
+<EM><FONT SIZE=-1> 531 </FONT></EM>               <A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A> := <A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A> + 1;
+<EM><FONT SIZE=-1> 532 </FONT></EM>               <b>exit</b> <b>when</b> <A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A> &gt; <A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>'Length;
+<EM><FONT SIZE=-1> 533 </FONT></EM>               <A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>(<A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A>) := <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A>;
+<EM><FONT SIZE=-1> 534 </FONT></EM>               <A HREF="src__objets_prolog__ads.htm#34_4">Pname_Print_Quote</A> := True;
+<EM><FONT SIZE=-1> 535 </FONT></EM>            <b>else</b> <FONT COLOR=green><EM>-- Une simple quote indique la fin de la chaine.</EM></FONT>
+<EM><FONT SIZE=-1> 536 </FONT></EM>               <A HREF="src__objets_prolog__ads.htm#34_4">Pname_Print_Quote</A> := (<A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A>=0) <b>or</b> <A HREF="src__objets_prolog__ads.htm#34_4">Pname_Print_Quote</A>; <FONT COLOR=green><EM>-- Si chaine vide alors il faut entourer par des quotes.</EM></FONT>
+<EM><FONT SIZE=-1> 537 </FONT></EM>               <b>return</b> <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>(<A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>(1..<A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A>), <A HREF="src__objets_prolog__ads.htm#34_4">Pname_Print_Quote</A>); <FONT COLOR=green><EM>-- Renvoie symbole correspondant à chaine analysée.</EM></FONT>
+<EM><FONT SIZE=-1> 538 </FONT></EM>            <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 539 </FONT></EM>         <b>else</b>
+<EM><FONT SIZE=-1> 540 </FONT></EM>            <A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A> := <A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A> + 1;
+<EM><FONT SIZE=-1> 541 </FONT></EM>            <b>exit</b> <b>when</b> <A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A> &gt; <A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>'Length;
+<EM><FONT SIZE=-1> 542 </FONT></EM>            <A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>(<A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A>) := <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A>;
+<EM><FONT SIZE=-1> 543 </FONT></EM>            <A HREF="src__objets_prolog__ads.htm#34_4">Pname_Print_Quote</A> := <b>not</b> <A HREF="src__es_prolog__adb.htm#471_13">Caractere_De_Symbole</A>(<A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A>) <b>or</b> <A HREF="src__objets_prolog__ads.htm#34_4">Pname_Print_Quote</A>;
+<EM><FONT SIZE=-1> 544 </FONT></EM>         <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 545 </FONT></EM>      <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 546 </FONT></EM>      <FONT COLOR=green><EM>-- Ici le buffer est plein. On va rechercher la fin de la chaine.</EM></FONT>
+<EM><FONT SIZE=-1> 547 </FONT></EM>      <b>loop</b>
+<EM><FONT SIZE=-1> 548 </FONT></EM>         <b>if</b> <A HREF="src__es_prolog__ads.htm#43_13">Lit_Carac</A> = <A HREF="src__es_prolog__ads.htm#33_4">Fin_De_Fichier</A> <b>then</b>
+<EM><FONT SIZE=-1> 549 </FONT></EM>            <A HREF="src__es_prolog__adb.htm#320_14">Syntaxe</A>(<A HREF="src__es_prolog__adb.htm#174_4">Missing_2nd_Quote</A>);
+<EM><FONT SIZE=-1> 550 </FONT></EM>         <b>elsif</b> <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> = ''' <b>and</b> <b>then</b>
+<EM><FONT SIZE=-1> 551 </FONT></EM>               <A HREF="src__es_prolog__ads.htm#43_13">Lit_Carac</A> /= ''' <b>then</b>
+<EM><FONT SIZE=-1> 552 </FONT></EM>            <b>return</b> <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>(<A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>(1..<A HREF="src__objets_prolog__ads.htm#33_4">Pname_Long</A>), <A HREF="src__objets_prolog__ads.htm#34_4">Pname_Print_Quote</A>); <FONT COLOR=green><EM>-- Renvoie symbole correspondant à chaine analysée</EM></FONT>
+<EM><FONT SIZE=-1> 553 </FONT></EM>         <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 554 </FONT></EM>      <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 555 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#514_13">Lit_Symbchaine</A>;
+<EM><FONT SIZE=-1> 556 </FONT></EM>
+<EM><FONT SIZE=-1> 557 </FONT></EM>
+<EM><FONT SIZE=-1> 558 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#558_13">Lit_Token_Aux</A><FONT COLOR=red><A NAME="558_13"></A></FONT> <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b> <FONT COLOR=green><EM>-- Reconnaissance des tokens spéciaux tels que  =:=  :-  =..  etc...</EM></FONT>
+<EM><FONT SIZE=-1> 559 </FONT></EM>      <b>type</b> <FONT COLOR=red><A NAME="559_12">Result</A></FONT> <b>is</b> (<FONT COLOR=red><A NAME="559_23">Non_Trouve</A></FONT>, <FONT COLOR=red><A NAME="559_35">Possible</A></FONT>, <FONT COLOR=red><A NAME="559_45">Trouve</A></FONT>, <FONT COLOR=red><A NAME="559_53">Trouve_Long_Max</A></FONT>);
+<EM><FONT SIZE=-1> 560 </FONT></EM>      <FONT COLOR=red><A NAME="560_7">Indice_Debut</A></FONT> : Integer := <A HREF="src__es_prolog__adb.htm#151_4">Table_Token</A>'First;
+<EM><FONT SIZE=-1> 561 </FONT></EM>      <FONT COLOR=red><A NAME="561_7">Indice_Fin</A></FONT>   : Integer := <A HREF="src__es_prolog__adb.htm#151_4">Table_Token</A>'Last;
+<EM><FONT SIZE=-1> 562 </FONT></EM>      <FONT COLOR=red><A NAME="562_7">Pos_Carac</A></FONT>    : Integer := 1;
+<EM><FONT SIZE=-1> 563 </FONT></EM>
+<EM><FONT SIZE=-1> 564 </FONT></EM>      <b>function</b> <A HREF="src__es_prolog__adb.htm#564_16">Cherche_Token</A><FONT COLOR=red><A NAME="564_16"></A></FONT>(<FONT COLOR=red><A NAME="564_30">Carac</A></FONT> : Character) <b>return</b> <A HREF="src__es_prolog__adb.htm#559_12">Result</A> <b>is</b> <FONT COLOR=green><EM>-- Recherche du token en cours dans la table des tokens.</EM></FONT>
+<EM><FONT SIZE=-1> 565 </FONT></EM>      <b>begin</b>
+<EM><FONT SIZE=-1> 566 </FONT></EM>         <b>for</b> <FONT COLOR=red><A NAME="566_14">I</A></FONT> <b>in</b> <A HREF="src__es_prolog__adb.htm#560_7">Indice_Debut</A>..<A HREF="src__es_prolog__adb.htm#561_7">Indice_Fin</A> <b>loop</b>
+<EM><FONT SIZE=-1> 567 </FONT></EM>            <b>if</b> <A HREF="src__es_prolog__adb.htm#151_4">Table_Token</A>(<A HREF="src__es_prolog__adb.htm#566_14">I</A>)(<A HREF="src__es_prolog__adb.htm#562_7">Pos_Carac</A>) = ' ' <b>then</b> <FONT COLOR=green><EM>-- Un espace indique la fin du token.</EM></FONT>
+<EM><FONT SIZE=-1> 568 </FONT></EM>               <b>return</b> <A HREF="src__es_prolog__adb.htm#559_45">Trouve</A>;
+<EM><FONT SIZE=-1> 569 </FONT></EM>            <b>elsif</b> <A HREF="src__es_prolog__adb.htm#151_4">Table_Token</A>(<A HREF="src__es_prolog__adb.htm#566_14">I</A>)(<A HREF="src__es_prolog__adb.htm#562_7">Pos_Carac</A>) = <A HREF="src__es_prolog__adb.htm#564_30">Carac</A> <b>then</b>
+<EM><FONT SIZE=-1> 570 </FONT></EM>               <b>if</b> <A HREF="src__es_prolog__adb.htm#562_7">Pos_Carac</A> = <A HREF="src__es_prolog__adb.htm#145_4">Taille_Token_Maxi</A> <b>then</b> <FONT COLOR=green><EM>-- Si on en est au dernier caractere alors terminé.</EM></FONT>
+<EM><FONT SIZE=-1> 571 </FONT></EM>                  <b>return</b> <A HREF="src__es_prolog__adb.htm#559_53">Trouve_Long_Max</A>;
+<EM><FONT SIZE=-1> 572 </FONT></EM>               <b>else</b>
+<EM><FONT SIZE=-1> 573 </FONT></EM>                  <A HREF="src__es_prolog__adb.htm#560_7">Indice_Debut</A> := <A HREF="src__es_prolog__adb.htm#566_14">I</A>;
+<EM><FONT SIZE=-1> 574 </FONT></EM>                  <b>for</b> <FONT COLOR=red><A NAME="574_23">J</A></FONT> <b>in</b> <A HREF="src__es_prolog__adb.htm#560_7">Indice_Debut</A>..<A HREF="src__es_prolog__adb.htm#561_7">Indice_Fin</A> <b>loop</b> <FONT COLOR=green><EM>-- Recherche la position du dernier token ayant les memes caracteres</EM></FONT>
+<EM><FONT SIZE=-1> 575 </FONT></EM>                     <b>exit</b> <b>when</b> <A HREF="src__es_prolog__adb.htm#151_4">Table_Token</A>(<A HREF="src__es_prolog__adb.htm#574_23">J</A>)(<A HREF="src__es_prolog__adb.htm#562_7">Pos_Carac</A>) /= <A HREF="src__es_prolog__adb.htm#564_30">Carac</A>;
+<EM><FONT SIZE=-1> 576 </FONT></EM>                     <A HREF="src__es_prolog__adb.htm#561_7">Indice_Fin</A> := <A HREF="src__es_prolog__adb.htm#574_23">J</A>;
+<EM><FONT SIZE=-1> 577 </FONT></EM>                  <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 578 </FONT></EM>                  <b>return</b> <A HREF="src__es_prolog__adb.htm#559_35">Possible</A>;
+<EM><FONT SIZE=-1> 579 </FONT></EM>               <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 580 </FONT></EM>            <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 581 </FONT></EM>         <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 582 </FONT></EM>         <b>return</b> <A HREF="src__es_prolog__adb.htm#559_23">Non_Trouve</A>;
+<EM><FONT SIZE=-1> 583 </FONT></EM>      <b>end</b> <A HREF="src__es_prolog__adb.htm#564_16">Cherche_Token</A>;
+<EM><FONT SIZE=-1> 584 </FONT></EM>
+<EM><FONT SIZE=-1> 585 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 586 </FONT></EM>      <b>loop</b>
+<EM><FONT SIZE=-1> 587 </FONT></EM>         <A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>(<A HREF="src__es_prolog__adb.htm#562_7">Pos_Carac</A>) := <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A>;
+<EM><FONT SIZE=-1> 588 </FONT></EM>         <b>case</b> <A HREF="src__es_prolog__adb.htm#564_16">Cherche_Token</A>(<A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A>) <b>is</b>
+<EM><FONT SIZE=-1> 589 </FONT></EM>            <b>when</b> <A HREF="src__es_prolog__adb.htm#559_23">Non_Trouve</A> =&gt;
+<EM><FONT SIZE=-1> 590 </FONT></EM>               <b>for</b> <FONT COLOR=red><A NAME="590_20">I</A></FONT> <b>in</b> 2..<A HREF="src__es_prolog__adb.htm#562_7">Pos_Carac</A> <b>loop</b> <FONT COLOR=green><EM>-- Pour faire comme si on n'avait lu que le 1er caractere</EM></FONT>
+<EM><FONT SIZE=-1> 591 </FONT></EM>                  <A HREF="src__es_prolog__adb.htm#376_14">Ecrit_Buffer_Relecture</A>(<A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>(<A HREF="src__es_prolog__adb.htm#590_20">I</A>));
+<EM><FONT SIZE=-1> 592 </FONT></EM>               <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 593 </FONT></EM>               <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> := <A HREF="src__es_prolog__ads.htm#43_13">Lit_Carac</A>; <FONT COLOR=green><EM>-- Pour la suite de l'analyse</EM></FONT>
+<EM><FONT SIZE=-1> 594 </FONT></EM>               <b>if</b> <A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>(1) = '.' <b>and</b> <b>then</b> (<A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> &lt;= ' ' <b>or</b> <b>else</b> <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> ='%') <b>then</b>
+<EM><FONT SIZE=-1> 595 </FONT></EM>                  <b>return</b> <A HREF="src__es_prolog__adb.htm#35_4">S_Point_Cr</A>; <FONT COLOR=green><EM>-- Renvoie un symbole spécial indiquant la fin de la saisie</EM></FONT>
+<EM><FONT SIZE=-1> 596 </FONT></EM>               <b>else</b>
+<EM><FONT SIZE=-1> 597 </FONT></EM>                  <b>return</b> <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>(<A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>(1..1)); <FONT COLOR=green><EM>-- Le token est un break character</EM></FONT>
+<EM><FONT SIZE=-1> 598 </FONT></EM>               <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 599 </FONT></EM>            <b>when</b> <A HREF="src__es_prolog__adb.htm#559_45">Trouve</A> =&gt; <FONT COLOR=green><EM>-- Ici on a lu un caractere de trop, ce qui est parfait</EM></FONT>
+<EM><FONT SIZE=-1> 600 </FONT></EM>               <b>return</b> <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>(<A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>(1..<A HREF="src__es_prolog__adb.htm#562_7">Pos_Carac</A>-1));
+<EM><FONT SIZE=-1> 601 </FONT></EM>            <b>when</b> <A HREF="src__es_prolog__adb.htm#559_53">Trouve_Long_Max</A> =&gt; <FONT COLOR=green><EM>-- Ici on n'a lu que les caracteres du token</EM></FONT>
+<EM><FONT SIZE=-1> 602 </FONT></EM>               <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> := <A HREF="src__es_prolog__ads.htm#43_13">Lit_Carac</A>;
+<EM><FONT SIZE=-1> 603 </FONT></EM>               <b>return</b> <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>(<A HREF="src__objets_prolog__ads.htm#32_4">Pname_Buffer</A>(1..<A HREF="src__es_prolog__adb.htm#562_7">Pos_Carac</A>));
+<EM><FONT SIZE=-1> 604 </FONT></EM>            <b>when</b> <A HREF="src__es_prolog__adb.htm#559_35">Possible</A> =&gt; <FONT COLOR=green><EM>-- Jusque là, les caracteres lus concordent avec le début d'un token</EM></FONT>
+<EM><FONT SIZE=-1> 605 </FONT></EM>               <A HREF="src__es_prolog__adb.htm#562_7">Pos_Carac</A> := <A HREF="src__es_prolog__adb.htm#562_7">Pos_Carac</A> + 1; <FONT COLOR=green><EM>-- Pour comparer le prochain caractere du token...</EM></FONT>
+<EM><FONT SIZE=-1> 606 </FONT></EM>               <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A>  := <A HREF="src__es_prolog__ads.htm#43_13">Lit_Carac</A>;     <FONT COLOR=green><EM>-- ...avec le caractere lu suivant</EM></FONT>
+<EM><FONT SIZE=-1> 607 </FONT></EM>         <b>end</b> <b>case</b>;
+<EM><FONT SIZE=-1> 608 </FONT></EM>      <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 609 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#558_13">Lit_Token_Aux</A>;
+<EM><FONT SIZE=-1> 610 </FONT></EM>
+<EM><FONT SIZE=-1> 611 </FONT></EM>
+<EM><FONT SIZE=-1> 612 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__ads.htm#52_13">Lit_Token</A><FONT COLOR=red><A NAME="612_13"></A></FONT> <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b> <FONT COLOR=green><EM>-- Lecture d'un token. On part d'un caractere déjà lu.</EM></FONT>
+<EM><FONT SIZE=-1> 613 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 614 </FONT></EM>      <b>if</b> <A HREF="src__es_prolog__ads.htm#44_13">Caractere_Significatif</A>(<A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A>) = <A HREF="src__es_prolog__ads.htm#33_4">Fin_De_Fichier</A> <b>then</b> <b>raise</b> <A HREF="src__es_prolog__ads.htm#18_4">Fin_Du_Fichier</A>; <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 615 </FONT></EM>      <b>case</b> <A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A> <b>is</b>
+<EM><FONT SIZE=-1> 616 </FONT></EM>         <b>when</b> '0'..'9'       =&gt; <A HREF="src__es_prolog__ads.htm#50_4">Token</A> := <A HREF="src__es_prolog__adb.htm#457_13">Lit_Nombre</A>;
+<EM><FONT SIZE=-1> 617 </FONT></EM>         <b>when</b> 'A'..'Z' | '_' =&gt; <A HREF="src__es_prolog__ads.htm#50_4">Token</A> := <A HREF="src__es_prolog__adb.htm#507_13">Lit_Variable</A>;
+<EM><FONT SIZE=-1> 618 </FONT></EM>         <b>when</b> '''            =&gt; <A HREF="src__es_prolog__ads.htm#50_4">Token</A> := <A HREF="src__es_prolog__adb.htm#514_13">Lit_Symbchaine</A>;
+<EM><FONT SIZE=-1> 619 </FONT></EM>         <b>when</b> <b>others</b>         =&gt; <b>if</b> <A HREF="src__es_prolog__adb.htm#471_13">Caractere_De_Symbole</A>(<A HREF="src__es_prolog__ads.htm#34_4">Carac_Lu</A>) <b>then</b>
+<EM><FONT SIZE=-1> 620 </FONT></EM>               <A HREF="src__es_prolog__ads.htm#50_4">Token</A> := <A HREF="src__es_prolog__adb.htm#500_13">Lit_Symbole</A>;
+<EM><FONT SIZE=-1> 621 </FONT></EM>            <b>else</b>
+<EM><FONT SIZE=-1> 622 </FONT></EM>               <A HREF="src__es_prolog__ads.htm#50_4">Token</A> := <A HREF="src__es_prolog__adb.htm#558_13">Lit_Token_Aux</A>;
+<EM><FONT SIZE=-1> 623 </FONT></EM>            <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 624 </FONT></EM>      <b>end</b> <b>case</b>;
+<EM><FONT SIZE=-1> 625 </FONT></EM>      <b>return</b> <A HREF="src__es_prolog__ads.htm#50_4">Token</A>;
+<EM><FONT SIZE=-1> 626 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__ads.htm#52_13">Lit_Token</A>;
+<EM><FONT SIZE=-1> 627 </FONT></EM>
+<EM><FONT SIZE=-1> 628 </FONT></EM>
+<EM><FONT SIZE=-1> 629 </FONT></EM>   <FONT COLOR=green><EM>-------------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 630 </FONT></EM>   <FONT COLOR=green><EM>-- Entrée de haut niveau avec analyse syntaxique.</EM></FONT>
+<EM><FONT SIZE=-1> 631 </FONT></EM>   <FONT COLOR=green><EM>-------------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 632 </FONT></EM>
+<EM><FONT SIZE=-1> 633 </FONT></EM>
+<EM><FONT SIZE=-1> 634 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#902_13">Analyse</A><FONT COLOR=red><A NAME="634_13"></A></FONT>(<A HREF="src__es_prolog__adb.htm#902_21">Objet</A><FONT COLOR=red><A NAME="634_21"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>; <A HREF="src__es_prolog__adb.htm#902_34">Coef_Droit</A><FONT COLOR=red><A NAME="634_34"></A></FONT> : <A HREF="src__es_prolog__adb.htm#79_12">Priorite</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>; <FONT COLOR=green><EM>-- Pré-déclaration car fonction récursive indirecte.</EM></FONT>
+<EM><FONT SIZE=-1> 635 </FONT></EM>
+<EM><FONT SIZE=-1> 636 </FONT></EM>
+<EM><FONT SIZE=-1> 637 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#637_13">Terminateur</A><FONT COLOR=red><A NAME="637_13"></A></FONT>(<FONT COLOR=red><A NAME="637_25">Objet</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b> <FONT COLOR=green><EM>-- Vrai si OBJET indique la fin de la saisie. Ex : '.' suivi d'un &lt;CR&gt;</EM></FONT>
+<EM><FONT SIZE=-1> 638 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 639 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__ads.htm#74_13">Symbole</A>(<A HREF="src__es_prolog__adb.htm#637_25">Objet</A>) <b>then</b>
+<EM><FONT SIZE=-1> 640 </FONT></EM>         <b>for</b> <FONT COLOR=red><A NAME="640_14">I</A></FONT> <b>in</b> <A HREF="src__es_prolog__adb.htm#74_4">Terminat</A>'<b>range</b> <b>loop</b>
+<EM><FONT SIZE=-1> 641 </FONT></EM>            <b>if</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#637_25">Objet</A>, <A HREF="src__es_prolog__adb.htm#74_4">Terminat</A>(<A HREF="src__es_prolog__adb.htm#640_14">I</A>)) <b>then</b> <b>return</b> True; <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 642 </FONT></EM>         <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 643 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 644 </FONT></EM>      <b>return</b> False;
+<EM><FONT SIZE=-1> 645 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#637_13">Terminateur</A>;
+<EM><FONT SIZE=-1> 646 </FONT></EM>
+<EM><FONT SIZE=-1> 647 </FONT></EM>
+<EM><FONT SIZE=-1> 648 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#648_13">Delimiteur</A><FONT COLOR=red><A NAME="648_13"></A></FONT>(<FONT COLOR=red><A NAME="648_24">Objet</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b> <FONT COLOR=green><EM>-- Vrai si OBJET est un délimiteur. Ex : ')'  ']'  '|'</EM></FONT>
+<EM><FONT SIZE=-1> 649 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 650 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__ads.htm#74_13">Symbole</A>(<A HREF="src__es_prolog__adb.htm#648_24">Objet</A>) <b>then</b>
+<EM><FONT SIZE=-1> 651 </FONT></EM>         <b>for</b> <FONT COLOR=red><A NAME="651_14">I</A></FONT> <b>in</b> <A HREF="src__es_prolog__adb.htm#69_4">Delimit</A>'<b>range</b> <b>loop</b>
+<EM><FONT SIZE=-1> 652 </FONT></EM>            <b>if</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#648_24">Objet</A>, <A HREF="src__es_prolog__adb.htm#69_4">Delimit</A>(<A HREF="src__es_prolog__adb.htm#651_14">I</A>)) <b>then</b> <b>return</b> True; <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 653 </FONT></EM>         <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 654 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 655 </FONT></EM>      <b>return</b> <A HREF="src__es_prolog__adb.htm#637_13">Terminateur</A>(<A HREF="src__es_prolog__adb.htm#648_24">Objet</A>);
+<EM><FONT SIZE=-1> 656 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#648_13">Delimiteur</A>;
+<EM><FONT SIZE=-1> 657 </FONT></EM>
+<EM><FONT SIZE=-1> 658 </FONT></EM>
+<EM><FONT SIZE=-1> 659 </FONT></EM>   <b>procedure</b> <A HREF="src__es_prolog__adb.htm#659_14">Recherche_Operateur</A><FONT COLOR=red><A NAME="659_14"></A></FONT>(<FONT COLOR=red><A NAME="659_34">Objet</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>is</b> <FONT COLOR=green><EM>-- Recherche les caractéristiques de l'opérateur OBJET.</EM></FONT>
+<EM><FONT SIZE=-1> 660 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 661 </FONT></EM>      <b>for</b> <FONT COLOR=red><A NAME="661_11">I</A></FONT> <b>in</b> <A HREF="src__es_prolog__adb.htm#100_4">Carac_Op</A>'<b>range</b> <b>loop</b>      <FONT COLOR=green><EM>-- Pour chaque type PREFIXE, INFIXE et POSTFIXE</EM></FONT>
+<EM><FONT SIZE=-1> 662 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#100_4">Carac_Op</A>(<A HREF="src__es_prolog__adb.htm#661_11">I</A>).<A HREF="src__es_prolog__adb.htm#91_7">Op</A>   := <A HREF="src__es_prolog__adb.htm#659_34">Objet</A>;     <FONT COLOR=green><EM>-- L'opérateur étudié est OBJET</EM></FONT>
+<EM><FONT SIZE=-1> 663 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#100_4">Carac_Op</A>(<A HREF="src__es_prolog__adb.htm#661_11">I</A>).<A HREF="src__es_prolog__adb.htm#92_7">Type_Op</A> := <A HREF="src__es_prolog__adb.htm#82_28">Libre</A>;  <FONT COLOR=green><EM>-- Pour l'instant, il n'est d'aucun type connu.</EM></FONT>
+<EM><FONT SIZE=-1> 664 </FONT></EM>      <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 665 </FONT></EM>      <b>if</b> <A HREF="src__es_prolog__adb.htm#105_4">Topop</A> /= <A HREF="src__es_prolog__adb.htm#106_4">Table_Op</A>'First <b>then</b>   <FONT COLOR=green><EM>-- Si table non vide</EM></FONT>
+<EM><FONT SIZE=-1> 666 </FONT></EM>         <b>for</b> <FONT COLOR=red><A NAME="666_14">I</A></FONT> <b>in</b> <A HREF="src__es_prolog__adb.htm#106_4">Table_Op</A>'First..<A HREF="src__es_prolog__adb.htm#105_4">Topop</A>-1 <b>loop</b> <FONT COLOR=green><EM>-- Parcourt la table pour voir si OBJET y existe</EM></FONT>
+<EM><FONT SIZE=-1> 667 </FONT></EM>            <b>if</b> <A HREF="src__es_prolog__adb.htm#106_4">Table_Op</A>(<A HREF="src__es_prolog__adb.htm#666_14">I</A>).<A HREF="src__es_prolog__adb.htm#92_7">Type_Op</A> /= <A HREF="src__es_prolog__adb.htm#82_28">Libre</A> <b>and</b> <b>then</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#659_34">Objet</A>, <A HREF="src__es_prolog__adb.htm#106_4">Table_Op</A>(<A HREF="src__es_prolog__adb.htm#666_14">I</A>).<A HREF="src__es_prolog__adb.htm#91_7">Op</A>) <b>then</b>
+<EM><FONT SIZE=-1> 668 </FONT></EM>               <A HREF="src__es_prolog__adb.htm#100_4">Carac_Op</A>(<A HREF="src__es_prolog__adb.htm#106_4">Table_Op</A>(<A HREF="src__es_prolog__adb.htm#666_14">I</A>).<A HREF="src__es_prolog__adb.htm#92_7">Type_Op</A>) := <A HREF="src__es_prolog__adb.htm#106_4">Table_Op</A>(<A HREF="src__es_prolog__adb.htm#666_14">I</A>);
+<EM><FONT SIZE=-1> 669 </FONT></EM>            <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 670 </FONT></EM>         <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 671 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 672 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#659_14">Recherche_Operateur</A>;
+<EM><FONT SIZE=-1> 673 </FONT></EM>
+<EM><FONT SIZE=-1> 674 </FONT></EM>
+<EM><FONT SIZE=-1> 675 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#675_13">Op_Prefixe</A><FONT COLOR=red><A NAME="675_13"></A></FONT>(<FONT COLOR=red><A NAME="675_24">Objet</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b> <FONT COLOR=green><EM>-- Vrai si OBJET est un opérateur préfixé.</EM></FONT>
+<EM><FONT SIZE=-1> 676 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 677 </FONT></EM>      <b>if</b> <b>not</b> <A HREF="src__objets_prolog__ads.htm#74_13">Symbole</A>(<A HREF="src__es_prolog__adb.htm#675_24">Objet</A>) <b>then</b> <b>return</b> False; <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 678 </FONT></EM>      <b>if</b> <b>not</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#675_24">Objet</A>, <A HREF="src__es_prolog__adb.htm#100_4">Carac_Op</A>(<A HREF="src__es_prolog__adb.htm#83_7">Prefixe</A>).<A HREF="src__es_prolog__adb.htm#91_7">Op</A>) <b>then</b>
+<EM><FONT SIZE=-1> 679 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#659_14">Recherche_Operateur</A>(<A HREF="src__es_prolog__adb.htm#675_24">Objet</A>);
+<EM><FONT SIZE=-1> 680 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 681 </FONT></EM>      <b>return</b> <A HREF="src__es_prolog__adb.htm#100_4">Carac_Op</A>(<A HREF="src__es_prolog__adb.htm#83_7">Prefixe</A>).<A HREF="src__es_prolog__adb.htm#92_7">Type_Op</A> /= <A HREF="src__es_prolog__adb.htm#82_28">Libre</A>;
+<EM><FONT SIZE=-1> 682 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#675_13">Op_Prefixe</A>;
+<EM><FONT SIZE=-1> 683 </FONT></EM>
+<EM><FONT SIZE=-1> 684 </FONT></EM>
+<EM><FONT SIZE=-1> 685 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#685_13">Op_Infixe</A><FONT COLOR=red><A NAME="685_13"></A></FONT>(<FONT COLOR=red><A NAME="685_23">Objet</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b> <FONT COLOR=green><EM>-- Vrai si OBJET est un opérateur infixé.</EM></FONT>
+<EM><FONT SIZE=-1> 686 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 687 </FONT></EM>      <b>if</b> <b>not</b> <A HREF="src__objets_prolog__ads.htm#74_13">Symbole</A>(<A HREF="src__es_prolog__adb.htm#685_23">Objet</A>) <b>then</b> <b>return</b> False; <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 688 </FONT></EM>      <b>if</b> <b>not</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#685_23">Objet</A>, <A HREF="src__es_prolog__adb.htm#100_4">Carac_Op</A>(<A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>).<A HREF="src__es_prolog__adb.htm#91_7">Op</A>) <b>then</b>
+<EM><FONT SIZE=-1> 689 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#659_14">Recherche_Operateur</A>(<A HREF="src__es_prolog__adb.htm#685_23">Objet</A>);
+<EM><FONT SIZE=-1> 690 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 691 </FONT></EM>      <b>return</b> <A HREF="src__es_prolog__adb.htm#100_4">Carac_Op</A>(<A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>).<A HREF="src__es_prolog__adb.htm#92_7">Type_Op</A> /= <A HREF="src__es_prolog__adb.htm#82_28">Libre</A>;
+<EM><FONT SIZE=-1> 692 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#685_13">Op_Infixe</A>;
+<EM><FONT SIZE=-1> 693 </FONT></EM>
+<EM><FONT SIZE=-1> 694 </FONT></EM>
+<EM><FONT SIZE=-1> 695 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#695_13">Op_Postfixe</A><FONT COLOR=red><A NAME="695_13"></A></FONT>(<FONT COLOR=red><A NAME="695_25">Objet</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b> <FONT COLOR=green><EM>-- Vrai si OBJET est un opérateur postfixé.</EM></FONT>
+<EM><FONT SIZE=-1> 696 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 697 </FONT></EM>      <b>if</b> <b>not</b> <A HREF="src__objets_prolog__ads.htm#74_13">Symbole</A>(<A HREF="src__es_prolog__adb.htm#695_25">Objet</A>) <b>then</b> <b>return</b> False; <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 698 </FONT></EM>      <b>if</b> <b>not</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#695_25">Objet</A>, <A HREF="src__es_prolog__adb.htm#100_4">Carac_Op</A>(<A HREF="src__es_prolog__adb.htm#85_7">Postfixe</A>).<A HREF="src__es_prolog__adb.htm#91_7">Op</A>) <b>then</b>
+<EM><FONT SIZE=-1> 699 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#659_14">Recherche_Operateur</A>(<A HREF="src__es_prolog__adb.htm#695_25">Objet</A>);
+<EM><FONT SIZE=-1> 700 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 701 </FONT></EM>      <b>return</b> <A HREF="src__es_prolog__adb.htm#100_4">Carac_Op</A>(<A HREF="src__es_prolog__adb.htm#85_7">Postfixe</A>).<A HREF="src__es_prolog__adb.htm#92_7">Type_Op</A> /= <A HREF="src__es_prolog__adb.htm#82_28">Libre</A>;
+<EM><FONT SIZE=-1> 702 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#695_13">Op_Postfixe</A>;
+<EM><FONT SIZE=-1> 703 </FONT></EM>
+<EM><FONT SIZE=-1> 704 </FONT></EM>
+<EM><FONT SIZE=-1> 705 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#705_13">Renvoie_Coef_Gauche</A><FONT COLOR=red><A NAME="705_13"></A></FONT>(<FONT COLOR=red><A NAME="705_33">Objet</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>; <FONT COLOR=red><A NAME="705_46">Type_Op</A></FONT> : <A HREF="src__es_prolog__adb.htm#82_9">Type_Operateur</A>) <b>return</b> <A HREF="src__es_prolog__adb.htm#79_12">Priorite</A> <b>is</b> <FONT COLOR=green><EM>-- Coef gauche de l'opérateur OBJET.</EM></FONT>
+<EM><FONT SIZE=-1> 706 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 707 </FONT></EM>      <b>if</b> <b>not</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#705_33">Objet</A>, <A HREF="src__es_prolog__adb.htm#100_4">Carac_Op</A>(<A HREF="src__es_prolog__adb.htm#705_46">Type_Op</A>).<A HREF="src__es_prolog__adb.htm#91_7">Op</A>) <b>then</b>
+<EM><FONT SIZE=-1> 708 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#659_14">Recherche_Operateur</A>(<A HREF="src__es_prolog__adb.htm#705_33">Objet</A>);
+<EM><FONT SIZE=-1> 709 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 710 </FONT></EM>      <b>if</b> <A HREF="src__es_prolog__adb.htm#100_4">Carac_Op</A>(<A HREF="src__es_prolog__adb.htm#705_46">Type_Op</A>).<A HREF="src__es_prolog__adb.htm#92_7">Type_Op</A> /= <A HREF="src__es_prolog__adb.htm#82_28">Libre</A> <b>then</b>
+<EM><FONT SIZE=-1> 711 </FONT></EM>         <b>return</b> <A HREF="src__es_prolog__adb.htm#100_4">Carac_Op</A>(<A HREF="src__es_prolog__adb.htm#705_46">Type_Op</A>).<A HREF="src__es_prolog__adb.htm#93_7">Prio_G</A>;
+<EM><FONT SIZE=-1> 712 </FONT></EM>      <b>else</b>
+<EM><FONT SIZE=-1> 713 </FONT></EM>         <b>return</b> 0;
+<EM><FONT SIZE=-1> 714 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 715 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#705_13">Renvoie_Coef_Gauche</A>;
+<EM><FONT SIZE=-1> 716 </FONT></EM>
+<EM><FONT SIZE=-1> 717 </FONT></EM>
+<EM><FONT SIZE=-1> 718 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#718_13">Renvoie_Coef_Droit</A><FONT COLOR=red><A NAME="718_13"></A></FONT>(<FONT COLOR=red><A NAME="718_32">Objet</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>; <FONT COLOR=red><A NAME="718_45">Type_Op</A></FONT> : <A HREF="src__es_prolog__adb.htm#82_9">Type_Operateur</A>) <b>return</b> <A HREF="src__es_prolog__adb.htm#79_12">Priorite</A> <b>is</b> <FONT COLOR=green><EM>-- Coef droit de l'opérateur OBJET.</EM></FONT>
+<EM><FONT SIZE=-1> 719 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 720 </FONT></EM>      <b>if</b> <b>not</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#718_32">Objet</A>, <A HREF="src__es_prolog__adb.htm#100_4">Carac_Op</A>(<A HREF="src__es_prolog__adb.htm#718_45">Type_Op</A>).<A HREF="src__es_prolog__adb.htm#91_7">Op</A>) <b>then</b>
+<EM><FONT SIZE=-1> 721 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#659_14">Recherche_Operateur</A>(<A HREF="src__es_prolog__adb.htm#718_32">Objet</A>);
+<EM><FONT SIZE=-1> 722 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 723 </FONT></EM>      <b>if</b> <A HREF="src__es_prolog__adb.htm#100_4">Carac_Op</A>(<A HREF="src__es_prolog__adb.htm#718_45">Type_Op</A>).<A HREF="src__es_prolog__adb.htm#92_7">Type_Op</A> /= <A HREF="src__es_prolog__adb.htm#82_28">Libre</A> <b>then</b>
+<EM><FONT SIZE=-1> 724 </FONT></EM>         <b>return</b> <A HREF="src__es_prolog__adb.htm#100_4">Carac_Op</A>(<A HREF="src__es_prolog__adb.htm#718_45">Type_Op</A>).<A HREF="src__es_prolog__adb.htm#93_15">Prio_D</A>;
+<EM><FONT SIZE=-1> 725 </FONT></EM>      <b>else</b>
+<EM><FONT SIZE=-1> 726 </FONT></EM>         <b>return</b> 0;
+<EM><FONT SIZE=-1> 727 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 728 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#718_13">Renvoie_Coef_Droit</A>;
+<EM><FONT SIZE=-1> 729 </FONT></EM>
+<EM><FONT SIZE=-1> 730 </FONT></EM>
+<EM><FONT SIZE=-1> 731 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#731_13">Multarg</A><FONT COLOR=red><A NAME="731_13"></A></FONT>(<FONT COLOR=red><A NAME="731_21">Objet</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b> <FONT COLOR=green><EM>-- Renvoie vrai si l'opérateur accepte un nbre quelconque d'arguments.</EM></FONT>
+<EM><FONT SIZE=-1> 732 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 733 </FONT></EM>      <b>if</b> <b>not</b> <A HREF="src__objets_prolog__ads.htm#74_13">Symbole</A>(<A HREF="src__es_prolog__adb.htm#731_21">Objet</A>) <b>then</b> <b>return</b> False; <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 734 </FONT></EM>      <b>if</b> <b>not</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#731_21">Objet</A>, <A HREF="src__es_prolog__adb.htm#100_4">Carac_Op</A>(<A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>).<A HREF="src__es_prolog__adb.htm#91_7">Op</A>) <b>then</b> <FONT COLOR=green><EM>-- Seuls les opérateurs infixés peuvent avoir cette propriété.</EM></FONT>
+<EM><FONT SIZE=-1> 735 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#659_14">Recherche_Operateur</A>(<A HREF="src__es_prolog__adb.htm#731_21">Objet</A>);
+<EM><FONT SIZE=-1> 736 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 737 </FONT></EM>      <b>if</b> <A HREF="src__es_prolog__adb.htm#100_4">Carac_Op</A>(<A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>).<A HREF="src__es_prolog__adb.htm#92_7">Type_Op</A> /= <A HREF="src__es_prolog__adb.htm#82_28">Libre</A> <b>then</b>
+<EM><FONT SIZE=-1> 738 </FONT></EM>         <b>return</b> <A HREF="src__es_prolog__adb.htm#100_4">Carac_Op</A>(<A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>).<A HREF="src__es_prolog__adb.htm#94_7">Multiple</A>;
+<EM><FONT SIZE=-1> 739 </FONT></EM>      <b>else</b>
+<EM><FONT SIZE=-1> 740 </FONT></EM>         <b>return</b> False;
+<EM><FONT SIZE=-1> 741 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 742 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#731_13">Multarg</A>;
+<EM><FONT SIZE=-1> 743 </FONT></EM>
+<EM><FONT SIZE=-1> 744 </FONT></EM>
+<EM><FONT SIZE=-1> 745 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#745_13">Associe</A><FONT COLOR=red><A NAME="745_13"></A></FONT>(<FONT COLOR=red><A NAME="745_21">Objet</A></FONT>, <FONT COLOR=red><A NAME="745_28">Delim</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b> <FONT COLOR=green><EM>-- Renvoie le vecteur des expressions rencontrées jusqu'à DELIM.</EM></FONT>
+<EM><FONT SIZE=-1> 746 </FONT></EM>      <FONT COLOR=red><A NAME="746_7">Obj</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>;
+<EM><FONT SIZE=-1> 747 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 748 </FONT></EM>      <A HREF="src__es_prolog__ads.htm#50_4">Token</A> := <A HREF="src__es_prolog__adb.htm#745_21">Objet</A>;
+<EM><FONT SIZE=-1> 749 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__ads.htm#50_4">Token</A>, <A HREF="src__es_prolog__adb.htm#745_28">Delim</A>) <b>then</b>                     <FONT COLOR=green><EM>-- Si on a trouvé le délimiteur.</EM></FONT>
+<EM><FONT SIZE=-1> 750 </FONT></EM>         <A HREF="src__es_prolog__ads.htm#50_4">Token</A> := <A HREF="src__es_prolog__ads.htm#52_13">Lit_Token</A>;                                <FONT COLOR=green><EM>-- Saute le délimiteur.</EM></FONT>
+<EM><FONT SIZE=-1> 751 </FONT></EM>         <b>return</b> <A HREF="src__es_prolog__adb.htm#21_4">Vecteur_Vide</A>;                               <FONT COLOR=green><EM>-- Pas d'expression rencontrée avant le délimiteur.</EM></FONT>
+<EM><FONT SIZE=-1> 752 </FONT></EM>      <b>elsif</b> <A HREF="src__es_prolog__adb.htm#648_13">Delimiteur</A>(<A HREF="src__es_prolog__ads.htm#50_4">Token</A>) <b>then</b>                          <FONT COLOR=green><EM>-- On a trouvé un délimiteur, mais ce n'est pas le bon.</EM></FONT>
+<EM><FONT SIZE=-1> 753 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#330_14">Syntaxe</A>(<A HREF="src__es_prolog__adb.htm#745_28">Delim</A>, <A HREF="src__es_prolog__adb.htm#180_4">Not_Found</A>);
+<EM><FONT SIZE=-1> 754 </FONT></EM>         <b>return</b> <A HREF="src__es_prolog__adb.htm#21_4">Vecteur_Vide</A>; <FONT COLOR=green><EM>-- Pour éviter warning</EM></FONT>
+<EM><FONT SIZE=-1> 755 </FONT></EM>      <b>else</b>
+<EM><FONT SIZE=-1> 756 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#746_7">Obj</A> := <A HREF="src__es_prolog__adb.htm#634_13">Analyse</A>(<A HREF="src__es_prolog__ads.htm#50_4">Token</A>, 0);
+<EM><FONT SIZE=-1> 757 </FONT></EM>         <b>if</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__ads.htm#50_4">Token</A>, <A HREF="src__es_prolog__adb.htm#745_28">Delim</A>) <b>then</b>                  <FONT COLOR=green><EM>-- Si on a trouvé le délimiteur.</EM></FONT>
+<EM><FONT SIZE=-1> 758 </FONT></EM>            <A HREF="src__es_prolog__ads.htm#50_4">Token</A> := <A HREF="src__es_prolog__ads.htm#52_13">Lit_Token</A>;                             <FONT COLOR=green><EM>-- Saute le délimiteur.</EM></FONT>
+<EM><FONT SIZE=-1> 759 </FONT></EM>            <b>if</b> <A HREF="src__objets_prolog__ads.htm#76_13">Doublet_V</A>(<A HREF="src__es_prolog__adb.htm#746_7">Obj</A>) <b>then</b>
+<EM><FONT SIZE=-1> 760 </FONT></EM>               <b>return</b> <A HREF="src__es_prolog__adb.htm#746_7">Obj</A>;                                  <FONT COLOR=green><EM>-- Si vecteur alors renvoie tel quel.</EM></FONT>
+<EM><FONT SIZE=-1> 761 </FONT></EM>            <b>else</b>
+<EM><FONT SIZE=-1> 762 </FONT></EM>               <b>return</b> <A HREF="src__objets_prolog__ads.htm#117_13">Cree_Vecteur</A>(<A HREF="src__es_prolog__adb.htm#746_7">Obj</A>);                    <FONT COLOR=green><EM>-- Sinon renvoie &lt;expression&gt;.</EM></FONT>
+<EM><FONT SIZE=-1> 763 </FONT></EM>            <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 764 </FONT></EM>         <b>else</b>
+<EM><FONT SIZE=-1> 765 </FONT></EM>            <A HREF="src__es_prolog__adb.htm#330_14">Syntaxe</A>(<A HREF="src__es_prolog__adb.htm#745_28">Delim</A>, <A HREF="src__es_prolog__adb.htm#178_4">Or_Operator_Not_Found</A>);          <FONT COLOR=green><EM>-- On n'a pas trouvé le délimiteur.</EM></FONT>
+<EM><FONT SIZE=-1> 766 </FONT></EM>            <b>return</b> <A HREF="src__es_prolog__adb.htm#21_4">Vecteur_Vide</A>; <FONT COLOR=green><EM>-- Pour éviter warning</EM></FONT>
+<EM><FONT SIZE=-1> 767 </FONT></EM>         <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 768 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 769 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#745_13">Associe</A>;
+<EM><FONT SIZE=-1> 770 </FONT></EM>
+<EM><FONT SIZE=-1> 771 </FONT></EM>
+<EM><FONT SIZE=-1> 772 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#772_13">Analyse_Liste</A><FONT COLOR=red><A NAME="772_13"></A></FONT> <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>                     <FONT COLOR=green><EM>-- On vient de lire le token '['.</EM></FONT>
+<EM><FONT SIZE=-1> 773 </FONT></EM>      <FONT COLOR=red><A NAME="773_7">Objet1</A></FONT>, <FONT COLOR=red><A NAME="773_15">Objet2</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>;
+<EM><FONT SIZE=-1> 774 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 775 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__ads.htm#52_13">Lit_Token</A>, <A HREF="src__es_prolog__adb.htm#53_4">S_Crochet_Droit</A>) <b>then</b>       <FONT COLOR=green><EM>-- Si déjà ']' alors...</EM></FONT>
+<EM><FONT SIZE=-1> 776 </FONT></EM>         <A HREF="src__es_prolog__ads.htm#50_4">Token</A> := <A HREF="src__es_prolog__ads.htm#52_13">Lit_Token</A>;                                <FONT COLOR=green><EM>-- ...saute le ']' et...</EM></FONT>
+<EM><FONT SIZE=-1> 777 </FONT></EM>         <b>return</b> <A HREF="src__es_prolog__adb.htm#20_4">Liste_Vide</A>;                                 <FONT COLOR=green><EM>-- ...renvoie [].</EM></FONT>
+<EM><FONT SIZE=-1> 778 </FONT></EM>      <b>else</b>
+<EM><FONT SIZE=-1> 779 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#773_7">Objet1</A> := <A HREF="src__es_prolog__adb.htm#634_13">Analyse</A>(<A HREF="src__es_prolog__ads.htm#50_4">Token</A>, 0);
+<EM><FONT SIZE=-1> 780 </FONT></EM>         <b>if</b> <A HREF="src__objets_prolog__ads.htm#76_13">Doublet_V</A>(<A HREF="src__es_prolog__adb.htm#773_7">Objet1</A>) <b>then</b>
+<EM><FONT SIZE=-1> 781 </FONT></EM>            <A HREF="src__es_prolog__adb.htm#773_7">Objet1</A> := <A HREF="src__objets_prolog__ads.htm#120_13">Vecteur_Liste</A>(<A HREF="src__es_prolog__adb.htm#773_7">Objet1</A>);                <FONT COLOR=green><EM>-- Convertit physiquement le vecteur en liste.</EM></FONT>
+<EM><FONT SIZE=-1> 782 </FONT></EM>         <b>else</b>
+<EM><FONT SIZE=-1> 783 </FONT></EM>            <A HREF="src__es_prolog__adb.htm#773_7">Objet1</A> := <A HREF="src__objets_prolog__ads.htm#114_13">Cree_Liste</A>(<A HREF="src__es_prolog__adb.htm#773_7">Objet1</A>);
+<EM><FONT SIZE=-1> 784 </FONT></EM>         <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 785 </FONT></EM>         <b>if</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__ads.htm#50_4">Token</A>, <A HREF="src__es_prolog__adb.htm#54_4">S_Barre_V</A>) <b>then</b>              <FONT COLOR=green><EM>-- Si '|' rencontré alors...</EM></FONT>
+<EM><FONT SIZE=-1> 786 </FONT></EM>            <A HREF="src__es_prolog__adb.htm#773_15">Objet2</A> := <A HREF="src__es_prolog__adb.htm#634_13">Analyse</A>(<A HREF="src__es_prolog__ads.htm#52_13">Lit_Token</A>,                    <FONT COLOR=green><EM>-- ...lit l'expression suivante</EM></FONT>
+<EM><FONT SIZE=-1> 787 </FONT></EM>               <A HREF="src__es_prolog__adb.htm#718_13">Renvoie_Coef_Droit</A>(<A HREF="src__es_prolog__adb.htm#54_4">S_Barre_V</A>, <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>));
+<EM><FONT SIZE=-1> 788 </FONT></EM>         <b>else</b>
+<EM><FONT SIZE=-1> 789 </FONT></EM>            <A HREF="src__es_prolog__adb.htm#773_15">Objet2</A> := <A HREF="src__es_prolog__adb.htm#20_4">Liste_Vide</A>;                           <FONT COLOR=green><EM>-- sinon assume la queue de la liste à [].</EM></FONT>
+<EM><FONT SIZE=-1> 790 </FONT></EM>         <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 791 </FONT></EM>         <b>if</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__ads.htm#50_4">Token</A>, <A HREF="src__es_prolog__adb.htm#53_4">S_Crochet_Droit</A>) <b>then</b>        <FONT COLOR=green><EM>-- Si on a rencontré ']' alors c'est correct.</EM></FONT>
+<EM><FONT SIZE=-1> 792 </FONT></EM>            <A HREF="src__es_prolog__ads.htm#50_4">Token</A> := <A HREF="src__es_prolog__ads.htm#52_13">Lit_Token</A>;                             <FONT COLOR=green><EM>-- Saute le ']'.</EM></FONT>
+<EM><FONT SIZE=-1> 793 </FONT></EM>            <b>return</b> <A HREF="src__objets_prolog__ads.htm#113_13">Concatene</A>(<A HREF="src__es_prolog__adb.htm#773_7">Objet1</A>, <A HREF="src__es_prolog__adb.htm#773_15">Objet2</A>);               <FONT COLOR=green><EM>-- Rattache la queue de la liste.</EM></FONT>
+<EM><FONT SIZE=-1> 794 </FONT></EM>         <b>else</b>
+<EM><FONT SIZE=-1> 795 </FONT></EM>            <A HREF="src__es_prolog__adb.htm#330_14">Syntaxe</A>(<A HREF="src__es_prolog__adb.htm#53_4">S_Crochet_Droit</A>, <A HREF="src__es_prolog__adb.htm#180_4">Not_Found</A>);
+<EM><FONT SIZE=-1> 796 </FONT></EM>            <b>return</b> <A HREF="src__es_prolog__adb.htm#20_4">Liste_Vide</A>; <FONT COLOR=green><EM>-- Pour éviter warning</EM></FONT>
+<EM><FONT SIZE=-1> 797 </FONT></EM>         <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 798 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 799 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#772_13">Analyse_Liste</A>;
+<EM><FONT SIZE=-1> 800 </FONT></EM>
+<EM><FONT SIZE=-1> 801 </FONT></EM>
+<EM><FONT SIZE=-1> 802 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#802_13">Op_Prefixe_Special</A><FONT COLOR=red><A NAME="802_13"></A></FONT>(<FONT COLOR=red><A NAME="802_32">Objet</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b><FONT COLOR=green><EM>-- Renvoie VRAI si OBJET est un opérateur préfixé spécial.</EM></FONT>
+<EM><FONT SIZE=-1> 803 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 804 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#802_32">Objet</A>, <A HREF="src__es_prolog__adb.htm#25_4">S_Moins</A>) <b>or</b> <b>else</b>             <FONT COLOR=green><EM>--  -expr</EM></FONT>
+<EM><FONT SIZE=-1> 805 </FONT></EM>         <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#802_32">Objet</A>, <A HREF="src__es_prolog__adb.htm#26_4">S_Plus</A>)  <b>or</b> <b>else</b>                 <FONT COLOR=green><EM>--  +expr</EM></FONT>
+<EM><FONT SIZE=-1> 806 </FONT></EM>         <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#802_32">Objet</A>, <A HREF="src__es_prolog__adb.htm#32_4">S_Par_Gauche</A>) <b>or</b> <b>else</b>            <FONT COLOR=green><EM>--  (expr</EM></FONT>
+<EM><FONT SIZE=-1> 807 </FONT></EM>         <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#802_32">Objet</A>, <A HREF="src__es_prolog__adb.htm#52_4">S_Crochet_Gauche</A>);               <FONT COLOR=green><EM>--  [expr</EM></FONT>
+<EM><FONT SIZE=-1> 808 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#802_13">Op_Prefixe_Special</A>;
+<EM><FONT SIZE=-1> 809 </FONT></EM>
+<EM><FONT SIZE=-1> 810 </FONT></EM>
+<EM><FONT SIZE=-1> 811 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#811_13">Analyse_Prefixe_Special</A><FONT COLOR=red><A NAME="811_13"></A></FONT>(<FONT COLOR=red><A NAME="811_37">Op</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>; <FONT COLOR=red><A NAME="811_47">Coef_Droit</A></FONT> : <A HREF="src__es_prolog__adb.htm#79_12">Priorite</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>   <FONT COLOR=green><EM>-- Renvoie résultat du traitement spécial.</EM></FONT>
+<EM><FONT SIZE=-1> 812 </FONT></EM>      <FONT COLOR=green><EM>-- Précise les traitements particuliers lorsque les coefs de priorité ne suffisent pas pour coder l'expression.</EM></FONT>
+<EM><FONT SIZE=-1> 813 </FONT></EM>      <FONT COLOR=red><A NAME="813_7">Objet</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>;
+<EM><FONT SIZE=-1> 814 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 815 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#811_37">Op</A>, <A HREF="src__es_prolog__adb.htm#25_4">S_Moins</A>) <b>then</b>                      <FONT COLOR=green><EM>-- Le 'moins' unaire.</EM></FONT>
+<EM><FONT SIZE=-1> 816 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#813_7">Objet</A> := <A HREF="src__es_prolog__adb.htm#634_13">Analyse</A>(<A HREF="src__es_prolog__ads.htm#52_13">Lit_Token</A>, <A HREF="src__es_prolog__adb.htm#80_4">Priorite_Prefixe_Unaire</A>);
+<EM><FONT SIZE=-1> 817 </FONT></EM>         <b>if</b> <A HREF="src__objets_prolog__ads.htm#73_13">Entier</A>(<A HREF="src__es_prolog__adb.htm#813_7">Objet</A>) <b>then</b>
+<EM><FONT SIZE=-1> 818 </FONT></EM>            <b>return</b> <A HREF="src__objets_prolog__ads.htm#109_13">Cree_Entier</A>(- <A HREF="src__objets_prolog__ads.htm#93_13">Entier_Val</A>(<A HREF="src__es_prolog__adb.htm#813_7">Objet</A>));
+<EM><FONT SIZE=-1> 819 </FONT></EM>         <b>elsif</b> <A HREF="src__objets_prolog__ads.htm#76_13">Doublet_V</A>(<A HREF="src__es_prolog__adb.htm#813_7">Objet</A>) <b>or</b> <b>else</b>
+<EM><FONT SIZE=-1> 820 </FONT></EM>               <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#813_7">Objet</A>, <A HREF="src__es_prolog__adb.htm#21_4">Vecteur_Vide</A>) <b>then</b>        <FONT COLOR=green><EM>-- Si '-' utilisé comme functor. Ex : -(a,b).</EM></FONT>
+<EM><FONT SIZE=-1> 821 </FONT></EM>            <b>return</b> <A HREF="src__objets_prolog__ads.htm#111_13">Cree_Doublet_F</A>(<A HREF="src__es_prolog__adb.htm#25_4">S_Moins</A>, <A HREF="src__es_prolog__adb.htm#813_7">Objet</A>);
+<EM><FONT SIZE=-1> 822 </FONT></EM>         <b>else</b>                                               <FONT COLOR=green><EM>-- C'est vraiment le '-' unaire.</EM></FONT>
+<EM><FONT SIZE=-1> 823 </FONT></EM>            <b>return</b> <A HREF="src__objets_prolog__ads.htm#111_13">Cree_Doublet_F</A>(<A HREF="src__es_prolog__adb.htm#25_4">S_Moins</A>, <A HREF="src__objets_prolog__ads.htm#117_13">Cree_Vecteur</A>(<A HREF="src__es_prolog__adb.htm#813_7">Objet</A>));
+<EM><FONT SIZE=-1> 824 </FONT></EM>         <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 825 </FONT></EM>      <b>elsif</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#811_37">Op</A>, <A HREF="src__es_prolog__adb.htm#26_4">S_Plus</A>) <b>then</b>                    <FONT COLOR=green><EM>-- Le 'plus' unaire.</EM></FONT>
+<EM><FONT SIZE=-1> 826 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#813_7">Objet</A> := <A HREF="src__es_prolog__adb.htm#634_13">Analyse</A>(<A HREF="src__es_prolog__ads.htm#52_13">Lit_Token</A>, <A HREF="src__es_prolog__adb.htm#80_4">Priorite_Prefixe_Unaire</A>);
+<EM><FONT SIZE=-1> 827 </FONT></EM>         <b>if</b> <A HREF="src__objets_prolog__ads.htm#73_13">Entier</A>(<A HREF="src__es_prolog__adb.htm#813_7">Objet</A>) <b>then</b>
+<EM><FONT SIZE=-1> 828 </FONT></EM>            <b>return</b> <A HREF="src__es_prolog__adb.htm#813_7">Objet</A>;
+<EM><FONT SIZE=-1> 829 </FONT></EM>         <b>elsif</b> <A HREF="src__objets_prolog__ads.htm#76_13">Doublet_V</A>(<A HREF="src__es_prolog__adb.htm#813_7">Objet</A>) <b>or</b> <b>else</b>
+<EM><FONT SIZE=-1> 830 </FONT></EM>               <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#813_7">Objet</A>, <A HREF="src__es_prolog__adb.htm#21_4">Vecteur_Vide</A>) <b>then</b>        <FONT COLOR=green><EM>-- Si '+' utilisé comme functor. Ex : +(a,b).</EM></FONT>
+<EM><FONT SIZE=-1> 831 </FONT></EM>            <b>return</b> <A HREF="src__objets_prolog__ads.htm#111_13">Cree_Doublet_F</A>(<A HREF="src__es_prolog__adb.htm#26_4">S_Plus</A>, <A HREF="src__es_prolog__adb.htm#813_7">Objet</A>);
+<EM><FONT SIZE=-1> 832 </FONT></EM>         <b>else</b>                                               <FONT COLOR=green><EM>-- C'est vraiment le '+' unaire.</EM></FONT>
+<EM><FONT SIZE=-1> 833 </FONT></EM>            <b>return</b> <A HREF="src__objets_prolog__ads.htm#111_13">Cree_Doublet_F</A>(<A HREF="src__es_prolog__adb.htm#26_4">S_Plus</A>, <A HREF="src__objets_prolog__ads.htm#117_13">Cree_Vecteur</A>(<A HREF="src__es_prolog__adb.htm#813_7">Objet</A>));
+<EM><FONT SIZE=-1> 834 </FONT></EM>         <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 835 </FONT></EM>      <b>elsif</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#811_37">Op</A>, <A HREF="src__es_prolog__adb.htm#32_4">S_Par_Gauche</A>) <b>then</b>              <FONT COLOR=green><EM>-- La parenthese en utilisation préfixée.</EM></FONT>
+<EM><FONT SIZE=-1> 836 </FONT></EM>         <b>if</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__ads.htm#52_13">Lit_Token</A>, <A HREF="src__es_prolog__adb.htm#33_4">S_Par_Droite</A>) <b>then</b>
+<EM><FONT SIZE=-1> 837 </FONT></EM>            <A HREF="src__es_prolog__ads.htm#50_4">Token</A> := <A HREF="src__es_prolog__ads.htm#52_13">Lit_Token</A>;                             <FONT COLOR=green><EM>-- Saute la ')'.</EM></FONT>
+<EM><FONT SIZE=-1> 838 </FONT></EM>            <b>return</b> <A HREF="src__es_prolog__adb.htm#21_4">Vecteur_Vide</A>;
+<EM><FONT SIZE=-1> 839 </FONT></EM>         <b>else</b>
+<EM><FONT SIZE=-1> 840 </FONT></EM>            <A HREF="src__es_prolog__adb.htm#813_7">Objet</A> := <A HREF="src__es_prolog__adb.htm#634_13">Analyse</A>(<A HREF="src__es_prolog__ads.htm#50_4">Token</A>, 0);
+<EM><FONT SIZE=-1> 841 </FONT></EM>            <b>if</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__ads.htm#50_4">Token</A>, <A HREF="src__es_prolog__adb.htm#33_4">S_Par_Droite</A>) <b>then</b>
+<EM><FONT SIZE=-1> 842 </FONT></EM>               <A HREF="src__es_prolog__ads.htm#50_4">Token</A> := <A HREF="src__es_prolog__ads.htm#52_13">Lit_Token</A>;                          <FONT COLOR=green><EM>-- Saute la ')'.</EM></FONT>
+<EM><FONT SIZE=-1> 843 </FONT></EM>               <b>if</b> <A HREF="src__objets_prolog__ads.htm#76_13">Doublet_V</A>(<A HREF="src__es_prolog__adb.htm#813_7">Objet</A>) <b>then</b>
+<EM><FONT SIZE=-1> 844 </FONT></EM>                  <b>return</b> <A HREF="src__es_prolog__adb.htm#813_7">Objet</A>;
+<EM><FONT SIZE=-1> 845 </FONT></EM>               <b>else</b>
+<EM><FONT SIZE=-1> 846 </FONT></EM>                  <b>return</b> <A HREF="src__objets_prolog__ads.htm#117_13">Cree_Vecteur</A>(<A HREF="src__es_prolog__adb.htm#813_7">Objet</A>);
+<EM><FONT SIZE=-1> 847 </FONT></EM>               <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 848 </FONT></EM>            <b>else</b>
+<EM><FONT SIZE=-1> 849 </FONT></EM>               <A HREF="src__es_prolog__adb.htm#330_14">Syntaxe</A>(<A HREF="src__es_prolog__adb.htm#33_4">S_Par_Droite</A>, <A HREF="src__es_prolog__adb.htm#180_4">Not_Found</A>);
+<EM><FONT SIZE=-1> 850 </FONT></EM>            <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 851 </FONT></EM>         <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 852 </FONT></EM>      <b>elsif</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#811_37">Op</A>, <A HREF="src__es_prolog__adb.htm#52_4">S_Crochet_Gauche</A>) <b>then</b>          <FONT COLOR=green><EM>-- Le '[' de début de liste.</EM></FONT>
+<EM><FONT SIZE=-1> 853 </FONT></EM>         <b>return</b> <A HREF="src__es_prolog__adb.htm#772_13">Analyse_Liste</A>;
+<EM><FONT SIZE=-1> 854 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 855 </FONT></EM>      <b>return</b> <A HREF="src__es_prolog__adb.htm#21_4">Vecteur_Vide</A>; <FONT COLOR=green><EM>-- To avoid warning</EM></FONT>
+<EM><FONT SIZE=-1> 856 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#811_13">Analyse_Prefixe_Special</A>;
+<EM><FONT SIZE=-1> 857 </FONT></EM>
+<EM><FONT SIZE=-1> 858 </FONT></EM>
+<EM><FONT SIZE=-1> 859 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#859_13">Op_Infixe_Special</A><FONT COLOR=red><A NAME="859_13"></A></FONT>(<FONT COLOR=red><A NAME="859_31">Objet</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b> <FONT COLOR=green><EM>-- Renvoie vrai si OBJET est un opérateur infixé spécial.</EM></FONT>
+<EM><FONT SIZE=-1> 860 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 861 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#859_31">Objet</A>, <A HREF="src__es_prolog__adb.htm#32_4">S_Par_Gauche</A>) <b>or</b> <b>else</b>       <FONT COLOR=green><EM>-- E1 ( E2</EM></FONT>
+<EM><FONT SIZE=-1> 862 </FONT></EM>         <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#859_31">Objet</A>, <A HREF="src__es_prolog__adb.htm#38_4">S_Virgule</A>);                     <FONT COLOR=green><EM>-- E1 , E2</EM></FONT>
+<EM><FONT SIZE=-1> 863 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#859_13">Op_Infixe_Special</A>;
+<EM><FONT SIZE=-1> 864 </FONT></EM>
+<EM><FONT SIZE=-1> 865 </FONT></EM>
+<EM><FONT SIZE=-1> 866 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#866_13">Analyse_Infixe_Special</A><FONT COLOR=red><A NAME="866_13"></A></FONT>(<FONT COLOR=red><A NAME="866_36">Expr_Gauche</A></FONT>, <FONT COLOR=red><A NAME="866_49">Op</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b> <FONT COLOR=green><EM>--Renvoie expression résultant du traitement spécial.</EM></FONT>
+<EM><FONT SIZE=-1> 867 </FONT></EM>      <FONT COLOR=green><EM>-- Précise les traitements particuliers lorsque les coefs de priorité ne suffisent pas pour coder l'expression.</EM></FONT>
+<EM><FONT SIZE=-1> 868 </FONT></EM>      <FONT COLOR=red><A NAME="868_7">Objet</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>;
+<EM><FONT SIZE=-1> 869 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 870 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#866_49">Op</A>, <A HREF="src__es_prolog__adb.htm#32_4">S_Par_Gauche</A>) <b>then</b>                             <FONT COLOR=green><EM>-- Transforme f(a,b...) en (f a b ...)</EM></FONT>
+<EM><FONT SIZE=-1> 871 </FONT></EM>         <b>if</b> <A HREF="src__objets_prolog__ads.htm#74_13">Symbole</A>(<A HREF="src__es_prolog__adb.htm#866_36">Expr_Gauche</A>) <b>or</b> <b>else</b> <A HREF="src__objets_prolog__ads.htm#80_13">Variable</A>(<A HREF="src__es_prolog__adb.htm#866_36">Expr_Gauche</A>) <b>then</b>     <FONT COLOR=green><EM>-- Autorise f(...), 9(...) et X(...)</EM></FONT>
+<EM><FONT SIZE=-1> 872 </FONT></EM>            <b>return</b> <A HREF="src__objets_prolog__ads.htm#111_13">Cree_Doublet_F</A>(<A HREF="src__es_prolog__adb.htm#866_36">Expr_Gauche</A>, <A HREF="src__es_prolog__adb.htm#745_13">Associe</A>(<A HREF="src__es_prolog__ads.htm#52_13">Lit_Token</A>, <A HREF="src__es_prolog__adb.htm#33_4">S_Par_Droite</A>));
+<EM><FONT SIZE=-1> 873 </FONT></EM>         <b>else</b>
+<EM><FONT SIZE=-1> 874 </FONT></EM>            <A HREF="src__es_prolog__adb.htm#320_14">Syntaxe</A>(<A HREF="src__es_prolog__adb.htm#177_4">Operator_Not_Found</A>);
+<EM><FONT SIZE=-1> 875 </FONT></EM>            <b>return</b> <A HREF="src__es_prolog__adb.htm#21_4">Vecteur_Vide</A>; <FONT COLOR=green><EM>-- Pour éviter warning</EM></FONT>
+<EM><FONT SIZE=-1> 876 </FONT></EM>         <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 877 </FONT></EM>      <b>elsif</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#866_49">Op</A>, <A HREF="src__es_prolog__adb.htm#38_4">S_Virgule</A>) <b>then</b>                 <FONT COLOR=green><EM>-- La virgule est l'opérateur de création de vecteur.</EM></FONT>
+<EM><FONT SIZE=-1> 878 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#868_7">Objet</A> := <A HREF="src__es_prolog__adb.htm#634_13">Analyse</A>(<A HREF="src__es_prolog__ads.htm#52_13">Lit_Token</A>, <A HREF="src__es_prolog__adb.htm#718_13">Renvoie_Coef_Droit</A>(<A HREF="src__es_prolog__adb.htm#38_4">S_Virgule</A>, <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>));
+<EM><FONT SIZE=-1> 879 </FONT></EM>         <b>if</b> <A HREF="src__objets_prolog__ads.htm#76_13">Doublet_V</A>(<A HREF="src__es_prolog__adb.htm#868_7">Objet</A>) <b>and</b> <b>not</b> <A HREF="src__es_prolog__adb.htm#64_4">Sortie_Analyse_Passe1</A> <b>then</b>
+<EM><FONT SIZE=-1> 880 </FONT></EM>            <b>return</b> <A HREF="src__objets_prolog__ads.htm#110_13">Cree_Doublet_V</A>(<A HREF="src__es_prolog__adb.htm#866_36">Expr_Gauche</A>, <A HREF="src__es_prolog__adb.htm#868_7">Objet</A>);
+<EM><FONT SIZE=-1> 881 </FONT></EM>         <b>else</b>
+<EM><FONT SIZE=-1> 882 </FONT></EM>            <b>return</b> <A HREF="src__objets_prolog__ads.htm#110_13">Cree_Doublet_V</A>(<A HREF="src__es_prolog__adb.htm#866_36">Expr_Gauche</A>, <A HREF="src__objets_prolog__ads.htm#117_13">Cree_Vecteur</A>(<A HREF="src__es_prolog__adb.htm#868_7">Objet</A>));
+<EM><FONT SIZE=-1> 883 </FONT></EM>         <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 884 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 885 </FONT></EM>      <b>return</b> <A HREF="src__es_prolog__adb.htm#21_4">Vecteur_Vide</A>; <FONT COLOR=green><EM>-- Pour éviter warning</EM></FONT>
+<EM><FONT SIZE=-1> 886 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#866_13">Analyse_Infixe_Special</A>;
+<EM><FONT SIZE=-1> 887 </FONT></EM>
+<EM><FONT SIZE=-1> 888 </FONT></EM>
+<EM><FONT SIZE=-1> 889 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#889_13">Op_Postfixe_Special</A><FONT COLOR=red><A NAME="889_13"></A></FONT>(<FONT COLOR=red><A NAME="889_33">Objet</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>  <FONT COLOR=green><EM>-- Renvoie vrai si OBJET est un opérateur postfixé spécial.</EM></FONT>
+<EM><FONT SIZE=-1> 890 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 891 </FONT></EM>      <b>return</b> False;
+<EM><FONT SIZE=-1> 892 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#889_13">Op_Postfixe_Special</A>;
+<EM><FONT SIZE=-1> 893 </FONT></EM>
+<EM><FONT SIZE=-1> 894 </FONT></EM>
+<EM><FONT SIZE=-1> 895 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#895_13">Analyse_Postfixe_Special</A><FONT COLOR=red><A NAME="895_13"></A></FONT>(<FONT COLOR=red><A NAME="895_38">Expr_Gauche</A></FONT>, <FONT COLOR=red><A NAME="895_51">Op</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>    <FONT COLOR=green><EM>-- Renvoie expression résultant du traitement spécial.</EM></FONT>
+<EM><FONT SIZE=-1> 896 </FONT></EM>      <FONT COLOR=green><EM>-- Précise les traitements particuliers lorsque les coefs de priorité ne suffisent pas pour coder l'expression.</EM></FONT>
+<EM><FONT SIZE=-1> 897 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 898 </FONT></EM>      <b>return</b> <A HREF="src__es_prolog__adb.htm#21_4">Vecteur_Vide</A>;
+<EM><FONT SIZE=-1> 899 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#895_13">Analyse_Postfixe_Special</A>;
+<EM><FONT SIZE=-1> 900 </FONT></EM>
+<EM><FONT SIZE=-1> 901 </FONT></EM>
+<EM><FONT SIZE=-1> 902 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#634_13">Analyse</A><FONT COLOR=red><A NAME="902_13"></A></FONT>(<A HREF="src__es_prolog__adb.htm#634_21">Objet</A><FONT COLOR=red><A NAME="902_21"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>; <A HREF="src__es_prolog__adb.htm#634_34">Coef_Droit</A><FONT COLOR=red><A NAME="902_34"></A></FONT> : <A HREF="src__es_prolog__adb.htm#79_12">Priorite</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>
+<EM><FONT SIZE=-1> 903 </FONT></EM>      <FONT COLOR=red><A NAME="903_7">Objet1</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__es_prolog__adb.htm#634_21">Objet</A>;                                <FONT COLOR=green><EM>-- L'expression de gauche courante.</EM></FONT>
+<EM><FONT SIZE=-1> 904 </FONT></EM>      <FONT COLOR=red><A NAME="904_7">Objet2</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>;                                         <FONT COLOR=green><EM>-- L'opérateur infixé ou préfixé courant.</EM></FONT>
+<EM><FONT SIZE=-1> 905 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 906 </FONT></EM>      <b>if</b> <A HREF="src__es_prolog__adb.htm#648_13">Delimiteur</A>(<A HREF="src__es_prolog__adb.htm#903_7">Objet1</A>) <b>then</b>
+<EM><FONT SIZE=-1> 907 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#330_14">Syntaxe</A>(<A HREF="src__es_prolog__adb.htm#903_7">Objet1</A>, <A HREF="src__es_prolog__adb.htm#175_4">Used_As_Argument</A>);
+<EM><FONT SIZE=-1> 908 </FONT></EM>      <b>elsif</b> <A HREF="src__es_prolog__adb.htm#802_13">Op_Prefixe_Special</A>(<A HREF="src__es_prolog__adb.htm#903_7">Objet1</A>) <b>then</b>                 <FONT COLOR=green><EM>-- Par exemple : +expr..., -expr... , (expr..., [expr...</EM></FONT>
+<EM><FONT SIZE=-1> 909 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#903_7">Objet1</A> := <A HREF="src__es_prolog__adb.htm#811_13">Analyse_Prefixe_Special</A>(<A HREF="src__es_prolog__adb.htm#903_7">Objet1</A>, <A HREF="src__es_prolog__adb.htm#634_34">Coef_Droit</A>);
+<EM><FONT SIZE=-1> 910 </FONT></EM>      <b>else</b>
+<EM><FONT SIZE=-1> 911 </FONT></EM>         <A HREF="src__es_prolog__ads.htm#50_4">Token</A> := <A HREF="src__es_prolog__ads.htm#52_13">Lit_Token</A>;
+<EM><FONT SIZE=-1> 912 </FONT></EM>         <b>if</b> <b>not</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__ads.htm#50_4">Token</A>, <A HREF="src__es_prolog__adb.htm#32_4">S_Par_Gauche</A>) <b>then</b>
+<EM><FONT SIZE=-1> 913 </FONT></EM>            <b>if</b> <A HREF="src__es_prolog__adb.htm#675_13">Op_Prefixe</A>(<A HREF="src__es_prolog__adb.htm#903_7">Objet1</A>) <b>then</b>
+<EM><FONT SIZE=-1> 914 </FONT></EM>               <FONT COLOR=green><EM>-- Ici OBJET1 est un opérateur préfixé.</EM></FONT>
+<EM><FONT SIZE=-1> 915 </FONT></EM>               <A HREF="src__es_prolog__adb.htm#903_7">Objet1</A> := <A HREF="src__objets_prolog__ads.htm#111_13">Cree_Doublet_F</A>(<A HREF="src__es_prolog__adb.htm#903_7">Objet1</A>,
+<EM><FONT SIZE=-1> 916 </FONT></EM>                  <A HREF="src__objets_prolog__ads.htm#117_13">Cree_Vecteur</A>(<A HREF="src__es_prolog__adb.htm#634_13">Analyse</A>(<A HREF="src__es_prolog__ads.htm#50_4">Token</A>,
+<EM><FONT SIZE=-1> 917 </FONT></EM>                        <A HREF="src__es_prolog__adb.htm#718_13">Renvoie_Coef_Droit</A>(<A HREF="src__es_prolog__adb.htm#903_7">Objet1</A>, <A HREF="src__es_prolog__adb.htm#83_7">Prefixe</A>))));
+<EM><FONT SIZE=-1> 918 </FONT></EM>            <b>elsif</b> <A HREF="src__es_prolog__adb.htm#685_13">Op_Infixe</A>(<A HREF="src__es_prolog__adb.htm#903_7">Objet1</A>) <b>or</b> <b>else</b> <A HREF="src__es_prolog__adb.htm#695_13">Op_Postfixe</A>(<A HREF="src__es_prolog__adb.htm#903_7">Objet1</A>) <b>then</b>
+<EM><FONT SIZE=-1> 919 </FONT></EM>               <FONT COLOR=green><EM>-- Erreur car ici on ne peut avoir qu'un opérateur préfixé.</EM></FONT>
+<EM><FONT SIZE=-1> 920 </FONT></EM>               <A HREF="src__es_prolog__adb.htm#330_14">Syntaxe</A>(<A HREF="src__es_prolog__adb.htm#903_7">Objet1</A>, <A HREF="src__es_prolog__adb.htm#176_4">Used_As_Prefix_Operator</A>);
+<EM><FONT SIZE=-1> 921 </FONT></EM>            <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 922 </FONT></EM>         <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 923 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 924 </FONT></EM>      <FONT COLOR=green><EM>-- Ici on s'occupe des expressions de la forme ...op E1 opA E2 opB E3 opC...</EM></FONT>
+<EM><FONT SIZE=-1> 925 </FONT></EM>      <FONT COLOR=green><EM>-- L'analyse a debuté à partir de E1 en connaissant le coef à droite de op.</EM></FONT>
+<EM><FONT SIZE=-1> 926 </FONT></EM>      <FONT COLOR=green><EM>-- Dans la boucle : COEF_DROIT = coef à droite de op</EM></FONT>
+<EM><FONT SIZE=-1> 927 </FONT></EM>      <FONT COLOR=green><EM>--                        OBJET1 = E1, puis E1 opA E2, puis (E1 opA E2) opB E3 etc...</EM></FONT>
+<EM><FONT SIZE=-1> 928 </FONT></EM>      <FONT COLOR=green><EM>--                        OBJET2 = l'opérateur infixé ou postfixé opX courant</EM></FONT>
+<EM><FONT SIZE=-1> 929 </FONT></EM>      <FONT COLOR=green><EM>-- Les opérateurs à arguments multiples sont codés sous la forme (op E1 E2...En) plutot que (op...(op (op E1 E2) E3)...En)</EM></FONT>
+<EM><FONT SIZE=-1> 930 </FONT></EM>      <A HREF="src__es_prolog__adb.htm#64_4">Sortie_Analyse_Passe1</A> := True;                        <FONT COLOR=green><EM>-- Pour savoir si résultat sans opérateur infixe ou postfixe</EM></FONT>
+<EM><FONT SIZE=-1> 931 </FONT></EM>      <b>loop</b>
+<EM><FONT SIZE=-1> 932 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#904_7">Objet2</A> := <A HREF="src__es_prolog__ads.htm#50_4">Token</A>;
+<EM><FONT SIZE=-1> 933 </FONT></EM>         <b>if</b> <A HREF="src__es_prolog__adb.htm#648_13">Delimiteur</A>(<A HREF="src__es_prolog__adb.htm#904_7">Objet2</A>) <b>then</b> <b>return</b> <A HREF="src__es_prolog__adb.htm#903_7">Objet1</A>;
+<EM><FONT SIZE=-1> 934 </FONT></EM>         <b>elsif</b> (<A HREF="src__es_prolog__adb.htm#685_13">Op_Infixe</A>(<A HREF="src__es_prolog__adb.htm#904_7">Objet2</A>)        <b>and</b> <b>then</b> <A HREF="src__es_prolog__adb.htm#705_13">Renvoie_Coef_Gauche</A>(<A HREF="src__es_prolog__adb.htm#904_7">Objet2</A>, <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>)   &lt;= <A HREF="src__es_prolog__adb.htm#634_34">Coef_Droit</A>) <b>or</b> <b>else</b>
+<EM><FONT SIZE=-1> 935 </FONT></EM>               (<A HREF="src__es_prolog__adb.htm#695_13">Op_Postfixe</A>(<A HREF="src__es_prolog__adb.htm#904_7">Objet2</A>) <b>and</b> <b>then</b> <A HREF="src__es_prolog__adb.htm#705_13">Renvoie_Coef_Gauche</A>(<A HREF="src__es_prolog__adb.htm#904_7">Objet2</A>, <A HREF="src__es_prolog__adb.htm#85_7">Postfixe</A>) &lt;= <A HREF="src__es_prolog__adb.htm#634_34">Coef_Droit</A>) <b>then</b> <b>return</b> <A HREF="src__es_prolog__adb.htm#903_7">Objet1</A>;
+<EM><FONT SIZE=-1> 936 </FONT></EM>         <b>elsif</b> <A HREF="src__es_prolog__adb.htm#859_13">Op_Infixe_Special</A>(<A HREF="src__es_prolog__adb.htm#904_7">Objet2</A>) <b>then</b>                        <FONT COLOR=green><EM>-- Par exemple : E1 ( E2</EM></FONT>
+<EM><FONT SIZE=-1> 937 </FONT></EM>            <A HREF="src__es_prolog__adb.htm#903_7">Objet1</A> := <A HREF="src__es_prolog__adb.htm#866_13">Analyse_Infixe_Special</A>(<A HREF="src__es_prolog__adb.htm#903_7">Objet1</A>, <A HREF="src__es_prolog__adb.htm#904_7">Objet2</A>);
+<EM><FONT SIZE=-1> 938 </FONT></EM>         <b>elsif</b> <A HREF="src__es_prolog__adb.htm#685_13">Op_Infixe</A>(<A HREF="src__es_prolog__adb.htm#904_7">Objet2</A>) <b>then</b>
+<EM><FONT SIZE=-1> 939 </FONT></EM>            <FONT COLOR=green><EM>-- Ici OBJET2 est un opérateur infixé.</EM></FONT>
+<EM><FONT SIZE=-1> 940 </FONT></EM>            <b>if</b> <A HREF="src__objets_prolog__ads.htm#77_13">Doublet_F</A>(<A HREF="src__es_prolog__adb.htm#903_7">Objet1</A>)
+<EM><FONT SIZE=-1> 941 </FONT></EM>                  <b>and</b> <b>then</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__es_prolog__adb.htm#904_7">Objet2</A>, <A HREF="src__objets_prolog__ads.htm#96_13">Premier</A>(<A HREF="src__es_prolog__adb.htm#903_7">Objet1</A>))     <FONT COLOR=green><EM>-- Si associativité...</EM></FONT>
+<EM><FONT SIZE=-1> 942 </FONT></EM>                  <b>and</b> <b>then</b> <A HREF="src__es_prolog__adb.htm#731_13">Multarg</A>(<A HREF="src__es_prolog__adb.htm#904_7">Objet2</A>) <b>then</b>                     <FONT COLOR=green><EM>-- ...et opérateur à arguments multiples...</EM></FONT>
+<EM><FONT SIZE=-1> 943 </FONT></EM>               <A HREF="src__objets_prolog__ads.htm#53_14">Call</A>(<A HREF="src__objets_prolog__ads.htm#113_13">Concatene</A>(<A HREF="src__es_prolog__adb.htm#903_7">Objet1</A>,                               <FONT COLOR=green><EM>-- alors regroupe les arguments</EM></FONT>
+<EM><FONT SIZE=-1> 944 </FONT></EM>                     <A HREF="src__objets_prolog__ads.htm#117_13">Cree_Vecteur</A>(<A HREF="src__es_prolog__adb.htm#634_13">Analyse</A>(<A HREF="src__es_prolog__ads.htm#52_13">Lit_Token</A>,
+<EM><FONT SIZE=-1> 945 </FONT></EM>                           <A HREF="src__es_prolog__adb.htm#718_13">Renvoie_Coef_Droit</A>(<A HREF="src__es_prolog__adb.htm#904_7">Objet2</A>, <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>)))));
+<EM><FONT SIZE=-1> 946 </FONT></EM>            <b>else</b>                                               <FONT COLOR=green><EM>-- Ici opérateur infixé à deux arguments : (op E1 E2)</EM></FONT>
+<EM><FONT SIZE=-1> 947 </FONT></EM>               <A HREF="src__es_prolog__adb.htm#903_7">Objet1</A> := <A HREF="src__objets_prolog__ads.htm#111_13">Cree_Doublet_F</A>(<A HREF="src__es_prolog__adb.htm#904_7">Objet2</A>,
+<EM><FONT SIZE=-1> 948 </FONT></EM>                  <A HREF="src__objets_prolog__ads.htm#118_13">Cree_Vecteur</A>(<A HREF="src__es_prolog__adb.htm#903_7">Objet1</A>,
+<EM><FONT SIZE=-1> 949 </FONT></EM>                     <A HREF="src__es_prolog__adb.htm#634_13">Analyse</A>(<A HREF="src__es_prolog__ads.htm#52_13">Lit_Token</A>,
+<EM><FONT SIZE=-1> 950 </FONT></EM>                        <A HREF="src__es_prolog__adb.htm#718_13">Renvoie_Coef_Droit</A>(<A HREF="src__es_prolog__adb.htm#904_7">Objet2</A>, <A HREF="src__es_prolog__adb.htm#84_7">Infixe</A>))));
+<EM><FONT SIZE=-1> 951 </FONT></EM>            <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 952 </FONT></EM>         <b>elsif</b> <A HREF="src__es_prolog__adb.htm#889_13">Op_Postfixe_Special</A>(<A HREF="src__es_prolog__adb.htm#904_7">Objet2</A>) <b>then</b>
+<EM><FONT SIZE=-1> 953 </FONT></EM>            <A HREF="src__es_prolog__adb.htm#903_7">Objet1</A> := <A HREF="src__es_prolog__adb.htm#895_13">Analyse_Postfixe_Special</A>(<A HREF="src__es_prolog__adb.htm#904_7">Objet2</A>, <A HREF="src__es_prolog__adb.htm#903_7">Objet1</A>);
+<EM><FONT SIZE=-1> 954 </FONT></EM>         <b>elsif</b> <A HREF="src__es_prolog__adb.htm#695_13">Op_Postfixe</A>(<A HREF="src__es_prolog__adb.htm#904_7">Objet2</A>) <b>then</b>
+<EM><FONT SIZE=-1> 955 </FONT></EM>            <FONT COLOR=green><EM>-- Ici OBJET2 est un opérateur postfixé, donc il s'applique à l'expression de gauche OBJET1.</EM></FONT>
+<EM><FONT SIZE=-1> 956 </FONT></EM>            <A HREF="src__es_prolog__adb.htm#903_7">Objet1</A> := <A HREF="src__objets_prolog__ads.htm#111_13">Cree_Doublet_F</A>(<A HREF="src__es_prolog__adb.htm#904_7">Objet2</A>, <A HREF="src__objets_prolog__ads.htm#117_13">Cree_Vecteur</A>(<A HREF="src__es_prolog__adb.htm#903_7">Objet1</A>));
+<EM><FONT SIZE=-1> 957 </FONT></EM>            <A HREF="src__objets_prolog__ads.htm#53_14">Call</A>(<A HREF="src__es_prolog__ads.htm#52_13">Lit_Token</A>);
+<EM><FONT SIZE=-1> 958 </FONT></EM>         <b>elsif</b> <A HREF="src__es_prolog__adb.htm#675_13">Op_Prefixe</A>(<A HREF="src__es_prolog__adb.htm#904_7">Objet2</A>) <b>then</b>
+<EM><FONT SIZE=-1> 959 </FONT></EM>            <FONT COLOR=green><EM>-- Ici OBJET2 est un opérateur préfixé, donc ne peut pas s'appliquer à l'expression de gauche.</EM></FONT>
+<EM><FONT SIZE=-1> 960 </FONT></EM>            <A HREF="src__es_prolog__adb.htm#320_14">Syntaxe</A>(<A HREF="src__es_prolog__adb.htm#177_4">Operator_Not_Found</A>);
+<EM><FONT SIZE=-1> 961 </FONT></EM>         <b>else</b>
+<EM><FONT SIZE=-1> 962 </FONT></EM>            <FONT COLOR=green><EM>-- Ici OBJET2 n'est pas un opérateur, donc on a deux expressions sans opérateur entre elles.</EM></FONT>
+<EM><FONT SIZE=-1> 963 </FONT></EM>            <A HREF="src__es_prolog__adb.htm#320_14">Syntaxe</A>(<A HREF="src__es_prolog__adb.htm#177_4">Operator_Not_Found</A>);
+<EM><FONT SIZE=-1> 964 </FONT></EM>         <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 965 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#64_4">Sortie_Analyse_Passe1</A> := False;
+<EM><FONT SIZE=-1> 966 </FONT></EM>      <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 967 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__adb.htm#634_13">Analyse</A>;
+<EM><FONT SIZE=-1> 968 </FONT></EM>
+<EM><FONT SIZE=-1> 969 </FONT></EM>
+<EM><FONT SIZE=-1> 970 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__ads.htm#53_13">Analyse_Complete</A><FONT COLOR=red><A NAME="970_13"></A></FONT>(<A HREF="src__es_prolog__ads.htm#53_30">Objet</A><FONT COLOR=red><A NAME="970_30"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b> <FONT COLOR=green><EM>-- La fonction d'analyse d'une expression PROLOG. On part d'un token lu</EM></FONT>
+<EM><FONT SIZE=-1> 971 </FONT></EM>      <FONT COLOR=red><A NAME="971_7">Obj</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>;
+<EM><FONT SIZE=-1> 972 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 973 </FONT></EM>      <A HREF="src__es_prolog__adb.htm#971_7">Obj</A> := <A HREF="src__es_prolog__adb.htm#634_13">Analyse</A>(<A HREF="src__es_prolog__ads.htm#53_30">Objet</A>, 0);
+<EM><FONT SIZE=-1> 974 </FONT></EM>      <b>if</b> <b>not</b> <A HREF="src__es_prolog__adb.htm#637_13">Terminateur</A>(<A HREF="src__es_prolog__ads.htm#50_4">Token</A>) <b>then</b> <A HREF="src__es_prolog__adb.htm#320_14">Syntaxe</A>(<A HREF="src__es_prolog__adb.htm#177_4">Operator_Not_Found</A>); <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 975 </FONT></EM>      <b>return</b> <A HREF="src__es_prolog__adb.htm#971_7">Obj</A>;
+<EM><FONT SIZE=-1> 976 </FONT></EM>   <b>end</b> <A HREF="src__es_prolog__ads.htm#53_13">Analyse_Complete</A>;
+<EM><FONT SIZE=-1> 977 </FONT></EM>
+<EM><FONT SIZE=-1> 978 </FONT></EM>
+<EM><FONT SIZE=-1> 979 </FONT></EM><b>begin</b>
+<EM><FONT SIZE=-1> 980 </FONT></EM>
+<EM><FONT SIZE=-1> 981 </FONT></EM>   <FONT COLOR=green><EM>--------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 982 </FONT></EM>   <FONT COLOR=green><EM>-- Pour la mise au point :</EM></FONT>
+<EM><FONT SIZE=-1> 983 </FONT></EM>   <FONT COLOR=green><EM>--------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 984 </FONT></EM>
+<EM><FONT SIZE=-1> 985 </FONT></EM>   <FONT COLOR=green><EM>--PUT_LINE("Elaboration du package ES_PROLOG----------------------------------");</EM></FONT>
+<EM><FONT SIZE=-1> 986 </FONT></EM>
+<EM><FONT SIZE=-1> 987 </FONT></EM>   <FONT COLOR=green><EM>------------------------------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 988 </FONT></EM>   <FONT COLOR=green><EM>-- Recherche la premiere ligne libre dans la table des opérateurs.</EM></FONT>
+<EM><FONT SIZE=-1> 989 </FONT></EM>   <FONT COLOR=green><EM>------------------------------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 990 </FONT></EM>
+<EM><FONT SIZE=-1> 991 </FONT></EM>   <b>if</b> <A HREF="src__es_prolog__adb.htm#106_4">Table_Op</A>(<A HREF="src__es_prolog__adb.htm#106_4">Table_Op</A>'Last).<A HREF="src__es_prolog__adb.htm#92_7">Type_Op</A> /= <A HREF="src__es_prolog__adb.htm#82_28">Libre</A> <b>then</b> <FONT COLOR=green><EM>-- Teste le cas extreme ou la table serait déjà pleine.</EM></FONT>
+<EM><FONT SIZE=-1> 992 </FONT></EM>      <b>raise</b> <A HREF="src__es_prolog__ads.htm#19_4">Table_Op_Pleine</A>;
+<EM><FONT SIZE=-1> 993 </FONT></EM>   <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 994 </FONT></EM>   <b>for</b> <FONT COLOR=red><A NAME="994_8">I</A></FONT> <b>in</b> <A HREF="src__es_prolog__adb.htm#106_4">Table_Op</A>'<b>range</b> <b>loop</b>
+<EM><FONT SIZE=-1> 995 </FONT></EM>      <b>if</b> <A HREF="src__es_prolog__adb.htm#106_4">Table_Op</A>(<A HREF="src__es_prolog__adb.htm#994_8">I</A>).<A HREF="src__es_prolog__adb.htm#92_7">Type_Op</A> = <A HREF="src__es_prolog__adb.htm#82_28">Libre</A> <b>then</b>
+<EM><FONT SIZE=-1> 996 </FONT></EM>         <A HREF="src__es_prolog__adb.htm#105_4">Topop</A> := <A HREF="src__es_prolog__adb.htm#994_8">I</A>;
+<EM><FONT SIZE=-1> 997 </FONT></EM>         <b>exit</b>;
+<EM><FONT SIZE=-1> 998 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 999 </FONT></EM>   <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1>1000 </FONT></EM>
+<EM><FONT SIZE=-1>1001 </FONT></EM>
+<EM><FONT SIZE=-1>1002 </FONT></EM><b>end</b> <A HREF="src__es_prolog__ads.htm#11_9">Es_Prolog</A>
+</PRE></BODY></HTML>

@@ -1,0 +1,124 @@
+% Fichier PROLOG.SYS
+% Extrait de "L'ANATOMIE DE PROLOG" par Michel Van Caneghem.
+
+
+% -----------------------
+% Les règles prédéfinies.
+% -----------------------
+
+answer(X)       :- internal_call(0).
+true            :- internal_call(1).
+statistics      :- internal_call(2).
+
+write(X)        :- internal_call(10).
+display(X)      :- internal_call(11).
+nl              :- internal_call(12).
+
+atom(X)         :- internal_call(20).
+integer(X)      :- internal_call(21).
+atomic(X)       :- internal_call(22).
+var(X)          :- internal_call(23).
+list(X)         :- internal_call(24).           % Vérifie si X de la forme [...]
+vector(X)       :- internal_call(25).           % Vérifie si X de la forme (...)
+function(X)     :- internal_call(26).           % Vérifie si X de la forme f(...)
+
+freezeA(X, But) :- internal_call(30).           % Utilisé par la primitive freeze :
+                                                % Si X est lié à une valeur alors on efface But.
+                                                % Sinon But sera relancé dès que X change d'état (meme si X est lié à une variable
+                                                % plus ancienne).
+reduce(X, Y, V) :- internal_call(31).           % Utilisé par la primitive dif :
+                                                % Si X et Y sont différents alors reduce provoque un échec.
+                                                % Si X et Y sont égaux sans avoir à faire d'hypothèses sur les valeurs des
+                                                % variables alors V <-- 1 sinon V représente la première variable sur laquelle
+                                                % il faut faire une hypothèse.
+
+listing         :- internal_call(40).
+listing(X)      :- internal_call(41).
+system          :- internal_call(42).
+
+is(X, Y)        :- internal_call(50).
+
+X < Y           :- internal_call(60).
+X =< Y          :- internal_call(61).
+X > Y           :- internal_call(62).
+X >= Y          :- internal_call(63).
+
+asserta(X)      :- internal_call(70).
+assertz(X)      :- internal_call(71).
+assert(X)       :- internal_call(71).
+
+echo(X)         :- internal_call(80).
+
+halt            :- internal_call(1000).
+
+
+% -----------------------------
+% Evaluation différée d'un but.
+% -----------------------------
+
+freeze(X, But) :- freezeA(X, deep_freeze(X, But)).
+
+deep_freeze(X, But) :- var(X),
+                       !,
+                       freezeA(X, deep_freeze(X, But)).
+deep_freeze(X, But) :- But.
+
+
+% ------------------------------------------------------------
+% Attente de l'égalité des deux arguments pour effacer le but.
+% ------------------------------------------------------------
+
+ifeq(X, Y, But) :- reduce(X, Y, V),
+                   !,
+                   ifeqA(V, X, Y, But).
+ifeq(X, Y, But).
+
+
+ifeqA(V, X, Y, But) :- var(V),
+                       !,
+                       freezeA(V, ifeq(X, Y, But)).
+ifeqA(V, X, Y, But) :- But.
+
+
+% -------------------------
+% Equations sur les arbres.
+% -------------------------
+
+X = X.
+
+
+% ---------------------------
+% Inéquations sur les arbres.
+% ---------------------------
+
+X \= Y :- reduce(X, Y, V),
+          !,
+          var(V),
+          freezeA(V, X \= Y).
+X \= Y.
+
+
+% ---------------------------------------------------------------------
+% Contrainte d'inégalité d'un terme par rapport aux termes d'une liste.
+% ---------------------------------------------------------------------
+
+dif(X, []).
+dif(X, [T|Q]) :- X \= T,
+                 dif(X, Q).
+
+
+% ------------------------------------------------------
+% Contraintes d'inégalité dans une liste, terme à terme.
+% ------------------------------------------------------
+
+dif([]).
+dif([T|Q]) :- dif(T, Q),
+              dif(Q).
+
+
+% ------------
+% La négation.
+% ------------
+
+not(P) :- P, !, fail.
+not(P).

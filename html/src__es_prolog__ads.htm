@@ -1,0 +1,67 @@
+<HEAD><TITLE>es_prolog.ads</TITLE></HEAD>
+<BODY>
+<HR><DIV ALIGN="center"><H1> File : es_prolog.ads </H1></DIV><HR>
+<PRE>
+<EM><FONT SIZE=-1>   1 </FONT></EM><FONT COLOR=green><EM>-- Fichier ENT_SOR.ADS</EM></FONT>
+<EM><FONT SIZE=-1>   2 </FONT></EM><FONT COLOR=green><EM>-- Spécifications du package d'entrée/sortie de l'interpréteur PROLOG.</EM></FONT>
+<EM><FONT SIZE=-1>   3 </FONT></EM>
+<EM><FONT SIZE=-1>   4 </FONT></EM>
+<EM><FONT SIZE=-1>   5 </FONT></EM><b>with</b> <A HREF="src__objets_prolog__ads.htm#8_9">Objets_Prolog</A>; <b>use</b>  <A HREF="src__objets_prolog__ads.htm#8_9">Objets_Prolog</A>;
+<EM><FONT SIZE=-1>   6 </FONT></EM>
+<EM><FONT SIZE=-1>   7 </FONT></EM>
+<EM><FONT SIZE=-1>   8 </FONT></EM><FONT COLOR=green><EM>----------------------------------------------------------------------------------------------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1>   9 </FONT></EM>
+<EM><FONT SIZE=-1>  10 </FONT></EM>
+<EM><FONT SIZE=-1>  11 </FONT></EM><b>package</b> <A HREF="src__es_prolog__adb.htm#14_14">Es_Prolog</A><FONT COLOR=red><A NAME="11_9"></A></FONT> <b>is</b>
+<EM><FONT SIZE=-1>  12 </FONT></EM>
+<EM><FONT SIZE=-1>  13 </FONT></EM>
+<EM><FONT SIZE=-1>  14 </FONT></EM>   <FONT COLOR=green><EM>---------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1>  15 </FONT></EM>   <FONT COLOR=green><EM>-- Les exceptions susceptibles d'etre levées.</EM></FONT>
+<EM><FONT SIZE=-1>  16 </FONT></EM>   <FONT COLOR=green><EM>---------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1>  17 </FONT></EM>   <FONT COLOR=red><A NAME="17_4">Erreur_De_Syntaxe</A></FONT>   : <b>exception</b>;                          <FONT COLOR=green><EM>-- Par LIT_TOKEN, ANALYSE_TOKEN.</EM></FONT>
+<EM><FONT SIZE=-1>  18 </FONT></EM>   <FONT COLOR=red><A NAME="18_4">Fin_Du_Fichier</A></FONT>      : <b>exception</b>;                          <FONT COLOR=green><EM>-- Par LIT_TOKEN, ANALYSE_TOKEN.</EM></FONT>
+<EM><FONT SIZE=-1>  19 </FONT></EM>   <FONT COLOR=red><A NAME="19_4">Table_Op_Pleine</A></FONT>     : <b>exception</b>;                          <FONT COLOR=green><EM>-- Par élaboration du package.</EM></FONT>
+<EM><FONT SIZE=-1>  20 </FONT></EM>   <FONT COLOR=red><A NAME="20_4">Buffer_Relect_Plein</A></FONT> : <b>exception</b>;                          <FONT COLOR=green><EM>-- Indique une erreur interne.</EM></FONT>
+<EM><FONT SIZE=-1>  21 </FONT></EM>   <FONT COLOR=red><A NAME="21_4">Buffer_Relect_Vide</A></FONT>  : <b>exception</b>;                          <FONT COLOR=green><EM>-- Idem.</EM></FONT>
+<EM><FONT SIZE=-1>  22 </FONT></EM>
+<EM><FONT SIZE=-1>  23 </FONT></EM>
+<EM><FONT SIZE=-1>  24 </FONT></EM>   <FONT COLOR=green><EM>----------------</EM></FONT>
+<EM><FONT SIZE=-1>  25 </FONT></EM>   <FONT COLOR=green><EM>-- Informations.</EM></FONT>
+<EM><FONT SIZE=-1>  26 </FONT></EM>   <FONT COLOR=green><EM>----------------</EM></FONT>
+<EM><FONT SIZE=-1>  27 </FONT></EM>   <b>procedure</b> <A HREF="src__es_prolog__adb.htm#197_14">Informations</A><FONT COLOR=red><A NAME="27_14"></A></FONT>;
+<EM><FONT SIZE=-1>  28 </FONT></EM>
+<EM><FONT SIZE=-1>  29 </FONT></EM>
+<EM><FONT SIZE=-1>  30 </FONT></EM>   <FONT COLOR=green><EM>-------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1>  31 </FONT></EM>   <FONT COLOR=green><EM>-- Entrée de bas niveau (niveau caractere).</EM></FONT>
+<EM><FONT SIZE=-1>  32 </FONT></EM>   <FONT COLOR=green><EM>-------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1>  33 </FONT></EM>   <FONT COLOR=red><A NAME="33_4">Fin_De_Fichier</A></FONT> : <b>constant</b> Character := Ascii.Sub;         <FONT COLOR=green><EM>-- Fin de fichier indiquée par Ctrl-Z (SUB).</EM></FONT>
+<EM><FONT SIZE=-1>  34 </FONT></EM>   <FONT COLOR=red><A NAME="34_4">Carac_Lu</A></FONT> : Character := ' ';                              <FONT COLOR=green><EM>-- Le dernier caractere lu.</EM></FONT>
+<EM><FONT SIZE=-1>  35 </FONT></EM>   <FONT COLOR=red><A NAME="35_4">Echo</A></FONT> : Boolean := False;                                  <FONT COLOR=green><EM>-- Pour controler l'affichage à l'écran lors d'une lecture de fichier</EM></FONT>
+<EM><FONT SIZE=-1>  36 </FONT></EM>
+<EM><FONT SIZE=-1>  37 </FONT></EM>   <FONT COLOR=red><A NAME="37_4">Entree_Depuis_Standard</A></FONT> : Boolean := True;
+<EM><FONT SIZE=-1>  38 </FONT></EM>   <FONT COLOR=red><A NAME="38_4">Sortie_Vers_Standard</A></FONT>   : Boolean := True;
+<EM><FONT SIZE=-1>  39 </FONT></EM>
+<EM><FONT SIZE=-1>  40 </FONT></EM>   <b>procedure</b> <A HREF="src__es_prolog__adb.htm#349_14">Entree_Standard</A><FONT COLOR=red><A NAME="40_14"></A></FONT>;                                <FONT COLOR=green><EM>-- L'entrée des caracteres se fera à partir du clavier.</EM></FONT>
+<EM><FONT SIZE=-1>  41 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#358_13">Entree_Fichier</A><FONT COLOR=red><A NAME="41_13"></A></FONT>(<A HREF="src__es_prolog__adb.htm#358_28">Symb</A><FONT COLOR=red><A NAME="41_28"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean;       <FONT COLOR=green><EM>-- L'entrée des caracteres se fera à partir du fichier indiqué.</EM></FONT>
+<EM><FONT SIZE=-1>  42 </FONT></EM>   <b>procedure</b> <A HREF="src__es_prolog__adb.htm#302_14">Vide_Entree</A><FONT COLOR=red><A NAME="42_14"></A></FONT>;
+<EM><FONT SIZE=-1>  43 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#409_13">Lit_Carac</A><FONT COLOR=red><A NAME="43_13"></A></FONT> <b>return</b> Character;                      <FONT COLOR=green><EM>-- Renvoie le caractere suivant.</EM></FONT>
+<EM><FONT SIZE=-1>  44 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#431_13">Caractere_Significatif</A><FONT COLOR=red><A NAME="44_13"></A></FONT>(<A HREF="src__es_prolog__adb.htm#431_36">C</A><FONT COLOR=red><A NAME="44_36"></A></FONT> : Character) <b>return</b> Character;<FONT COLOR=green><EM>-- Renvoie le 1er caractere significatif à partir de C.</EM></FONT>
+<EM><FONT SIZE=-1>  45 </FONT></EM>
+<EM><FONT SIZE=-1>  46 </FONT></EM>
+<EM><FONT SIZE=-1>  47 </FONT></EM>   <FONT COLOR=green><EM>----------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1>  48 </FONT></EM>   <FONT COLOR=green><EM>-- Entrée de haut niveau (analyse syntaxique).</EM></FONT>
+<EM><FONT SIZE=-1>  49 </FONT></EM>   <FONT COLOR=green><EM>----------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1>  50 </FONT></EM>   <FONT COLOR=red><A NAME="50_4">Token</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>;                                              <FONT COLOR=green><EM>-- Le dernier token lu.</EM></FONT>
+<EM><FONT SIZE=-1>  51 </FONT></EM>
+<EM><FONT SIZE=-1>  52 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#612_13">Lit_Token</A><FONT COLOR=red><A NAME="52_13"></A></FONT> <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>;                            <FONT COLOR=green><EM>-- Renvoie le token suivant du fichier d'entrée.</EM></FONT>
+<EM><FONT SIZE=-1>  53 </FONT></EM>   <b>function</b> <A HREF="src__es_prolog__adb.htm#970_13">Analyse_Complete</A><FONT COLOR=red><A NAME="53_13"></A></FONT>(<A HREF="src__es_prolog__adb.htm#970_30">Objet</A><FONT COLOR=red><A NAME="53_30"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>;        <FONT COLOR=green><EM>-- Renvoie expression suivante du fichier d'entrée.</EM></FONT>
+<EM><FONT SIZE=-1>  54 </FONT></EM>
+<EM><FONT SIZE=-1>  55 </FONT></EM>
+<EM><FONT SIZE=-1>  56 </FONT></EM>   <FONT COLOR=green><EM>------------------------------</EM></FONT>
+<EM><FONT SIZE=-1>  57 </FONT></EM>   <FONT COLOR=green><EM>-- Ecriture d'un objet PROLOG.</EM></FONT>
+<EM><FONT SIZE=-1>  58 </FONT></EM>   <FONT COLOR=green><EM>------------------------------</EM></FONT>
+<EM><FONT SIZE=-1>  59 </FONT></EM>   <b>procedure</b> <A HREF="src__es_prolog__adb.htm#214_14">Ecrit</A><FONT COLOR=red><A NAME="59_14"></A></FONT>(<A HREF="src__es_prolog__adb.htm#214_20">Objet</A><FONT COLOR=red><A NAME="59_20"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>; <A HREF="src__es_prolog__adb.htm#214_33">Avec_Quote</A><FONT COLOR=red><A NAME="59_33"></A></FONT> : Boolean := True);
+<EM><FONT SIZE=-1>  60 </FONT></EM>
+<EM><FONT SIZE=-1>  61 </FONT></EM>
+<EM><FONT SIZE=-1>  62 </FONT></EM><b>end</b> <A HREF="src__es_prolog__ads.htm#11_9">Es_Prolog</A>
+</PRE></BODY></HTML>

@@ -1,0 +1,80 @@
+<HEAD><TITLE>src/prolog.adb</TITLE></HEAD>
+<BODY>
+<HR><DIV ALIGN="center"><H1> File : src/prolog.adb </H1></DIV><HR>
+<PRE>
+<EM><FONT SIZE=-1>   1 </FONT></EM><FONT COLOR=green><EM>-- Fichier PROLOG.ADA</EM></FONT>
+<EM><FONT SIZE=-1>   2 </FONT></EM>
+<EM><FONT SIZE=-1>   3 </FONT></EM>
+<EM><FONT SIZE=-1>   4 </FONT></EM><FONT COLOR=green><EM>--with TEXT_IO; use TEXT_IO;</EM></FONT>
+<EM><FONT SIZE=-1>   5 </FONT></EM><FONT COLOR=green><EM>--with INT32_IO; use INT32_IO;</EM></FONT>
+<EM><FONT SIZE=-1>   6 </FONT></EM><FONT COLOR=green><EM>--with OBJETS_PROLOG; use OBJETS_PROLOG;</EM></FONT>
+<EM><FONT SIZE=-1>   7 </FONT></EM><FONT COLOR=green><EM>--with ES_PROLOG; use ES_PROLOG;</EM></FONT>
+<EM><FONT SIZE=-1>   8 </FONT></EM><b>with</b> <A HREF="src__interpreteur_prolog__ads.htm#9_9">Interpreteur_Prolog</A>; <b>use</b> <A HREF="src__interpreteur_prolog__ads.htm#9_9">Interpreteur_Prolog</A>;
+<EM><FONT SIZE=-1>   9 </FONT></EM>
+<EM><FONT SIZE=-1>  10 </FONT></EM>
+<EM><FONT SIZE=-1>  11 </FONT></EM><FONT COLOR=green><EM>----------------------------------------------------------------------------------------------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1>  12 </FONT></EM>
+<EM><FONT SIZE=-1>  13 </FONT></EM><b>procedure</b> <A HREF="src__prolog__adb.htm#13_11">Prolog</A><FONT COLOR=red><A NAME="13_11"></A></FONT> <b>is</b>
+<EM><FONT SIZE=-1>  14 </FONT></EM>   <FONT COLOR=green><EM>--  C : CHARACTER;</EM></FONT>
+<EM><FONT SIZE=-1>  15 </FONT></EM>   <FONT COLOR=green><EM>--  OBJ : MOT;</EM></FONT>
+<EM><FONT SIZE=-1>  16 </FONT></EM><b>begin</b>
+<EM><FONT SIZE=-1>  17 </FONT></EM>   <FONT COLOR=green><EM>--  ECHO := TRUE;</EM></FONT>
+<EM><FONT SIZE=-1>  18 </FONT></EM>   <FONT COLOR=green><EM>--  ENTREE_STANDARD;</EM></FONT>
+<EM><FONT SIZE=-1>  19 </FONT></EM>   <FONT COLOR=green><EM>--  PUT_LINE("Test de la lecture bufferisee avec echo :");</EM></FONT>
+<EM><FONT SIZE=-1>  20 </FONT></EM>   <FONT COLOR=green><EM>--  PUT_LINE("-----------------------------------------");</EM></FONT>
+<EM><FONT SIZE=-1>  21 </FONT></EM>   <FONT COLOR=green><EM>--  loop</EM></FONT>
+<EM><FONT SIZE=-1>  22 </FONT></EM>   <FONT COLOR=green><EM>--    C := CARACTERE_SIGNIFICATIF(LIT_CARAC);</EM></FONT>
+<EM><FONT SIZE=-1>  23 </FONT></EM>   <FONT COLOR=green><EM>--    if C = ASCII.CR then PUT("[ CR ]"); NEW_LINE;</EM></FONT>
+<EM><FONT SIZE=-1>  24 </FONT></EM>   <FONT COLOR=green><EM>--    else PUT('[' &amp; C &amp; "] ");</EM></FONT>
+<EM><FONT SIZE=-1>  25 </FONT></EM>   <FONT COLOR=green><EM>--    end if;</EM></FONT>
+<EM><FONT SIZE=-1>  26 </FONT></EM>   <FONT COLOR=green><EM>--    exit when C = 'q';</EM></FONT>
+<EM><FONT SIZE=-1>  27 </FONT></EM>   <FONT COLOR=green><EM>--  end loop;</EM></FONT>
+<EM><FONT SIZE=-1>  28 </FONT></EM>   <FONT COLOR=green><EM>--  NEW_LINE;</EM></FONT>
+<EM><FONT SIZE=-1>  29 </FONT></EM>   <FONT COLOR=green><EM>--  PUT_LINE("Test des diverses fonctions de construction et d'affichage :");</EM></FONT>
+<EM><FONT SIZE=-1>  30 </FONT></EM>   <FONT COLOR=green><EM>--  PUT_LINE("------------------------------------------------------------");</EM></FONT>
+<EM><FONT SIZE=-1>  31 </FONT></EM>   <FONT COLOR=green><EM>--  PUT("LISTE_VIDE = "); ECRIT(LISTE_VIDE); NEW_LINE;</EM></FONT>
+<EM><FONT SIZE=-1>  32 </FONT></EM>   <FONT COLOR=green><EM>--  if EGALITE_MOT(LISTE_VIDE, RESTE(CREE_LISTE(CREE_ENTIER(10)))) then</EM></FONT>
+<EM><FONT SIZE=-1>  33 </FONT></EM>   <FONT COLOR=green><EM>--    PUT_LINE("Egalite");</EM></FONT>
+<EM><FONT SIZE=-1>  34 </FONT></EM>   <FONT COLOR=green><EM>--  else</EM></FONT>
+<EM><FONT SIZE=-1>  35 </FONT></EM>   <FONT COLOR=green><EM>--    PUT_LINE("Non egalite");</EM></FONT>
+<EM><FONT SIZE=-1>  36 </FONT></EM>   <FONT COLOR=green><EM>--  end if;</EM></FONT>
+<EM><FONT SIZE=-1>  37 </FONT></EM>   <FONT COLOR=green><EM>--  PUT("Creation d'un symbole = "); ECRIT(CREE_SYMBOLE("Jean Louis", TRUE)); NEW_LINE;</EM></FONT>
+<EM><FONT SIZE=-1>  38 </FONT></EM>   <FONT COLOR=green><EM>--  PUT("Creation d'un entier = "); ECRIT(CREE_ENTIER(-15)); NEW_LINE;</EM></FONT>
+<EM><FONT SIZE=-1>  39 </FONT></EM>   <FONT COLOR=green><EM>--  PUT("Creation d'une variable = "); ECRIT(CREE_VARIABLE("X")); NEW_LINE;</EM></FONT>
+<EM><FONT SIZE=-1>  40 </FONT></EM>   <FONT COLOR=green><EM>--  PUT("Creation d'un doublet = "); ECRIT(CREE_DOUBLET_L(CREE_ENTIER(5), CREE_SYMBOLE("A"))); NEW_LINE;</EM></FONT>
+<EM><FONT SIZE=-1>  41 </FONT></EM>   <FONT COLOR=green><EM>--  PUT("Creation d'une liste = "); ECRIT(CREE_LISTE(CREE_SYMBOLE("hello"), CREE_VARIABLE("Y"), CREE_ENTIER(12))); NEW_LINE;</EM></FONT>
+<EM><FONT SIZE=-1>  42 </FONT></EM>   <FONT COLOR=green><EM>--  PUT("Creation d'une fonction = "); ECRIT(CREE_DOUBLET_F(CREE_SYMBOLE("f"), CREE_VECTEUR(CREE_ENTIER(12), CREE_VARIABLE("Y")))); NEW_LINE;</EM></FONT>
+<EM><FONT SIZE=-1>  43 </FONT></EM>   <FONT COLOR=green><EM>--  PUT("Creation d'un vecteur = "); ECRIT(CREE_VECTEUR(CREE_SYMBOLE("f"), CREE_ENTIER(10), CREE_SYMBOLE("**|**", TRUE))); NEW_LINE;</EM></FONT>
+<EM><FONT SIZE=-1>  44 </FONT></EM>   <FONT COLOR=green><EM>--  debug;</EM></FONT>
+<EM><FONT SIZE=-1>  45 </FONT></EM>   <FONT COLOR=green><EM>--  PUT_LINE("Test de lecture de token :");</EM></FONT>
+<EM><FONT SIZE=-1>  46 </FONT></EM>   <FONT COLOR=green><EM>--  PUT_LINE("--------------------------");</EM></FONT>
+<EM><FONT SIZE=-1>  47 </FONT></EM>   <FONT COLOR=green><EM>--  C := CARACTERE_SIGNIFICATIF(LIT_CARAC);</EM></FONT>
+<EM><FONT SIZE=-1>  48 </FONT></EM>   <FONT COLOR=green><EM>--  loop</EM></FONT>
+<EM><FONT SIZE=-1>  49 </FONT></EM>   <FONT COLOR=green><EM>--    begin</EM></FONT>
+<EM><FONT SIZE=-1>  50 </FONT></EM>   <FONT COLOR=green><EM>--    OBJ := LIT_TOKEN;</EM></FONT>
+<EM><FONT SIZE=-1>  51 </FONT></EM>   <FONT COLOR=green><EM>--    PUT(" --&gt; "); ECRIT(OBJ); NEW_LINE;</EM></FONT>
+<EM><FONT SIZE=-1>  52 </FONT></EM>   <FONT COLOR=green><EM>--    exit when EGALITE_MOT(OBJ, S_POINT_CR);</EM></FONT>
+<EM><FONT SIZE=-1>  53 </FONT></EM>   <FONT COLOR=green><EM>--  exception</EM></FONT>
+<EM><FONT SIZE=-1>  54 </FONT></EM>   <FONT COLOR=green><EM>--    when ERREUR_DE_SYNTAXE =&gt; null;</EM></FONT>
+<EM><FONT SIZE=-1>  55 </FONT></EM>   <FONT COLOR=green><EM>--  end;</EM></FONT>
+<EM><FONT SIZE=-1>  56 </FONT></EM>   <FONT COLOR=green><EM>--  end loop;</EM></FONT>
+<EM><FONT SIZE=-1>  57 </FONT></EM>   <FONT COLOR=green><EM>--  PUT_LINE("Test d'analyse syntaxique :");</EM></FONT>
+<EM><FONT SIZE=-1>  58 </FONT></EM>   <FONT COLOR=green><EM>--  PUT_LINE("---------------------------");</EM></FONT>
+<EM><FONT SIZE=-1>  59 </FONT></EM>   <FONT COLOR=green><EM>--  loop</EM></FONT>
+<EM><FONT SIZE=-1>  60 </FONT></EM>   <FONT COLOR=green><EM>--    begin</EM></FONT>
+<EM><FONT SIZE=-1>  61 </FONT></EM>   <FONT COLOR=green><EM>--      PUT("?- ");</EM></FONT>
+<EM><FONT SIZE=-1>  62 </FONT></EM>   <FONT COLOR=green><EM>--      RAZ_VARIABLES;</EM></FONT>
+<EM><FONT SIZE=-1>  63 </FONT></EM>   <FONT COLOR=green><EM>--      OBJ := ANALYSE_COMPLETE(LIT_TOKEN);</EM></FONT>
+<EM><FONT SIZE=-1>  64 </FONT></EM>   <FONT COLOR=green><EM>--      PUT("--&gt; "); ECRIT(OBJ); NEW_LINE;</EM></FONT>
+<EM><FONT SIZE=-1>  65 </FONT></EM>   <FONT COLOR=green><EM>--      PUT("Nombre de variables = "); PUT(NBRE_DE_VARIABLES); NEW_LINE;</EM></FONT>
+<EM><FONT SIZE=-1>  66 </FONT></EM>   <FONT COLOR=green><EM>--      exit when EGALITE_MOT(OBJ, LISTE_VIDE);</EM></FONT>
+<EM><FONT SIZE=-1>  67 </FONT></EM>   <FONT COLOR=green><EM>--    exception</EM></FONT>
+<EM><FONT SIZE=-1>  68 </FONT></EM>   <FONT COLOR=green><EM>--      when ERREUR_DE_SYNTAXE =&gt; null;</EM></FONT>
+<EM><FONT SIZE=-1>  69 </FONT></EM>   <FONT COLOR=green><EM>--    end;</EM></FONT>
+<EM><FONT SIZE=-1>  70 </FONT></EM>   <FONT COLOR=green><EM>--  end loop;</EM></FONT>
+<EM><FONT SIZE=-1>  71 </FONT></EM>   <FONT COLOR=green><EM>--  PUT_LINE("Lancement de l'interpreteur PROLOG");</EM></FONT>
+<EM><FONT SIZE=-1>  72 </FONT></EM>   <FONT COLOR=green><EM>--  PUT_LINE("----------------------------------");</EM></FONT>
+<EM><FONT SIZE=-1>  73 </FONT></EM>   <FONT COLOR=green><EM>--  ECHO := FALSE;</EM></FONT>
+<EM><FONT SIZE=-1>  74 </FONT></EM>   <A HREF="src__interpreteur_prolog__ads.htm#22_14">Driver_Prolog</A>;
+<EM><FONT SIZE=-1>  75 </FONT></EM><b>end</b>
+</PRE></BODY></HTML>

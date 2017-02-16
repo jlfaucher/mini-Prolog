@@ -1,0 +1,20 @@
+<HEAD><TITLE>infos.adb</TITLE></HEAD>
+<BODY>
+<HR><DIV ALIGN="center"><H1> File : infos.adb </H1></DIV><HR>
+<PRE>
+<EM><FONT SIZE=-1>   1 </FONT></EM><FONT COLOR=green><EM>-- Fichier INFOS.ADA</EM></FONT>
+<EM><FONT SIZE=-1>   2 </FONT></EM><FONT COLOR=green><EM>-- Pour afficher des statistiques en cours de fonctionnement.</EM></FONT>
+<EM><FONT SIZE=-1>   3 </FONT></EM>
+<EM><FONT SIZE=-1>   4 </FONT></EM><b>with</b> <A HREF="text_io__ads.htm#24_9">Text_Io</A>; <b>use</b> <A HREF="text_io__ads.htm#24_9">Text_Io</A>;
+<EM><FONT SIZE=-1>   5 </FONT></EM><b>with</b> <A HREF="src__int32_io__ads.htm#4_9">Int32_Io</A>; <b>use</b> <A HREF="src__int32_io__ads.htm#4_9">Int32_Io</A>;
+<EM><FONT SIZE=-1>   6 </FONT></EM>
+<EM><FONT SIZE=-1>   7 </FONT></EM><b>procedure</b> <A HREF="src__infos__adb.htm#7_11">Infos</A><FONT COLOR=red><A NAME="7_11"></A></FONT>(<FONT COLOR=red><A NAME="7_17">Texte</A></FONT> : String; <FONT COLOR=red><A NAME="7_33">Taille</A></FONT>, <FONT COLOR=red><A NAME="7_41">Courant</A></FONT>, <FONT COLOR=red><A NAME="7_50">Courant_Max</A></FONT>, <FONT COLOR=red><A NAME="7_63">Max</A></FONT>, <FONT COLOR=red><A NAME="7_68">Mem</A></FONT> : <A HREF="src__int32_io__ads.htm#5_9">Int32</A>) <b>is</b>
+<EM><FONT SIZE=-1>   8 </FONT></EM><b>begin</b>
+<EM><FONT SIZE=-1>   9 </FONT></EM>   Put("| "); Put(<A HREF="src__infos__adb.htm#7_17">Texte</A>); Set_Col(38); Put('|');
+<EM><FONT SIZE=-1>  10 </FONT></EM>   <A HREF="src__int32_io__ads.htm#6_14">Put</A>(<A HREF="src__infos__adb.htm#7_33">Taille</A>, 7); Put('|');
+<EM><FONT SIZE=-1>  11 </FONT></EM>   <b>if</b> <A HREF="src__infos__adb.htm#7_41">Courant</A> = -1 <b>then</b> Put("........"); <b>else</b> <A HREF="src__int32_io__ads.htm#6_14">Put</A>(<A HREF="src__infos__adb.htm#7_41">Courant</A>, 8); <b>end</b> <b>if</b>; Put('|');
+<EM><FONT SIZE=-1>  12 </FONT></EM>   <b>if</b> <A HREF="src__infos__adb.htm#7_50">Courant_Max</A> = -1 <b>then</b> Put("......."); <b>else</b> <A HREF="src__int32_io__ads.htm#6_14">Put</A>(<A HREF="src__infos__adb.htm#7_50">Courant_Max</A>, 7); <b>end</b> <b>if</b>; Put('|');
+<EM><FONT SIZE=-1>  13 </FONT></EM>   <A HREF="src__int32_io__ads.htm#6_14">Put</A>(<A HREF="src__infos__adb.htm#7_63">Max</A>, 6); Put('|');
+<EM><FONT SIZE=-1>  14 </FONT></EM>   <A HREF="src__int32_io__ads.htm#6_14">Put</A>(<A HREF="src__infos__adb.htm#7_63">Max</A> * <A HREF="src__infos__adb.htm#7_33">Taille</A>, 7); Put('|'); New_Line;
+<EM><FONT SIZE=-1>  15 </FONT></EM><b>end</b> <A HREF="src__infos__adb.htm#7_11">Infos</A>
+</PRE></BODY></HTML>
