@@ -413,7 +413,7 @@ package body Objets_Prolog is
       else
          Pname := Table_Symb(Obj.Val).Pname;
          Long := Pname.Long;
-         Chaine(1..Pname.Long) := Table_Carac(Pname.Ind_Carac..
+         Chaine(Chaine'First..Pname.Long) := Table_Carac(Pname.Ind_Carac..
             Pname.Ind_Carac+Pname.Long-1); -- 1er p-name ne doit pas etre ""
          Print_Quote := Pname.Print_Quote;
       end if;
