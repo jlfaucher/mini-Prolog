@@ -122,3 +122,18 @@ dif([T|Q]) :- dif(T, Q),
 
 not(P) :- P, !, fail.
 not(P).
+
+% ------------------------------------------------------------------------------
+% User extension
+% ------------------------------------------------------------------------------
+
+length([], 0).
+length([F|R], L) :- length(R, LR), L is 1+LR.
+
+max(X,Y,X) :- X >= Y.
+max(X,Y,Y) :- Y > X.
+
+% Deep length: count the number of items at all levels, calculate the max depth.
+dlength([], 0, 1):- !.
+dlength([F|R], L, D) :- !, dlength(F, LF, DF), dlength(R, LR, DR), L is 1+LF+LR, DFplus1 is DF+1, max(DFplus1, DR, D).
+dlength(X,1, 0).
