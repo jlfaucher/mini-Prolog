@@ -264,6 +264,7 @@ package body Interpreteur_Prolog is
    X_Point_Y : constant Mot := Cree_Doublet_V(Cree_Variable(1),
       Cree_Variable(2)); -- Utilisé pour relancer des processus gelés (réunion de vecteurs)
 
+   Compteur_Reponses : Natural;
    Reponse_Affirmative : Boolean;                            -- C'est la réponse à la question posée.
    Fini : Boolean;
 
@@ -276,7 +277,10 @@ package body Interpreteur_Prolog is
    type Fonctionnement is (Interrogation, Consultation, Reconsultation); -- Le mode de fonctionnement de l'interpréteur.
    Mode_F : Fonctionnement;
 
-   type Reponse is (Oui_Non, Premiere_Reponse, Toutes_Reponses); -- Le mode de réponse de l'interpréteur.
+   subtype Reponse is Natural; -- Le mode de réponse de l'interpréteur.
+   Oui_Non : constant := 0;
+   Premiere_Reponse : constant := 1;
+   Toutes_Reponses : constant := Natural'Last;
    Mode_R : Reponse;
 
    type Mode_Ajout is (Debut, Fin);                          -- Pour les primitives assert, asserta et assertz.
@@ -677,12 +681,21 @@ package body Interpreteur_Prolog is
    begin
       Reponse_Affirmative := True;
       if Mode_R /= Oui_Non and Nb_Var_But /= 0 and Echo_Actif then
+         Put("[");
+         Put(Compteur_Reponses);
+         Put("] ");
          for I in 1..Nb_Var_But loop
             Ecrit(Nom_Global(I));
             Put(Espace_Egal_Espace);
             Write(Cree_Variable(I), Sp_Subst_Initial);
             if I /= Nb_Var_But then Put(Virgule_Espace); end if;
          end loop;
+         New_Line;
+      end if;
+      if Compteur_Reponses >= Mode_R then
+         -- We have reached the maximum number of solutions to display.
+         -- Maybe more solutions exist, display "..." to indicate that.
+         Put("...");
          New_Line;
       end if;
    end Imprimer_Reponse;
@@ -1344,8 +1357,9 @@ package body Interpreteur_Prolog is
          ---------------------------
          -- Affichage de la réponse.
          ---------------------------
+         Compteur_Reponses := Compteur_Reponses + 1;
          Imprimer_Reponse;
-         if Mode_R /= Toutes_Reponses then return; end if;
+         if Compteur_Reponses >= Mode_R then return; end if;
          ---------------------
          -- Retour en arriere.
          ---------------------
@@ -1593,6 +1607,7 @@ package body Interpreteur_Prolog is
                   when Oui_Non          => Arg1 := S_Yes_No;
                   when Premiere_Reponse => Arg1 := S_First;
                   when Toutes_Reponses  => Arg1 := S_All;
+                  when others           => Arg1 := Cree_Entier(Mode_R);
                end case;
                Put_Arg(1, (Lie, Sub_Vide, Arg1));                                   -- Pas besoin d'env. pour atome.
             elsif Egalite_Mot(Arg1, S_Yes_No) then
@@ -1601,6 +1616,8 @@ package body Interpreteur_Prolog is
                Mode_R := Premiere_Reponse;
             elsif Egalite_Mot(Arg1, S_All) then
                Mode_R := Toutes_Reponses;
+            elsif Entier(Arg1) and Entier_Val(Arg1) >= 0 then
+               Mode_R := Entier_Val(Arg1);
             else
                But_Courant := S_Fail;
             end if;
@@ -1808,6 +1825,7 @@ package body Interpreteur_Prolog is
       Expression              : Mot;
       Sauve_Mode_F            : Fonctionnement     := Mode_F;
       Sauve_Mode_R            : Reponse            := Mode_R;
+      Sauve_Compteur_Reponses : Natural            := Compteur_Reponses;
       Sauve_Sp_Nomvar         : Indice_Pile_Nomvar := Sp_Nomvar;
       Sauve_Sp_Nomvar_Initial : Indice_Pile_Nomvar := Sp_Nomvar_Initial;
       Sauve_Nb_Var_But        : Natural            := Nb_Var_But;
@@ -1822,6 +1840,7 @@ package body Interpreteur_Prolog is
             end if;
             exit when Carac_Lu = Fin_De_Fichier;
             Raz_Variables;
+            Compteur_Reponses := 0;
             Prompt;
             Expression := Analyse_Complete(Lit_Token);
             Nb_Var_But := Nbre_De_Variables;
@@ -1855,6 +1874,7 @@ package body Interpreteur_Prolog is
       end loop;
       Mode_F            := Sauve_Mode_F;
       Mode_R            := Sauve_Mode_R;
+      Compteur_Reponses := Sauve_Compteur_Reponses;
       Sp_Nomvar         := Sauve_Sp_Nomvar;
       Sp_Nomvar_Initial := Sauve_Sp_Nomvar_Initial;
       Nb_Var_But        := Sauve_Nb_Var_But;
@@ -1895,7 +1915,7 @@ package body Interpreteur_Prolog is
                Put_Line(Chargefichier);
                if not Entree_Fichier(S_Prolog_Sys) then return; end if;
                Driver(Consultation, Oui_Non);
-               Put(Ansi_Cursor_Up);
+               --Put(Ansi_Cursor_Up);
                Put_Line(Effacechargefichier);
                Premiere_Passe := False;                          -- IMPORTANT ! On ne le met à faux qu'apres avoir chargé PROLOG.SYS
                Liste_System := Liste_Def;                        -- Pour pouvoir ne lister que les regles prédéfinies.

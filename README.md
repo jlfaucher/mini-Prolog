@@ -40,24 +40,22 @@ Build
 
 With [GNAT Ada][gnat_ada]:
 
+    gprclean -r -P/local/prolog/prolog2/prolog2.gpr
     gprbuild -d -P/local/prolog/prolog2/prolog2.gpr
 
 Build output:
 
     gcc -c -gnatQ -O3 prolog.adb
     gcc -c -gnatQ -O3 interpreteur_prolog.adb
-    interpreteur_prolog.adb:1314:48: warning: "Env_Regle" may be referenced before it has a value
+    interpreteur_prolog.adb:1327:48: warning: "Env_Regle" may be referenced before it has a value
     gcc -c -gnatQ -O3 es_prolog.adb
     gcc -c -gnatQ -O3 infos.adb
     gcc -c -gnatQ -O3 int32_io.adb
     gcc -c -gnatQ -O3 objets_prolog.adb
-    objets_prolog.adb:416:17: warning: index for "Chaine" may assume lower bound of 1
-    objets_prolog.adb:416:17: warning: suggested replacement: "Chaine'First"
     gprbind prolog.bexch
     gnatbind prolog.ali
     gcc -c b__prolog.adb
     gcc prolog.o -o prolog
-    [2017-02-04 22:01:01] process terminated successfully, elapsed time: 11.13s
 
 
 Primitives
@@ -66,7 +64,10 @@ Primitives
 ####answer(yes_no | first | all | X)
 
     answer(yes_no).     % from now, display yes or no
+    answer(0).          % same as answer(yes_no)
     answer(first).      % from now, display the first solution only
+    answer(1).          % same as answer(first)
+    answer(2).          % from now, display at most 2 solutions
     answer(all).        % from now, display all the solutions
     answer(X).          % current setting
 
