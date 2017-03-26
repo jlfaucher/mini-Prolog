@@ -61,7 +61,7 @@ Build output:
 Primitives
 ----------
 
-####answer(yes_no | first | all | X)
+#### answer(yes_no | first | all | X)
 
     answer(yes_no).     % from now, display yes or no
     answer(0).          % same as answer(yes_no)
@@ -71,7 +71,7 @@ Primitives
     answer(all).        % from now, display all the solutions
     answer(X).          % current setting
 
-####asserta(Fact), assert(Fact), assertz(Fact)
+#### asserta(Fact), assert(Fact), assertz(Fact)
 
 asserta(Fact) : insert fact at the begining of the predicate.
 
@@ -99,7 +99,7 @@ assert(Fact), assertz(Fact) : insert a fact at the end of the predicate.
     X = marseille
     yes
 
-####display(X)
+#### display(X)
 
 Display X, with the free variables denoted by numbers, the strings possibly surrounded by quotes.
 
@@ -110,13 +110,13 @@ Display X, with the free variables denoted by numbers, the strings possibly surr
     X = f(*1), Y = f(*1), Z = [text, more text, symbol, 100, (vector), Variable], Variable = Variable
     yes
 
-####echo(off | on | X)
+#### echo(off | on | X)
 
     echo(off).      % from now, don't display the lines read from input
     echo(on).       % from now, display the lines read from input
     echo(X).        % current setting
 
-####freezeA(Var, Goal)
+#### freezeA(Var, Goal)
 
 Used by the primitive freeze :
 
@@ -124,25 +124,25 @@ Used by the primitive freeze :
 
 *   Otherwise the execution of Goal is delayed until Var changes of state.
 
-####halt
+#### halt
 
 Quit the interpreter.
 
-####is(Var, Expression)
+#### is(Var, Expression)
 
 Evaluate the Expression and binds Var to the result.
 
-####listing, listing(X)
+#### listing, listing(X)
 
 listing: display the rules of all the user-defined predicates.
 
 listing(X): display the rules of the predicate X.
 
-####nl
+#### nl
 
 Display a newline.
 
-####reduce(X, Y, V)
+#### reduce(X, Y, V)
 
 Used by the primitive dif :
 
@@ -150,7 +150,7 @@ Used by the primitive dif :
 *   If X and Y are equal without having to make hypotheses on the values of the variables then V <-- 1
     otherwise V represents the first variable on which an hypothesis must be done.
 
-####statistics
+#### statistics
 
 Display statistics.
 
@@ -178,15 +178,15 @@ Display statistics.
     | Pile de renommage des variables    |      3|       0|      1|   100|    300|
     ------------------------------------------------------------------------------
 
-####system
+#### system
 
 Display the rules of the system predicates defined in prolog.sys.
 
-####true
+#### true
 
 Always succeeds.
 
-####write(X)
+#### write(X)
 
 Display X, with the free variables denoted by their name, the strings never surrounded by quotes.
 
@@ -201,47 +201,47 @@ Display X, with the free variables denoted by their name, the strings never surr
 Predicates
 ----------
 
-####atom(X)
+#### atom(X)
 
 Succeeds if X is an identifier.
 
-####integer(X)
+#### integer(X)
 
 Succeeds if X is an integer.
 
-####atomic(X)
+#### atomic(X)
 
 Succeeds if X is a constant.
 
-####var(X)
+#### var(X)
 
 Succeeds if X is a variable.
 
-####list(X)
+#### list(X)
 
 Succeeds if X is a list [...].
 
-####vector(X)
+#### vector(X)
 
 Succeeds if X is a vector (...).
 
-####function(X)
+#### function(X)
 
 Succeeds if X is a function f(...)
 
-####<(X, Y)
+#### <(X, Y)
 
 Succeeds if X lesser than Y.
 
-####=<(X, Y)
+#### =<(X, Y)
 
 Succeeds if X lesser than or equal Y.
 
-####>(X, Y)
+#### >(X, Y)
 
 Succeeds if X greater than Y.
 
-####>=(X, Y)
+#### >=(X, Y)
 
 Succeeds if X greater than or equal Y.
 
@@ -250,7 +250,7 @@ Demo
 
 To load a file: ['file.p'].
 
-###Expressions
+### Expressions
 
     rlwrap ./prolog
     Interpreteur PROLOG avec syntaxe 'Edimbourg'.
@@ -273,7 +273,7 @@ To load a file: ['file.p'].
 
     ?- halt.
 
-###[Permutations of a sequence of four elements](bin/dif.p)
+### [Permutations of a sequence of four elements](bin/dif.p)
 
     rlwrap ./prolog
     Interpreteur PROLOG avec syntaxe 'Edimbourg'.
@@ -310,7 +310,7 @@ To load a file: ['file.p'].
 
     ?- halt.
 
-###[SEND + MORE = MONEY](bin/money.p)
+### [SEND + MORE = MONEY](bin/money.p)
 
     rlwrap ./prolog
     Interpreteur PROLOG avec syntaxe 'Edimbourg'.
@@ -334,7 +334,7 @@ To load a file: ['file.p'].
 
     ?- halt.
 
-###[The 8 queens problem](bin/queens.p)
+### [The 8 queens problem](bin/queens.p)
 
     rlwrap ./prolog
     Interpreteur PROLOG avec syntaxe 'Edimbourg'.
@@ -439,7 +439,7 @@ To load a file: ['file.p'].
 
     ?- halt.
 
-###[Unification](bin/unificat.p)
+### [Unification](bin/unificat.p)
 
     rlwrap ./prolog
     Interpreteur PROLOG avec syntaxe 'Edimbourg'.
