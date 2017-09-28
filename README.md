@@ -33,7 +33,7 @@ Encoded UTF-8.
 
 In french.
 
-[HTML](html/index.htm) with cross-references.
+[HTML](https://jlfaucher.github.io/prolog2/html/index.htm) with cross-references.
 
 Build
 -----
