@@ -127,13 +127,66 @@ not(P).
 % User extension
 % ------------------------------------------------------------------------------
 
-length([], 0).
-length([F|R], L) :- length(R, LR), L is 1+LR.
+min(X,Y,X) :- X =< Y.
+min(X,Y,Y) :- Y < X.
 
 max(X,Y,X) :- X >= Y.
 max(X,Y,Y) :- Y > X.
 
+
+% Predicate succeeds if infinity or integer
+integer_infinity(infinity) :- !.
+integer_infinity(+infinity) :- !.
+integer_infinity(-infinity) :- !.
+integer_infinity(I) :- integer(I).
+
+
+less_equal(I, infinity) :- integer(I), !.
+less_equal(I, +infinity) :- integer(I), !.
+less_equal(I1, I2) :- I1 =< I2.
+
+
+greater_equal(I, -infinity) :- integer(I), !.
+greater_equal(I1, I2) :- I1 >= I2.
+
+
+integer_sequence(From, From, 0, From).
+integer_sequence(From, To, Step, N) :- integer(From),
+                                       integer_infinity(To),
+                                       integer(Step),
+                                       Step \= 0,
+                                       integer_sequence_internal(From, To, Step, N).
+% Internal
+integer_sequence_internal(From, To, Step, From) :- Step > 0,
+                                                   less_equal(From, To).
+integer_sequence_internal(From, To, Step, N)    :- Step > 0,
+                                                   less_equal(From, To),
+                                                   Next is From + Step,
+                                                   integer_sequence_internal(Next, To, Step, N).
+integer_sequence_internal(From, To, Step, From) :- Step < 0,
+                                                   greater_equal(From, To).
+integer_sequence_internal(From, To, Step, N)    :- Step < 0,
+                                                   greater_equal(From, To),
+                                                   Previous is From + Step, % remember: Step is negative
+                                                   integer_sequence_internal(Previous, To, Step, N).
+
+
+% Can be used to check/get the length of a list, or generate a list of a given length, or generate all the lists from 0 to infinity length.
+% The length of a non-list is 1.
+length(X, Length) :- integer(Length), length_internal(X, Length), !. % When the length is provided, the 1st solution is the good one.
+length(X, Length) :-                  length_internal(X, Length).    % When no length provided, all the solutions are enumerated.
+% Internal
+length_internal([], 0).
+length_internal([F|R], L) :- length_internal(R, LR), L is 1+LR.
+length_internal(NonList, 1) :- not(list(NonList)).
+
+
 % Deep length: count the number of items at all levels, calculate the max depth.
-dlength([], 0, 1):- !.
-dlength([F|R], L, D) :- !, dlength(F, LF, DF), dlength(R, LR, DR), L is 1+LF+LR, DFplus1 is DF+1, max(DFplus1, DR, D).
-dlength(X,1, 0).
+% The depth lets make a distinction between lists and non-lists.
+% The depth of a non-list is zero.
+% The depth of a list's item is the number of [] surrounding the item.
+dlength(X, Length, Depth) :- not(var(X)), dlength_internal(X, 0, Length, Depth).    % When no length and/or no depth provided, all the solutions are enumerated.
+% Internal
+dlength_internal([], L, L, 1).
+dlength_internal([F|R], _, L, D)  :- dlength_internal(F, 1, LF, DF), dlength_internal(R, 0, LR, DR), L is LF+LR, DFplus1 is DF+1, max(DFplus1, DR, D).
+dlength_internal(NonList, _, 1, 0) :- not(list(NonList)).
