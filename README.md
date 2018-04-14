@@ -436,23 +436,7 @@ When 1 variable is free, there is only 1 solution.
     [1] X = 10
     yes
 
-When 2 variables are free, and Z is known, the number of solutions is finite.
-
-    ?- plus(X,Y,10).
-    [1] X = 0, Y = 10
-    [2] X = 1, Y = 9
-    [3] X = 2, Y = 8
-    [4] X = 3, Y = 7
-    [5] X = 4, Y = 6
-    [6] X = 5, Y = 5
-    [7] X = 6, Y = 4
-    [8] X = 7, Y = 3
-    [9] X = 8, Y = 2
-    [10] X = 9, Y = 1
-    [11] X = 10, Y = 0
-    yes
-
-When 2 variables are free, including Z, the number of solutions is infinite.
+When 2 variables are free, the number of solutions is infinite.
 
     ?- plus(X,10,Z).
     [1] X = 0, Z = 10
@@ -466,20 +450,6 @@ When 2 variables are free, including Z, the number of solutions is infinite.
     Aborting current evaluation...
 
 It's possible to change the domain of a free argument.
-
-    ?- plus([X,-100], Y, -90).
-    [1] X = -100, Y = 10
-    [2] X = -99, Y = 9
-    [3] X = -98, Y = 8
-    [4] X = -97, Y = 7
-    [5] X = -96, Y = 6
-    [6] X = -95, Y = 5
-    [7] X = -94, Y = 4
-    [8] X = -93, Y = 3
-    [9] X = -92, Y = 2
-    [10] X = -91, Y = 1
-    [11] X = -90, Y = 0
-    yes
 
     ?- plus([X,-100], -90, Z).
     [1] X = -100, Z = -190
