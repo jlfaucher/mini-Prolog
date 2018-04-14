@@ -127,6 +127,9 @@ not(P).
 % User extension
 % ------------------------------------------------------------------------------
 
+abs(X, X) :- X >= 0, !.
+abs(X, Y) :- Y is -X.
+
 min(X,Y,X) :- X =< Y.
 min(X,Y,Y) :- Y < X.
 
@@ -150,6 +153,8 @@ greater_equal(I, -infinity) :- integer(I), !.
 greater_equal(I1, I2) :- I1 >= I2.
 
 
+integer_sequence(To, N) :- integer_sequence(0, To, 1, N).
+integer_sequence(From, To, N) :- integer_sequence(From, To, 1, N).
 integer_sequence(From, From, 0, From).
 integer_sequence(From, To, Step, N) :- integer(From),
                                        integer_infinity(To),
