@@ -14,12 +14,12 @@ write(X)        :- internal_call(10).
 display(X)      :- internal_call(11).
 nl              :- internal_call(12).
 
-atom(X)         :- internal_call(20).
+atom(X)         :- internal_call(20).           % Vérifie si X est un symbole. [] et () sont des symboles.
 integer(X)      :- internal_call(21).
-atomic(X)       :- internal_call(22).
+atomic(X)       :- internal_call(22).           % Vérifie si X est un symbole ou un entier
 var(X)          :- internal_call(23).
-list(X)         :- internal_call(24).           % Vérifie si X de la forme [...]
-vector(X)       :- internal_call(25).           % Vérifie si X de la forme (...)
+list(X)         :- internal_call(24).           % Vérifie si X de la forme [...]. S'efface pour [] qui est un symbole.
+vector(X)       :- internal_call(25).           % Vérifie si X de la forme (...). S'efface pour () qui est un symbole.Ò
 function(X)     :- internal_call(26).           % Vérifie si X de la forme f(...)
 
 freezeA(X, But) :- internal_call(30).           % Utilisé par la primitive freeze :
@@ -177,21 +177,38 @@ integer_sequence_internal(From, To, Step, N)    :- Step < 0,
 
 
 % Can be used to check/get the length of a list, or generate a list of a given length, or generate all the lists from 0 to infinity length.
-% The length of a non-list is 1.
-length(X, Length) :- integer(Length), length_internal(X, Length), !. % When the length is provided, the 1st solution is the good one.
-length(X, Length) :-                  length_internal(X, Length).    % When no length provided, all the solutions are enumerated.
+% The length of a list is the number of first-level items displayed before the | (if any).
+% The length of a list is the number of cells making its internal representation.
+% The length of a non-list is 0.
+list_length(X, Length) :- integer(Length), list_length_internal(X, Length), !.  % When the length is provided, must limit to the 1st solution, otherwise enter in a infinite loop until "Not enough memory for substitutions".
+list_length(X, Length) :-                  list_length_internal(X, Length).     % When no length provided, all the solutions are enumerated (infinite number of solutions).
 % Internal
-length_internal([], 0).
-length_internal([F|R], L) :- length_internal(R, LR), L is 1+LR.
-length_internal(NonList, 1) :- not(list(NonList)).
+list_length_internal([], 0).
+list_length_internal([F|R], L) :- list_length_internal(R, LR), L is 1+LR.
+list_length_internal(NonList, 0) :- not(list(NonList)).
 
 
-% Deep length: count the number of items at all levels, calculate the max depth.
-% The depth lets make a distinction between lists and non-lists.
-% The depth of a non-list is zero.
-% The depth of a list's item is the number of [] surrounding the item.
-dlength(X, Length, Depth) :- not(var(X)), dlength_internal(X, 0, Length, Depth).    % When no length and/or no depth provided, all the solutions are enumerated.
+% Deep length: count the number of leaf items at all levels, calculate the max depth.
+% Inside a list, [] is a leaf item, as () and any non-list item: length+=1, depth+=0.
+% A leaf item after | (if any) is ignored (same rule than list_length).
+% The depth lets make a distinction between lists and non-lists:
+% - The depth of a non-list is zero.
+% - The depth of a list's item is the number of [] surrounding the item.
+% list_dlength and list_length are equivalent when the list contains no sublist, or sublists with 0 or 1 item:
+list_dlength([], 0, 1) :- !.
+list_dlength(X, 0, 0) :- not(list(X)), !.
+list_dlength(X, Length, Depth) :-
+    not(var(X)),
+    list_dlength_internal(X, 1, Length, Depth).    % unlike length, dlength can't be used to generate lists.
 % Internal
-dlength_internal([], L, L, 1).
-dlength_internal([F|R], _, L, D)  :- dlength_internal(F, 1, LF, DF), dlength_internal(R, 0, LR, DR), L is LF+LR, DFplus1 is DF+1, max(DFplus1, DR, D).
-dlength_internal(NonList, _, 1, 0) :- not(list(NonList)).
+list_dlength_internal([], L, L, 0).
+list_dlength_internal([F|R], _, L, D)  :-
+    list_dlength_internal(F, 1, LF, DF),    % here, the length of a leaf item is 1
+    list_dlength_internal(R, 0, LR, DR),    % here, the length of a leaf item is 0, because after the |
+    L is LF+LR,
+    list_dlength_internal_adjust_depth(LF, DF, DF1),
+    max(DF1, DR, D).
+list_dlength_internal(NonList, L, L, 0) :- not(list(NonList)).
+% Internal helper
+list_dlength_internal_adjust_depth(0, Depth, Depth) :- !.                           % when the length is 0 then the depth is +0
+list_dlength_internal_adjust_depth(_, Depth, DepthPlus1) :- DepthPlus1 is Depth+1.  % otherwise the depth is +1

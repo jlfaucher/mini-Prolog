@@ -110,48 +110,51 @@ Display X, with the free variables denoted by numbers, the strings possibly surr
     [1] X = f(*1), Y = f(*1), Z = [text, more text, symbol, 100, (vector), Variable], Variable = Variable
     yes
 
-#### dlength(X, Length, Depth)
+#### list_dlength(X, Length, Depth)
 
-Deep length: count the number of items at all levels, calculate the max depth.
+Deep length: count the number of leaf items at all levels, calculate the max depth.
+
+Inside a list, [] is a leaf item, as () and any non-list item: length+=1, depth+=0.
+A leaf item after | (if any) is ignored (same rule than list_length).
 
 The depth lets make a distinction between lists and non-lists.
 
 - The depth of a non-list is zero.
 - The depth of a list is the greatest number of successive [ needed to display the list.
 
-dlength and length are equivalent when the list contains no sublist, or sublists with 0 or 1 item:
+list_dlength and list_length are equivalent when the list contains no sublist, or sublists with 0 or 1 item:
 
-    ?- X=[], length(X, LL), dlength(X, DL, DD).
+    ?- X=[], list_length(X, LL), list_dlength(X, DL, DD).
     [1] X = [], LL = 0, DL = 0, DD = 1
     yes
-    ?- X=[a, b], length(X, LL), dlength(X, DL, DD).
+    ?- X=[a, b], list_length(X, LL), list_dlength(X, DL, DD).
     [1] X = [a, b], LL = 2, DL = 2, DD = 1
     yes
-    ?- X=[a, b, [], []], length(X, LL), dlength(X, DL, DD).
-    [1] X = [a, b, [], []], LL = 4, DL = 4, DD = 2
+    ?- X=[a, b, [], []], list_length(X, LL), list_dlength(X, DL, DD).
+    [1] X = [a, b, [], []], LL = 4, DL = 4, DD = 1
     yes
-    ?- X=[a, [b], c], length(X, LL), dlength(X, DL, DD).
+    ?- X=[a, [b], c], list_length(X, LL), list_dlength(X, DL, DD).
     [1] X = [a, [b], c], LL = 3, DL = 3, DD = 2
     yes
-    ?- X=[a, [[b]], c], length(X, LL), dlength(X, DL, DD).
+    ?- X=[a, [[b]], c], list_length(X, LL), list_dlength(X, DL, DD).
     [1] X = [a, [[b]], c], LL = 3, DL = 3, DD = 3
     yes
 
-The length & depth of a non-list is 1 & 0.
+The length & depth of a non-list is 0 & 0.
 
-    ?- dlength(x, L, D).
-    [1] L = 1, D = 0
+    ?- list_dlength(x, L, D).
+    [1] L = 0, D = 0
     yes
-    ?- dlength(f(x), L, D).
-    [1] L = 1, D = 0
+    ?- list_dlength(f(x), L, D).
+    [1] L = 0, D = 0
     yes
-    ?- dlength((a,b,c), L, D).
-    [1] L = 1, D = 0
+    ?- list_dlength((a,b,c), L, D).
+    [1] L = 0, D = 0
     yes
 
-dlength and length are different when the list contains sublists with more than 1 item:
+list_dlength and list_length are different when the list contains sublists with more than 1 item:
 
-    ?- X=[a, [b1, b2], c], length(X, LL), dlength(X, DL, DD).
+    ?- X=[a, [b1, b2], c], list_length(X, LL), list_dlength(X, DL, DD).
     [1] X = [a, [b1, b2], c], LL = 3, DL = 4, DD = 2
     yes
 
@@ -222,19 +225,19 @@ Descending:
 
 Evaluate the Expression and binds Var to the result.
 
-#### length(X, Length)
+#### list_length(X, Length)
 
 Can be used to check/get the length of a list
 
-    ?- length([a,b,c], 3).
+    ?- list_length([a,b,c], 3).
     yes
-    ?- length([a,b,c], L).
+    ?- list_length([a,b,c], L).
     [1] L = 3
     yes
 
 or generate a list of a given length
 
-    ?- length(L, 3).
+    ?- list_length(L, 3).
     [1] L = [_9, _14, _19]
     yes
 
@@ -242,7 +245,7 @@ or generate all the lists from 0 to infinity length.
 
     ?- answer(10).
     yes
-    ?- length(List, Length).
+    ?- list_length(List, Length).
     [1] List = [], Length = 0
     [2] List = [_8], Length = 1
     [3] List = [_8, _13], Length = 2
@@ -256,16 +259,16 @@ or generate all the lists from 0 to infinity length.
     ...
     yes
 
-The length of a non-list is 1.
+The length of a non-list is 0.
 
-    length(x, L).
-    [1] L = 1
+    ?- list_length(x, L).
+    [1] L = 0
     yes
-    length(f(x), L).
-    [1] L = 1
+    ?- list_length(f(x), L).
+    [1] L = 0
     yes
-    ?- length((a,b,c), L).
-    [1] L = 1
+    ?- list_length((a,b,c), L).
+    [1] L = 0
     yes
 
 #### listing, listing(X)
