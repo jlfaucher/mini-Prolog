@@ -99,7 +99,8 @@ package body Interpreteur_Prolog is
    Sp_Subst : Indice_Pile_Subst;                             -- Pointe sur le 1er emplacement libre.
    Sp_Subst_Max : Indice_Pile_Subst := Indice_Pile_Subst'First;
 
-   type Type_Equation is (Libre,                             -- La variable est libre.
+   type Type_Equation is (
+      Libre,                             -- La variable est libre.
       Gele,                              -- La variable est rattachée à un processus gelé.
       Lie,                               -- La variable est liée à un objet PROLOG (elle a une valeur).
       Ref);                              -- La variable pointe sur une autre variable plus ancienne.
@@ -562,7 +563,7 @@ package body Interpreteur_Prolog is
       Recherche_Eq : in Boolean := True);         -- TERME en sortie est une variable).
 
 
-   procedure Write(Objet : Mot; Env_Objet : Indice_Pile_Subst) is
+   procedure Write(Objet : Mot; Env_Objet : Indice_Pile_Subst; Avec_Quote : Boolean) is
 
       Position : Positive;                                    -- Pour les arbres infinis.
       Niveau   : Positive := 1;                               -- Idem.
@@ -627,7 +628,7 @@ package body Interpreteur_Prolog is
          Flagvar := Variable(Obj) or Flagvar;
          Rep(Obj, Env, X, False);                              -- FALSE pour ne pas parcourir la pile des équations.
          if Atome(Obj) then
-            Ecrit(Obj, False);                                  -- FALSE pour indiquer de ne pas entourer avec des quotes.
+            Ecrit(Obj, Avec_Quote);
          elsif Variable(Obj) then
             if Gele(X) then Put(Indicateur_Gele);
             elsif X - Sp_Subst_Initial <= Nb_Var_But then Ecrit(Nom_Global(X - Sp_Subst_Initial));
@@ -687,7 +688,7 @@ package body Interpreteur_Prolog is
          for I in 1..Nb_Var_But loop
             Ecrit(Nom_Global(I));
             Put(Espace_Egal_Espace);
-            Write(Cree_Variable(I), Sp_Subst_Initial);
+            Write(Cree_Variable(I), Sp_Subst_Initial, True);    -- surround by quote
             if I /= Nb_Var_But then Put(Virgule_Espace); end if;
          end loop;
          New_Line;
@@ -1283,7 +1284,7 @@ package body Interpreteur_Prolog is
 
 
    procedure Preparer_Unification(Liste_Regles : in Mot;
-         Nouvel_Env : in out Indice_Pile_Subst;
+         Nouvel_Env : out Indice_Pile_Subst;
          Tete_Regle : out Mot;
          Base_Pile_Sauve : out Indice_Pile_Sauve) is
       Nbre_Var : Natural;
@@ -1640,10 +1641,10 @@ package body Interpreteur_Prolog is
          --------------------- Les prédicats d'écriture ------------------------
          when 10 => -- write(X)
             Rep(Arg1, Env_Arg1, X);
-            Write(Arg1, Env_Arg1);
+            Write(Arg1, Env_Arg1, False);   -- free variables denoted by name, strings not surrounded by quotes
          when 11 => -- display(X)
             Rep(Arg1, Env_Arg1, X);
-            Ecrit(Arg1);
+            Ecrit(Arg1, True);              -- free variables denoted by number, strings surrounded by quotes
          when 12 => -- nl
             New_Line;
          --------------- Les prédicats de reconnaissance de type ---------------
@@ -1795,6 +1796,38 @@ package body Interpreteur_Prolog is
             else
                But_Courant := S_Fail;
             end if;
+         ------------------------ Décomposition d'objets -----------------------
+         when 90 => -- arg2(N, T1, T2)
+
+            -- arg2(N, T1, T2)
+            -- Unifie T2 avec la longueur ou l'élément de rang n d'un entier, d'un symbole, d'une liste, d'un vecteur ou d'une fonction.
+            --
+            -- (1) Si T1 est un entier ou un symbole alors si
+            -- n=0, T2 = longueur(T1)
+            -- n≠0, T2 = nième caractère de T1.
+            --
+            -- (2) Si T1 est une liste ou un vecteur ou une fonction alors si
+            -- n=0, T2 = nombre d'éléments de T1
+            -- n≠0, T2 = nième élément de T1.
+
+            declare
+               Item: Mot := Mot_Nul;
+            begin
+               Rep(Arg1, Env_Arg1, X);
+               Rep(Arg2, Env_Arg2, X);
+               if Entier(Arg1) then
+                  if Entier(Arg2)  then Item := Decompose_Entier(Arg1, Arg2); end if;
+                  if Symbole(Arg2) then Item := Decompose_Symbole(Arg1, Arg2); end if;
+                  if Doublet(Arg2) then Item := Decompose_Doublet(Arg1, Arg2); end if;
+                  if Egalite_Mot(Item, Mot_Nul) then
+                     But_Courant := S_Fail;
+                  else
+                     Put_Arg(3, (Lie, Sub_Vide, Item));
+                  end if;
+               else
+                  But_Courant := S_Fail;
+               end if;
+            end;
          ------------------------ Quitter l'interpréteur -----------------------
          when 1000 => -- halt
             Fini := True;

@@ -292,6 +292,16 @@ package body Objets_Prolog is
    end Entier;
 
 
+   function Caractere_De_Symbole(C : Character) return Boolean is -- Caracteres autorisés dans un symbole non quoté
+   begin
+      return C in 'A'..'Z' or else
+         C in 'a'..'z' or else
+         C in '0'..'9' or else
+         C = '_'         or else
+         Character'Pos(C) in 129..154; -- Tous les caracteres accentués
+   end Caractere_De_Symbole;
+
+
    function Symbole(Obj : Mot) return Boolean is
    begin
       return Obj.T = Symbole;
@@ -404,6 +414,12 @@ package body Objets_Prolog is
    -- Fonctions d'acces aux objets PROLOG.
    ---------------------------------------
 
+   function Mot_Nul return Mot is
+   begin
+      return (Libre, 0); -- Valeur retournée en interne quand pas de résultat
+   end;
+
+
    procedure Symbole_Chaine(Obj : in Mot;
          Chaine : out String; Long : out Natural;
          Print_Quote : out Boolean) is            -- Représentation externe d'un symbole.
@@ -469,6 +485,66 @@ package body Objets_Prolog is
       return Topvar - 1;
    end Nbre_De_Variables;
 
+
+   function Decompose_Entier(N, un_Entier : Mot) return Mot is
+      -- si N=0, Item = longueur(un_Entier'Image)
+      -- si N≠0, Item = nième caractère de un_Entier'Image.
+      -- Ada RM: The image of an integer value is the corresponding decimal literal,
+      -- without underlines, leading zeros, exponent, or trailing spaces, but
+      -- with a single leading character that is either a minus sign or a space.
+      Index : Type_Nombre := Entier_Val(N);
+      Nombre : Type_Nombre := Entier_Val(un_Entier);
+      Nombre_Image : String := Type_Nombre'Image(Nombre);
+      Length : Type_Nombre := Nombre_Image'Length;
+   begin
+      if Index = 0 then return Cree_Entier(Length); end if;
+      if Index > 0 and Index <= Length then
+         return Cree_Symbole(Nombre_Image(Index..Index),
+                             not Caractere_De_Symbole(Nombre_Image(Index)));
+      end if;
+      return Mot_Nul;
+   end Decompose_Entier;
+
+
+   function Decompose_Symbole(N, un_Symbole : Mot) return Mot is
+      -- si N=0, Item = longueur(un_Symbole.pname)
+      -- si N≠0, Item = nième caractère de un_Symbole.pname.
+      Index : Type_Nombre := Entier_Val(N);
+   begin
+      Symbole_Chaine(un_Symbole, Pname_Buffer, Pname_Long, Pname_Print_Quote);
+      if Index = 0 then return Cree_Entier(Pname_Long); end if;
+      if Index > 0 and Index <= Pname_Long then
+         return Cree_Symbole(Pname_Buffer(Index..Index),
+                             not Caractere_De_Symbole(Pname_Buffer(Index)));
+      end if;
+      return Mot_Nul;
+   end Decompose_Symbole;
+
+
+   function Decompose_Doublet(N, un_Doublet : Mot) return Mot is
+       -- si N=0, Item = nombre d'éléments de la liste ou du vecteur ou de la fonction
+       -- si N≠0, Item = nième élément de la liste ou du vecteur ou de la fonction
+      Index : Type_Nombre := Entier_Val(N);
+      Obj : Mot := un_Doublet;
+   begin
+      if Index = 0 then
+         loop
+            Index := Index + 1;
+            Obj := Reste(Obj);
+            exit when not Doublet(Obj);
+         end loop;
+         return Cree_Entier(Index);
+      end if;
+      if Index > 0 then
+         loop
+            Index := Index - 1;
+            if Index = 0 then return Premier(Obj); end if;
+            Obj := Reste(Obj);
+            exit when not Doublet(Obj);
+         end loop;
+      end if;
+      return Mot_Nul;
+   end Decompose_Doublet;
 
    ----------------------------------------------
    -- Fonctions de fabrication des objets PROLOG.

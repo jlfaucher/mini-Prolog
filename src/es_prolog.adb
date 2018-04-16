@@ -468,16 +468,6 @@ package body Es_Prolog is
    end Lit_Nombre;
 
 
-   function Caractere_De_Symbole(C : Character) return Boolean is -- Caracteres autorisés dans un symbole non quoté
-   begin
-      return C in 'A'..'Z' or else
-         C in 'a'..'z' or else
-         C in '0'..'9' or else
-         C = '_'         or else
-         Character'Pos(C) in 129..154; -- Tous les caracteres accentués
-   end Caractere_De_Symbole;
-
-
    procedure Lit_Symbvar is -- On part d'un caractere déjà lu.
    begin
       Pname_Print_Quote := False;

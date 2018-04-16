@@ -23,6 +23,7 @@ package Objets_Prolog is
    type Mot is private;
    subtype Mot_Valeur is Integer;
 
+   function Mot_Nul return Mot;
 
    ----------------------------------------------------------------------
    -- Caractéristique des valeurs internes des atomes (entier et chaine).
@@ -83,6 +84,7 @@ package Objets_Prolog is
    function Func1(Obj : Mot) return Boolean;
    function Func2(Obj : Mot) return Boolean;
 
+   function Caractere_De_Symbole(C : Character) return Boolean;
 
    ---------------------------------------
    -- Fonctions d'acces aux objets PROLOG.
@@ -98,6 +100,9 @@ package Objets_Prolog is
    function Id_Liste_Regles(Symb : Mot) return Mot;       -- Renvoie la liste des regles rattachées au symbole SYMB.
    function Nbre_De_Variables return Natural;             -- Renvoie le nbre de variables crées depuis le dernier RAZ_VARIABLES.
 
+   function Decompose_Entier(N, un_Entier : Mot) return Mot;
+   function Decompose_Symbole(N, un_Symbole : Mot) return Mot;
+   function Decompose_Doublet(N, un_Doublet : Mot) return Mot;
 
    ----------------------------------------------
    -- Fonctions de fabrication des objets PROLOG.

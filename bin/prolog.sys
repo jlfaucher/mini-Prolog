@@ -10,8 +10,8 @@ answer(X)       :- internal_call(0).
 true            :- internal_call(1).
 statistics      :- internal_call(2).
 
-write(X)        :- internal_call(10).
-display(X)      :- internal_call(11).
+write(X)        :- internal_call(10).           % free variables denoted by name, strings not surrounded by quotes
+display(X)      :- internal_call(11).           % free variables denoted by number, strings surrounded by quotes
 nl              :- internal_call(12).
 
 atom(X)         :- internal_call(20).           % Vérifie si X est un symbole. [] et () sont des symboles.
@@ -48,6 +48,8 @@ assertz(X)      :- internal_call(71).
 assert(X)       :- internal_call(71).
 
 echo(X)         :- internal_call(80).
+
+arg2(N, T1, T2) :- internal_call(90).           % si N=0 alors T2=longueur(T1) sinon T2=Nième item de T1
 
 halt            :- internal_call(1000).
 
@@ -127,6 +129,14 @@ not(P).
 % User extension
 % ------------------------------------------------------------------------------
 
+type(X, symbol) :- atom(X).
+type(X, integer) :- integer(X).
+type(X, list) :- list(X).
+type(X, vector) :- vector(X).
+type(X, function) :- function(X).
+type(X, var) :- var(X).
+
+
 abs(X, X) :- X >= 0, !.
 abs(X, Y) :- Y is -X.
 
@@ -174,6 +184,15 @@ integer_sequence_internal(From, To, Step, N)    :- Step < 0,
                                                    greater_equal(From, To),
                                                    Previous is From + Step, % remember: Step is negative
                                                    integer_sequence_internal(Previous, To, Step, N).
+
+
+% Works for any type:
+% - when X is an integer, returns the string length of its representation. The first char is always ' ' or '-'.
+% - when X is a symbol, returns the string length of its pname.
+% - when X is a list, returns the number of items in the list.
+% - when X is a vector, returns the number of items in the vector.
+% - when X is a function, returns the number of arguments of the function.
+length(X, L) :- arg2(0, X, L).
 
 
 % Can be used to check/get the length of a list, or generate a list of a given length, or generate all the lists from 0 to infinity length.

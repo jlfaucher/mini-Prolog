@@ -47,7 +47,6 @@ Build output:
 
     gcc -c -gnatQ -O3 prolog.adb
     gcc -c -gnatQ -O3 interpreteur_prolog.adb
-    interpreteur_prolog.adb:1327:48: warning: "Env_Regle" may be referenced before it has a value
     gcc -c -gnatQ -O3 es_prolog.adb
     gcc -c -gnatQ -O3 infos.adb
     gcc -c -gnatQ -O3 int32_io.adb
@@ -70,6 +69,10 @@ Primitives
     answer(2).          % from now, display at most 2 solutions
     answer(all).        % from now, display all the solutions
     answer(X).          % current setting
+
+#### args2(N, X, Item)
+
+If N=0 then Item=length(X) otherwise Item=Nth item of X.
 
 #### asserta(Fact), assert(Fact), assertz(Fact)
 
@@ -110,11 +113,23 @@ Display X, with the free variables denoted by numbers, the strings possibly surr
     [1] X = f(*1), Y = f(*1), Z = [text, more text, symbol, 100, (vector), Variable], Variable = Variable
     yes
 
+#### length(X, Length)
+
+Works for any type:
+
+- when X is an integer, returns the string length of its representation.
+  The first char is always ' ' or '-'.
+- when X is a symbol, returns the string length of its pname.
+- when X is a list, returns the number of items in the list.
+- when X is a vector, returns the number of items in the vector.
+- when X is a function, returns the number of arguments of the function.
+
 #### list_dlength(X, Length, Depth)
 
 Deep length: count the number of leaf items at all levels, calculate the max depth.
 
 Inside a list, [] is a leaf item, as () and any non-list item: length+=1, depth+=0.
+
 A leaf item after | (if any) is ignored (same rule than list_length).
 
 The depth lets make a distinction between lists and non-lists.
@@ -227,7 +242,7 @@ Evaluate the Expression and binds Var to the result.
 
 #### list_length(X, Length)
 
-Can be used to check/get the length of a list
+Get/Check the length of a list
 
     ?- list_length([a,b,c], 3).
     yes
@@ -325,6 +340,12 @@ Display the rules of the system predicates defined in prolog.sys.
 
 Always succeeds.
 
+#### type(X, T)
+
+Get/Check the type of X.
+
+Possible values of T: symbol, integer, list, vector, function, var.
+
 #### write(X)
 
 Display X, with the free variables denoted by their name, the strings never surrounded by quotes.
@@ -342,7 +363,7 @@ Predicates
 
 #### atom(X)
 
-Succeeds if X is an identifier.
+Succeeds if X is a symbol.
 
 #### integer(X)
 
@@ -350,7 +371,7 @@ Succeeds if X is an integer.
 
 #### atomic(X)
 
-Succeeds if X is a constant.
+Succeeds if X is a symbol or an integer.
 
 #### var(X)
 
@@ -392,6 +413,46 @@ Demo
     Algorithmes du PROLOG II de Marseille.
 
 To load a file: ['file.p'].
+
+### Types
+
+    ?- type(0, T).
+    [1] T = integer
+    yes
+
+    ?- type(xxx, T).
+    [1] T = symbol
+    yes
+
+    ?- type('xxx', T).
+    [1] T = symbol
+    yes
+
+    ?- type([], T).
+    [1] T = symbol
+    [2] T = list
+    yes
+
+    ?- type([a,b], T).
+    [1] T = list
+    yes
+
+    ?- type((), T).
+    [1] T = symbol
+    [2] T = vector
+    yes
+
+    ?- type((a,b), T).
+    [1] T = vector
+    yes
+
+    ?- type(f(a,b), T).
+    [1] T = function
+    yes
+
+    ?- type(X, T).
+    [1] X = X, T = var
+    yes
 
 ### Expressions
 
