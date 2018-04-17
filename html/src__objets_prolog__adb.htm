@@ -51,7 +51,7 @@
 <EM><FONT SIZE=-1>  47 </FONT></EM>   <FONT COLOR=green><EM>-- Description de la représentation interne d'un p-name.</EM></FONT>
 <EM><FONT SIZE=-1>  48 </FONT></EM>   <FONT COLOR=green><EM>--------------------------------------------------------</EM></FONT>
 <EM><FONT SIZE=-1>  49 </FONT></EM>   <b>type</b> <FONT COLOR=red><A NAME="49_9">R_Pname</A></FONT> <b>is</b> <b>record</b>
-<EM><FONT SIZE=-1>  50 </FONT></EM>      <FONT COLOR=red><A NAME="50_7">Long</A></FONT>      : Natural <b>range</b> 0..<A HREF="src__objets_prolog__ads.htm#31_4">Longmax_Pname</A> := 0;
+<EM><FONT SIZE=-1>  50 </FONT></EM>      <FONT COLOR=red><A NAME="50_7">Long</A></FONT>      : Natural <b>range</b> 0..<A HREF="src__objets_prolog__ads.htm#32_4">Longmax_Pname</A> := 0;
 <EM><FONT SIZE=-1>  51 </FONT></EM>      <FONT COLOR=red><A NAME="51_7">Ind_Carac</A></FONT> : <A HREF="src__objets_prolog__adb.htm#36_12">Indice_Table_Carac</A>;
 <EM><FONT SIZE=-1>  52 </FONT></EM>      <FONT COLOR=red><A NAME="52_7">Print_Quote</A></FONT> : Boolean;
 <EM><FONT SIZE=-1>  53 </FONT></EM>   <b>end</b> <b>record</b>;
@@ -99,7 +99,7 @@
 <EM><FONT SIZE=-1>  95 </FONT></EM>   <FONT COLOR=green><EM>-----------------------------------------</EM></FONT>
 <EM><FONT SIZE=-1>  96 </FONT></EM>   <FONT COLOR=green><EM>-- Declaration de la table des variables.</EM></FONT>
 <EM><FONT SIZE=-1>  97 </FONT></EM>   <FONT COLOR=green><EM>-----------------------------------------</EM></FONT>
-<EM><FONT SIZE=-1>  98 </FONT></EM>   <b>subtype</b> <FONT COLOR=red><A NAME="98_12">Indice_Table_Var</A></FONT> <b>is</b> <A HREF="src__objets_prolog__ads.htm#24_12">Mot_Valeur</A> <b>range</b> 1..<A HREF="src__objets_prolog__ads.htm#40_4">Nbre_Max_Var_Par_Regle</A>;   <FONT COLOR=green><EM>-- Les variables sont numérotées à partir de 1 (sauf _)</EM></FONT>
+<EM><FONT SIZE=-1>  98 </FONT></EM>   <b>subtype</b> <FONT COLOR=red><A NAME="98_12">Indice_Table_Var</A></FONT> <b>is</b> <A HREF="src__objets_prolog__ads.htm#24_12">Mot_Valeur</A> <b>range</b> 1..<A HREF="src__objets_prolog__ads.htm#41_4">Nbre_Max_Var_Par_Regle</A>;   <FONT COLOR=green><EM>-- Les variables sont numérotées à partir de 1 (sauf _)</EM></FONT>
 <EM><FONT SIZE=-1>  99 </FONT></EM>
 <EM><FONT SIZE=-1> 100 </FONT></EM>   <b>type</b> T_Table_Var <b>is</b> <b>array</b>(<A HREF="src__objets_prolog__adb.htm#98_12">Indice_Table_Var</A>) <b>of</b> <A HREF="src__objets_prolog__adb.htm#63_12">Indice_Table_Symb</A>;
 <EM><FONT SIZE=-1> 101 </FONT></EM>   <b>type</b> <FONT COLOR=red><A NAME="101_9">A_Table_Var</A></FONT> <b>is</b> <b>access</b> T_Table_Var;
@@ -112,30 +112,30 @@
 <EM><FONT SIZE=-1> 108 </FONT></EM>   <FONT COLOR=green><EM>---------------------------------------------------</EM></FONT>
 <EM><FONT SIZE=-1> 109 </FONT></EM>   <FONT COLOR=green><EM>-- Déclaration de la liste vide et du vecteur vide.</EM></FONT>
 <EM><FONT SIZE=-1> 110 </FONT></EM>   <FONT COLOR=green><EM>---------------------------------------------------</EM></FONT>
-<EM><FONT SIZE=-1> 111 </FONT></EM>   <FONT COLOR=red><A NAME="111_4">Liste_Vide</A></FONT> : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := (<A HREF="src__objets_prolog__ads.htm#143_29">Symbole</A>, <A HREF="src__objets_prolog__adb.htm#75_4">Table_Symb</A>'First); <FONT COLOR=green><EM>-- Le symbole '[]' sera le 1er symbole fabriqué (voir fin du package)</EM></FONT>
-<EM><FONT SIZE=-1> 112 </FONT></EM>   <FONT COLOR=red><A NAME="112_4">Vecteur_Vide</A></FONT> : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := (<A HREF="src__objets_prolog__ads.htm#143_29">Symbole</A>, <A HREF="src__objets_prolog__adb.htm#75_4">Table_Symb</A>'First + 1);   <FONT COLOR=green><EM>-- Le symbole '()' sera le 2nd symbole fabriqué.</EM></FONT>
+<EM><FONT SIZE=-1> 111 </FONT></EM>   <FONT COLOR=red><A NAME="111_4">Liste_Vide</A></FONT> : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := (<A HREF="src__objets_prolog__ads.htm#148_29">Symbole</A>, <A HREF="src__objets_prolog__adb.htm#75_4">Table_Symb</A>'First); <FONT COLOR=green><EM>-- Le symbole '[]' sera le 1er symbole fabriqué (voir fin du package)</EM></FONT>
+<EM><FONT SIZE=-1> 112 </FONT></EM>   <FONT COLOR=red><A NAME="112_4">Vecteur_Vide</A></FONT> : <b>constant</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := (<A HREF="src__objets_prolog__ads.htm#148_29">Symbole</A>, <A HREF="src__objets_prolog__adb.htm#75_4">Table_Symb</A>'First + 1);   <FONT COLOR=green><EM>-- Le symbole '()' sera le 2nd symbole fabriqué.</EM></FONT>
 <EM><FONT SIZE=-1> 113 </FONT></EM>
 <EM><FONT SIZE=-1> 114 </FONT></EM>
 <EM><FONT SIZE=-1> 115 </FONT></EM>   <FONT COLOR=green><EM>------------------------------------</EM></FONT>
 <EM><FONT SIZE=-1> 116 </FONT></EM>   <FONT COLOR=green><EM>-- Comparaison de deux mots mémoire.</EM></FONT>
 <EM><FONT SIZE=-1> 117 </FONT></EM>   <FONT COLOR=green><EM>------------------------------------</EM></FONT>
 <EM><FONT SIZE=-1> 118 </FONT></EM>
-<EM><FONT SIZE=-1> 119 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A><FONT COLOR=red><A NAME="119_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#59_25">Obj1</A><FONT COLOR=red><A NAME="119_25"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#59_31">Obj2</A><FONT COLOR=red><A NAME="119_31"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
+<EM><FONT SIZE=-1> 119 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#60_13">Egalite_Mot</A><FONT COLOR=red><A NAME="119_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#60_25">Obj1</A><FONT COLOR=red><A NAME="119_25"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#60_31">Obj2</A><FONT COLOR=red><A NAME="119_31"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
 <EM><FONT SIZE=-1> 120 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 121 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#59_25">Obj1</A>.<A HREF="src__objets_prolog__ads.htm#154_7">T</A> = <A HREF="src__objets_prolog__ads.htm#59_31">Obj2</A>.<A HREF="src__objets_prolog__ads.htm#154_7">T</A> <b>and</b> <b>then</b> <A HREF="src__objets_prolog__ads.htm#59_25">Obj1</A>.<A HREF="src__objets_prolog__ads.htm#155_7">Val</A> = <A HREF="src__objets_prolog__ads.htm#59_31">Obj2</A>.<A HREF="src__objets_prolog__ads.htm#155_7">Val</A>;
-<EM><FONT SIZE=-1> 122 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>;
+<EM><FONT SIZE=-1> 121 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#60_25">Obj1</A>.<A HREF="src__objets_prolog__ads.htm#159_7">T</A> = <A HREF="src__objets_prolog__ads.htm#60_31">Obj2</A>.<A HREF="src__objets_prolog__ads.htm#159_7">T</A> <b>and</b> <b>then</b> <A HREF="src__objets_prolog__ads.htm#60_25">Obj1</A>.<A HREF="src__objets_prolog__ads.htm#160_7">Val</A> = <A HREF="src__objets_prolog__ads.htm#60_31">Obj2</A>.<A HREF="src__objets_prolog__ads.htm#160_7">Val</A>;
+<EM><FONT SIZE=-1> 122 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#60_13">Egalite_Mot</A>;
 <EM><FONT SIZE=-1> 123 </FONT></EM>
 <EM><FONT SIZE=-1> 124 </FONT></EM>
 <EM><FONT SIZE=-1> 125 </FONT></EM>   <FONT COLOR=green><EM>-------------------------------</EM></FONT>
 <EM><FONT SIZE=-1> 126 </FONT></EM>   <FONT COLOR=green><EM>-- Procédures de mise au point.</EM></FONT>
 <EM><FONT SIZE=-1> 127 </FONT></EM>   <FONT COLOR=green><EM>-------------------------------</EM></FONT>
 <EM><FONT SIZE=-1> 128 </FONT></EM>
-<EM><FONT SIZE=-1> 129 </FONT></EM>   <b>procedure</b> <A HREF="src__objets_prolog__ads.htm#46_14">Put_Mot</A><FONT COLOR=red><A NAME="129_14"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#46_22">Arg</A><FONT COLOR=red><A NAME="129_22"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>is</b>
+<EM><FONT SIZE=-1> 129 </FONT></EM>   <b>procedure</b> <A HREF="src__objets_prolog__ads.htm#47_14">Put_Mot</A><FONT COLOR=red><A NAME="129_14"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#47_22">Arg</A><FONT COLOR=red><A NAME="129_22"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>is</b>
 <EM><FONT SIZE=-1> 130 </FONT></EM>   <b>begin</b>
 <EM><FONT SIZE=-1> 131 </FONT></EM>      Put('(');
-<EM><FONT SIZE=-1> 132 </FONT></EM>      Put(<A HREF="src__objets_prolog__ads.htm#141_9">Contenu_Memoire</A>'Image(<A HREF="src__objets_prolog__ads.htm#46_22">Arg</A>.<A HREF="src__objets_prolog__ads.htm#154_7">T</A>));
+<EM><FONT SIZE=-1> 132 </FONT></EM>      Put(<A HREF="src__objets_prolog__ads.htm#146_9">Contenu_Memoire</A>'Image(<A HREF="src__objets_prolog__ads.htm#47_22">Arg</A>.<A HREF="src__objets_prolog__ads.htm#159_7">T</A>));
 <EM><FONT SIZE=-1> 133 </FONT></EM>      Put(", ");
-<EM><FONT SIZE=-1> 134 </FONT></EM>      <A HREF="src__int32_io__ads.htm#7_14">Put</A>(<A HREF="src__objets_prolog__ads.htm#46_22">Arg</A>.<A HREF="src__objets_prolog__ads.htm#155_7">Val</A>, 4);
+<EM><FONT SIZE=-1> 134 </FONT></EM>      <A HREF="src__int32_io__ads.htm#7_14">Put</A>(<A HREF="src__objets_prolog__ads.htm#47_22">Arg</A>.<A HREF="src__objets_prolog__ads.htm#160_7">Val</A>, 4);
 <EM><FONT SIZE=-1> 135 </FONT></EM>      Put(')');
 <EM><FONT SIZE=-1> 136 </FONT></EM>   <b>end</b>;
 <EM><FONT SIZE=-1> 137 </FONT></EM>
@@ -164,7 +164,7 @@
 <EM><FONT SIZE=-1> 160 </FONT></EM>   <b>procedure</b> <A HREF="src__objets_prolog__adb.htm#160_14">Put_Struct_Symbole</A><FONT COLOR=red><A NAME="160_14"></A></FONT>(<FONT COLOR=red><A NAME="160_33">Arg</A></FONT> : <A HREF="src__objets_prolog__adb.htm#67_9">Struct_Symbole</A>) <b>is</b>
 <EM><FONT SIZE=-1> 161 </FONT></EM>   <b>begin</b>
 <EM><FONT SIZE=-1> 162 </FONT></EM>      Put('&lt;');
-<EM><FONT SIZE=-1> 163 </FONT></EM>      <A HREF="src__objets_prolog__ads.htm#46_14">Put_Mot</A>(<A HREF="src__objets_prolog__adb.htm#160_33">Arg</A>.<A HREF="src__objets_prolog__adb.htm#68_7">Liste_Regles</A>);
+<EM><FONT SIZE=-1> 163 </FONT></EM>      <A HREF="src__objets_prolog__ads.htm#47_14">Put_Mot</A>(<A HREF="src__objets_prolog__adb.htm#160_33">Arg</A>.<A HREF="src__objets_prolog__adb.htm#68_7">Liste_Regles</A>);
 <EM><FONT SIZE=-1> 164 </FONT></EM>      Put(", ");
 <EM><FONT SIZE=-1> 165 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#147_14">Put_R_Pname</A>(<A HREF="src__objets_prolog__adb.htm#160_33">Arg</A>.<A HREF="src__objets_prolog__adb.htm#69_7">Pname</A>);
 <EM><FONT SIZE=-1> 166 </FONT></EM>      Put('&gt;');
@@ -193,9 +193,9 @@
 <EM><FONT SIZE=-1> 189 </FONT></EM>      <b>for</b> <FONT COLOR=red><A NAME="189_11">I</A></FONT> <b>in</b> T_Table_Doublets'First..<A HREF="src__objets_prolog__adb.htm#28_4">Topnod</A>-1 <b>loop</b>
 <EM><FONT SIZE=-1> 190 </FONT></EM>         Set_Col(5);
 <EM><FONT SIZE=-1> 191 </FONT></EM>         <A HREF="src__int32_io__ads.htm#7_14">Put</A>(<A HREF="src__objets_prolog__adb.htm#189_11">I</A>, 4); Put(" - ");
-<EM><FONT SIZE=-1> 192 </FONT></EM>         <A HREF="src__objets_prolog__ads.htm#46_14">Put_Mot</A>(<A HREF="src__objets_prolog__adb.htm#25_4">First</A>(<A HREF="src__objets_prolog__adb.htm#189_11">I</A>));
+<EM><FONT SIZE=-1> 192 </FONT></EM>         <A HREF="src__objets_prolog__ads.htm#47_14">Put_Mot</A>(<A HREF="src__objets_prolog__adb.htm#25_4">First</A>(<A HREF="src__objets_prolog__adb.htm#189_11">I</A>));
 <EM><FONT SIZE=-1> 193 </FONT></EM>         Put(' ');
-<EM><FONT SIZE=-1> 194 </FONT></EM>         <A HREF="src__objets_prolog__ads.htm#46_14">Put_Mot</A>(<A HREF="src__objets_prolog__adb.htm#26_4">Rest</A>(<A HREF="src__objets_prolog__adb.htm#189_11">I</A>));
+<EM><FONT SIZE=-1> 194 </FONT></EM>         <A HREF="src__objets_prolog__ads.htm#47_14">Put_Mot</A>(<A HREF="src__objets_prolog__adb.htm#26_4">Rest</A>(<A HREF="src__objets_prolog__adb.htm#189_11">I</A>));
 <EM><FONT SIZE=-1> 195 </FONT></EM>         New_Line;
 <EM><FONT SIZE=-1> 196 </FONT></EM>      <b>end</b> <b>loop</b>;
 <EM><FONT SIZE=-1> 197 </FONT></EM>   <b>end</b>;
@@ -215,7 +215,7 @@
 <EM><FONT SIZE=-1> 211 </FONT></EM>   <b>end</b>;
 <EM><FONT SIZE=-1> 212 </FONT></EM>
 <EM><FONT SIZE=-1> 213 </FONT></EM>
-<EM><FONT SIZE=-1> 214 </FONT></EM>   <b>procedure</b> <A HREF="src__objets_prolog__ads.htm#47_14">Debug</A><FONT COLOR=red><A NAME="214_14"></A></FONT> <b>is</b>
+<EM><FONT SIZE=-1> 214 </FONT></EM>   <b>procedure</b> <A HREF="src__objets_prolog__ads.htm#48_14">Debug</A><FONT COLOR=red><A NAME="214_14"></A></FONT> <b>is</b>
 <EM><FONT SIZE=-1> 215 </FONT></EM>      <FONT COLOR=red><A NAME="215_7">C</A></FONT> : Character;
 <EM><FONT SIZE=-1> 216 </FONT></EM>   <b>begin</b>
 <EM><FONT SIZE=-1> 217 </FONT></EM>      <b>loop</b>
@@ -241,7 +241,7 @@
 <EM><FONT SIZE=-1> 237 </FONT></EM>   <FONT COLOR=green><EM>-- Procédure utilitaire pour appeler une fonction renvoyant un MOT sans récupérer sa valeur.</EM></FONT>
 <EM><FONT SIZE=-1> 238 </FONT></EM>   <FONT COLOR=green><EM>--------------------------------------------------------------------------------------------</EM></FONT>
 <EM><FONT SIZE=-1> 239 </FONT></EM>
-<EM><FONT SIZE=-1> 240 </FONT></EM>   <b>procedure</b> <A HREF="src__objets_prolog__ads.htm#53_14">Call</A><FONT COLOR=red><A NAME="240_14"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#53_19">V</A><FONT COLOR=red><A NAME="240_19"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>is</b>
+<EM><FONT SIZE=-1> 240 </FONT></EM>   <b>procedure</b> <A HREF="src__objets_prolog__ads.htm#54_14">Call</A><FONT COLOR=red><A NAME="240_14"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#54_19">V</A><FONT COLOR=red><A NAME="240_19"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>is</b>
 <EM><FONT SIZE=-1> 241 </FONT></EM>   <b>begin</b>
 <EM><FONT SIZE=-1> 242 </FONT></EM>      <b>null</b>;
 <EM><FONT SIZE=-1> 243 </FONT></EM>   <b>end</b>;
@@ -251,7 +251,7 @@
 <EM><FONT SIZE=-1> 247 </FONT></EM>   <FONT COLOR=green><EM>-- Procédure d'information sur les types.</EM></FONT>
 <EM><FONT SIZE=-1> 248 </FONT></EM>   <FONT COLOR=green><EM>-----------------------------------------</EM></FONT>
 <EM><FONT SIZE=-1> 249 </FONT></EM>
-<EM><FONT SIZE=-1> 250 </FONT></EM>   <b>procedure</b> <A HREF="src__objets_prolog__ads.htm#66_14">Types_Informations</A><FONT COLOR=red><A NAME="250_14"></A></FONT> <b>is</b>
+<EM><FONT SIZE=-1> 250 </FONT></EM>   <b>procedure</b> <A HREF="src__objets_prolog__ads.htm#67_14">Types_Informations</A><FONT COLOR=red><A NAME="250_14"></A></FONT> <b>is</b>
 <EM><FONT SIZE=-1> 251 </FONT></EM>   <b>begin</b>
 <EM><FONT SIZE=-1> 252 </FONT></EM>      Put("Mot_Valeur'Size = "); Set_Col(20); <A HREF="src__int32_io__ads.htm#6_14">Put</A>(<A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__objets_prolog__ads.htm#24_12">Mot_Valeur</A>'Size / 8)); New_Line;
 <EM><FONT SIZE=-1> 253 </FONT></EM>      Put("Mot'Size = "); Set_Col(20); <A HREF="src__int32_io__ads.htm#6_14">Put</A>(<A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>'Size / 8)); New_Line;
@@ -263,7 +263,7 @@
 <EM><FONT SIZE=-1> 259 </FONT></EM>   <FONT COLOR=green><EM>-- Procédure d'information sur les tables.</EM></FONT>
 <EM><FONT SIZE=-1> 260 </FONT></EM>   <FONT COLOR=green><EM>------------------------------------------</EM></FONT>
 <EM><FONT SIZE=-1> 261 </FONT></EM>
-<EM><FONT SIZE=-1> 262 </FONT></EM>   <b>procedure</b> <A HREF="src__objets_prolog__ads.htm#67_14">Informations</A><FONT COLOR=red><A NAME="262_14"></A></FONT> <b>is</b>
+<EM><FONT SIZE=-1> 262 </FONT></EM>   <b>procedure</b> <A HREF="src__objets_prolog__ads.htm#68_14">Informations</A><FONT COLOR=red><A NAME="262_14"></A></FONT> <b>is</b>
 <EM><FONT SIZE=-1> 263 </FONT></EM>      <FONT COLOR=red><A NAME="263_7">Taille</A></FONT> : Integer;
 <EM><FONT SIZE=-1> 264 </FONT></EM>   <b>begin</b>
 <EM><FONT SIZE=-1> 265 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#263_7">Taille</A> := <A HREF="src__objets_prolog__adb.htm#67_9">Struct_Symbole</A>'Size / 8;
@@ -277,421 +277,497 @@
 <EM><FONT SIZE=-1> 273 </FONT></EM>         <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__objets_prolog__adb.htm#263_7">Taille</A>), -1, -1, <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__objets_prolog__adb.htm#91_4">Table_Hashcode</A>'Length), <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__objets_prolog__adb.htm#91_4">Table_Hashcode</A>'Length) * <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__objets_prolog__adb.htm#263_7">Taille</A>));
 <EM><FONT SIZE=-1> 274 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#263_7">Taille</A> := <A HREF="src__objets_prolog__adb.htm#63_12">Indice_Table_Symb</A>'Size / 8;
 <EM><FONT SIZE=-1> 275 </FONT></EM>      <A HREF="src__infos__adb.htm#7_11">Infos</A>("Table association variable-symbole",
-<EM><FONT SIZE=-1> 276 </FONT></EM>         <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__objets_prolog__adb.htm#263_7">Taille</A>), -1, -1, <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__objets_prolog__ads.htm#40_4">Nbre_Max_Var_Par_Regle</A>), <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__objets_prolog__ads.htm#40_4">Nbre_Max_Var_Par_Regle</A>) * <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__objets_prolog__adb.htm#263_7">Taille</A>));
+<EM><FONT SIZE=-1> 276 </FONT></EM>         <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__objets_prolog__adb.htm#263_7">Taille</A>), -1, -1, <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__objets_prolog__ads.htm#41_4">Nbre_Max_Var_Par_Regle</A>), <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__objets_prolog__ads.htm#41_4">Nbre_Max_Var_Par_Regle</A>) * <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__objets_prolog__adb.htm#263_7">Taille</A>));
 <EM><FONT SIZE=-1> 277 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#263_7">Taille</A> := <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>'Size / 8;
 <EM><FONT SIZE=-1> 278 </FONT></EM>      <A HREF="src__infos__adb.htm#7_11">Infos</A>("Zone des doublets, FIRST",
 <EM><FONT SIZE=-1> 279 </FONT></EM>         <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__objets_prolog__adb.htm#263_7">Taille</A>), <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__objets_prolog__adb.htm#28_4">Topnod</A>), -1, <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__objets_prolog__adb.htm#20_4">Taille_Table_Doublets</A>), <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__objets_prolog__adb.htm#20_4">Taille_Table_Doublets</A>) * <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__objets_prolog__adb.htm#263_7">Taille</A>));
 <EM><FONT SIZE=-1> 280 </FONT></EM>      <A HREF="src__infos__adb.htm#7_11">Infos</A>("Zone des doublets, REST",
 <EM><FONT SIZE=-1> 281 </FONT></EM>         <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__objets_prolog__adb.htm#263_7">Taille</A>), <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__objets_prolog__adb.htm#28_4">Topnod</A>), -1, <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__objets_prolog__adb.htm#20_4">Taille_Table_Doublets</A>), <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__objets_prolog__adb.htm#20_4">Taille_Table_Doublets</A>) * <A HREF="src__int32_io__ads.htm#5_9">Int32</A>(<A HREF="src__objets_prolog__adb.htm#263_7">Taille</A>));
-<EM><FONT SIZE=-1> 282 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#67_14">Informations</A>;
+<EM><FONT SIZE=-1> 282 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#68_14">Informations</A>;
 <EM><FONT SIZE=-1> 283 </FONT></EM>
 <EM><FONT SIZE=-1> 284 </FONT></EM>
 <EM><FONT SIZE=-1> 285 </FONT></EM>   <FONT COLOR=green><EM>---------------------------------------------------------</EM></FONT>
 <EM><FONT SIZE=-1> 286 </FONT></EM>   <FONT COLOR=green><EM>-- Fonctions de reconnaissance du type d'un objet PROLOG.</EM></FONT>
 <EM><FONT SIZE=-1> 287 </FONT></EM>   <FONT COLOR=green><EM>----------------------------------------------------------</EM></FONT>
 <EM><FONT SIZE=-1> 288 </FONT></EM>
-<EM><FONT SIZE=-1> 289 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#73_13">Entier</A><FONT COLOR=red><A NAME="289_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#73_20">Obj</A><FONT COLOR=red><A NAME="289_20"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
+<EM><FONT SIZE=-1> 289 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#74_13">Entier</A><FONT COLOR=red><A NAME="289_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#74_20">Obj</A><FONT COLOR=red><A NAME="289_20"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
 <EM><FONT SIZE=-1> 290 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 291 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#73_20">Obj</A>.<A HREF="src__objets_prolog__ads.htm#154_7">T</A> = <A HREF="src__objets_prolog__ads.htm#144_29">Entier</A>;
-<EM><FONT SIZE=-1> 292 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#73_13">Entier</A>;
+<EM><FONT SIZE=-1> 291 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#74_20">Obj</A>.<A HREF="src__objets_prolog__ads.htm#159_7">T</A> = <A HREF="src__objets_prolog__ads.htm#149_29">Entier</A>;
+<EM><FONT SIZE=-1> 292 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#74_13">Entier</A>;
 <EM><FONT SIZE=-1> 293 </FONT></EM>
 <EM><FONT SIZE=-1> 294 </FONT></EM>
-<EM><FONT SIZE=-1> 295 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#74_13">Symbole</A><FONT COLOR=red><A NAME="295_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#74_21">Obj</A><FONT COLOR=red><A NAME="295_21"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
+<EM><FONT SIZE=-1> 295 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#87_13">Caractere_De_Symbole</A><FONT COLOR=red><A NAME="295_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#87_34">C</A><FONT COLOR=red><A NAME="295_34"></A></FONT> : Character) <b>return</b> Boolean <b>is</b> <FONT COLOR=green><EM>-- Caracteres autorisés dans un symbole non quoté</EM></FONT>
 <EM><FONT SIZE=-1> 296 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 297 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#74_21">Obj</A>.<A HREF="src__objets_prolog__ads.htm#154_7">T</A> = <A HREF="src__objets_prolog__ads.htm#143_29">Symbole</A>;
-<EM><FONT SIZE=-1> 298 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#74_13">Symbole</A>;
-<EM><FONT SIZE=-1> 299 </FONT></EM>
-<EM><FONT SIZE=-1> 300 </FONT></EM>
-<EM><FONT SIZE=-1> 301 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#75_13">Atome</A><FONT COLOR=red><A NAME="301_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#75_19">Obj</A><FONT COLOR=red><A NAME="301_19"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
-<EM><FONT SIZE=-1> 302 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 303 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#75_19">Obj</A>.<A HREF="src__objets_prolog__ads.htm#154_7">T</A> <b>in</b> <A HREF="src__objets_prolog__ads.htm#143_29">Symbole</A>..<A HREF="src__objets_prolog__ads.htm#144_29">Entier</A>;
-<EM><FONT SIZE=-1> 304 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#75_13">Atome</A>;
-<EM><FONT SIZE=-1> 305 </FONT></EM>
-<EM><FONT SIZE=-1> 306 </FONT></EM>
-<EM><FONT SIZE=-1> 307 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#79_13">Doublet</A><FONT COLOR=red><A NAME="307_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#79_21">Obj</A><FONT COLOR=red><A NAME="307_21"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
-<EM><FONT SIZE=-1> 308 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 309 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#79_21">Obj</A>.<A HREF="src__objets_prolog__ads.htm#154_7">T</A> <b>in</b> <A HREF="src__objets_prolog__ads.htm#145_29">Doublet_V</A>..<A HREF="src__objets_prolog__ads.htm#147_29">Doublet_L</A>;
-<EM><FONT SIZE=-1> 310 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#79_13">Doublet</A>;
-<EM><FONT SIZE=-1> 311 </FONT></EM>
-<EM><FONT SIZE=-1> 312 </FONT></EM>
-<EM><FONT SIZE=-1> 313 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#76_13">Doublet_V</A><FONT COLOR=red><A NAME="313_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#76_23">Obj</A><FONT COLOR=red><A NAME="313_23"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
-<EM><FONT SIZE=-1> 314 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 315 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#76_23">Obj</A>.<A HREF="src__objets_prolog__ads.htm#154_7">T</A> = <A HREF="src__objets_prolog__ads.htm#145_29">Doublet_V</A>;
-<EM><FONT SIZE=-1> 316 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#76_13">Doublet_V</A>;
-<EM><FONT SIZE=-1> 317 </FONT></EM>
-<EM><FONT SIZE=-1> 318 </FONT></EM>
-<EM><FONT SIZE=-1> 319 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#77_13">Doublet_F</A><FONT COLOR=red><A NAME="319_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#77_23">Obj</A><FONT COLOR=red><A NAME="319_23"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
-<EM><FONT SIZE=-1> 320 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 321 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#77_23">Obj</A>.<A HREF="src__objets_prolog__ads.htm#154_7">T</A> = <A HREF="src__objets_prolog__ads.htm#146_29">Doublet_F</A>;
-<EM><FONT SIZE=-1> 322 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#77_13">Doublet_F</A>;
-<EM><FONT SIZE=-1> 323 </FONT></EM>
-<EM><FONT SIZE=-1> 324 </FONT></EM>
-<EM><FONT SIZE=-1> 325 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#78_13">Doublet_L</A><FONT COLOR=red><A NAME="325_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#78_23">Obj</A><FONT COLOR=red><A NAME="325_23"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
-<EM><FONT SIZE=-1> 326 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 327 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#78_23">Obj</A>.<A HREF="src__objets_prolog__ads.htm#154_7">T</A> = <A HREF="src__objets_prolog__ads.htm#147_29">Doublet_L</A>;
-<EM><FONT SIZE=-1> 328 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#78_13">Doublet_L</A>;
-<EM><FONT SIZE=-1> 329 </FONT></EM>
-<EM><FONT SIZE=-1> 330 </FONT></EM>
-<EM><FONT SIZE=-1> 331 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#80_13">Variable</A><FONT COLOR=red><A NAME="331_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#80_22">Obj</A><FONT COLOR=red><A NAME="331_22"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
-<EM><FONT SIZE=-1> 332 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 333 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#80_22">Obj</A>.<A HREF="src__objets_prolog__ads.htm#154_7">T</A> = <A HREF="src__objets_prolog__ads.htm#142_29">Variable</A>;
-<EM><FONT SIZE=-1> 334 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#80_13">Variable</A>;
-<EM><FONT SIZE=-1> 335 </FONT></EM>
-<EM><FONT SIZE=-1> 336 </FONT></EM>
-<EM><FONT SIZE=-1> 337 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#81_13">Vect1</A><FONT COLOR=red><A NAME="337_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#81_19">Obj</A><FONT COLOR=red><A NAME="337_19"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
-<EM><FONT SIZE=-1> 338 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 339 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#81_19">Obj</A>.<A HREF="src__objets_prolog__ads.htm#154_7">T</A> = <A HREF="src__objets_prolog__ads.htm#145_29">Doublet_V</A> <b>and</b> <b>then</b> <A HREF="src__objets_prolog__ads.htm#59_13">Egalite_Mot</A>(<A HREF="src__objets_prolog__ads.htm#97_13">Reste</A>(<A HREF="src__objets_prolog__ads.htm#81_19">Obj</A>), <A HREF="src__objets_prolog__adb.htm#112_4">Vecteur_Vide</A>);
-<EM><FONT SIZE=-1> 340 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#81_13">Vect1</A>;
-<EM><FONT SIZE=-1> 341 </FONT></EM>
-<EM><FONT SIZE=-1> 342 </FONT></EM>
-<EM><FONT SIZE=-1> 343 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#82_13">Vect2</A><FONT COLOR=red><A NAME="343_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#82_19">Obj</A><FONT COLOR=red><A NAME="343_19"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
-<EM><FONT SIZE=-1> 344 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 345 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#82_19">Obj</A>.<A HREF="src__objets_prolog__ads.htm#154_7">T</A> = <A HREF="src__objets_prolog__ads.htm#145_29">Doublet_V</A> <b>and</b> <b>then</b> <A HREF="src__objets_prolog__ads.htm#81_13">Vect1</A>(<A HREF="src__objets_prolog__ads.htm#97_13">Reste</A>(<A HREF="src__objets_prolog__ads.htm#82_19">Obj</A>));
-<EM><FONT SIZE=-1> 346 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#82_13">Vect2</A>;
-<EM><FONT SIZE=-1> 347 </FONT></EM>
-<EM><FONT SIZE=-1> 348 </FONT></EM>
-<EM><FONT SIZE=-1> 349 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#83_13">Func1</A><FONT COLOR=red><A NAME="349_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#83_19">Obj</A><FONT COLOR=red><A NAME="349_19"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
-<EM><FONT SIZE=-1> 350 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 351 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#77_13">Doublet_F</A>(<A HREF="src__objets_prolog__ads.htm#83_19">Obj</A>) <b>and</b> <b>then</b> <A HREF="src__objets_prolog__ads.htm#81_13">Vect1</A>(<A HREF="src__objets_prolog__ads.htm#97_13">Reste</A>(<A HREF="src__objets_prolog__ads.htm#83_19">Obj</A>));
-<EM><FONT SIZE=-1> 352 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#83_13">Func1</A>;
-<EM><FONT SIZE=-1> 353 </FONT></EM>
-<EM><FONT SIZE=-1> 354 </FONT></EM>
-<EM><FONT SIZE=-1> 355 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#84_13">Func2</A><FONT COLOR=red><A NAME="355_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#84_19">Obj</A><FONT COLOR=red><A NAME="355_19"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
-<EM><FONT SIZE=-1> 356 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 357 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#77_13">Doublet_F</A>(<A HREF="src__objets_prolog__ads.htm#84_19">Obj</A>) <b>and</b> <b>then</b> <A HREF="src__objets_prolog__ads.htm#82_13">Vect2</A>(<A HREF="src__objets_prolog__ads.htm#97_13">Reste</A>(<A HREF="src__objets_prolog__ads.htm#84_19">Obj</A>));
-<EM><FONT SIZE=-1> 358 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#84_13">Func2</A>;
-<EM><FONT SIZE=-1> 359 </FONT></EM>
-<EM><FONT SIZE=-1> 360 </FONT></EM>
-<EM><FONT SIZE=-1> 361 </FONT></EM>   <FONT COLOR=green><EM>------------------------------------------------</EM></FONT>
-<EM><FONT SIZE=-1> 362 </FONT></EM>   <FONT COLOR=green><EM>-- Garbage collecting : récupération de mémoire.</EM></FONT>
-<EM><FONT SIZE=-1> 363 </FONT></EM>   <FONT COLOR=green><EM>------------------------------------------------</EM></FONT>
-<EM><FONT SIZE=-1> 364 </FONT></EM>   <FONT COLOR=green><EM>-- Pas encore implémenté : Quand la mémoire est pleine, c'est fini.</EM></FONT>
-<EM><FONT SIZE=-1> 365 </FONT></EM>
-<EM><FONT SIZE=-1> 366 </FONT></EM>
-<EM><FONT SIZE=-1> 367 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__adb.htm#367_13">Pname_Libre</A><FONT COLOR=red><A NAME="367_13"></A></FONT>(<FONT COLOR=red><A NAME="367_25">Longueur</A></FONT> : Natural) <b>return</b> <A HREF="src__objets_prolog__adb.htm#36_12">Indice_Table_Carac</A> <b>is</b> <FONT COLOR=green><EM>-- Renvoie adresse zone de LONGUEUR caracteres libres.</EM></FONT>
-<EM><FONT SIZE=-1> 368 </FONT></EM>      <FONT COLOR=red><A NAME="368_7">Adresse</A></FONT> : <A HREF="src__objets_prolog__adb.htm#36_12">Indice_Table_Carac</A>;
-<EM><FONT SIZE=-1> 369 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 370 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__adb.htm#40_4">Table_Carac</A>'Last - <A HREF="src__objets_prolog__adb.htm#42_4">Topcarac</A> &lt; <A HREF="src__objets_prolog__adb.htm#367_25">Longueur</A> <b>then</b> <b>raise</b> <A HREF="src__objets_prolog__ads.htm#15_4">Table_Carac_Pleine</A>;
-<EM><FONT SIZE=-1> 371 </FONT></EM>      <b>else</b>
-<EM><FONT SIZE=-1> 372 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#368_7">Adresse</A> := <A HREF="src__objets_prolog__adb.htm#42_4">Topcarac</A>;
-<EM><FONT SIZE=-1> 373 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#42_4">Topcarac</A> := <A HREF="src__objets_prolog__adb.htm#42_4">Topcarac</A> + <A HREF="src__objets_prolog__adb.htm#367_25">Longueur</A>;
-<EM><FONT SIZE=-1> 374 </FONT></EM>         <b>return</b> <A HREF="src__objets_prolog__adb.htm#368_7">Adresse</A>;
-<EM><FONT SIZE=-1> 375 </FONT></EM>      <b>end</b> <b>if</b>;
-<EM><FONT SIZE=-1> 376 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__adb.htm#367_13">Pname_Libre</A>;
-<EM><FONT SIZE=-1> 377 </FONT></EM>
-<EM><FONT SIZE=-1> 378 </FONT></EM>
-<EM><FONT SIZE=-1> 379 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__adb.htm#379_13">Symbole_Libre</A><FONT COLOR=red><A NAME="379_13"></A></FONT> <b>return</b> <A HREF="src__objets_prolog__adb.htm#63_12">Indice_Table_Symb</A> <b>is</b>       <FONT COLOR=green><EM>-- Renvoie l'adresse d'un symbole libre.</EM></FONT>
-<EM><FONT SIZE=-1> 380 </FONT></EM>      <FONT COLOR=red><A NAME="380_7">Adresse</A></FONT> : <A HREF="src__objets_prolog__adb.htm#63_12">Indice_Table_Symb</A>;
-<EM><FONT SIZE=-1> 381 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 382 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__adb.htm#77_4">Topsymb</A> = <A HREF="src__objets_prolog__adb.htm#75_4">Table_Symb</A>'Last <b>then</b> <b>raise</b> <A HREF="src__objets_prolog__ads.htm#16_4">Table_Symb_Pleine</A>;
-<EM><FONT SIZE=-1> 383 </FONT></EM>      <b>else</b>
-<EM><FONT SIZE=-1> 384 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#380_7">Adresse</A> := <A HREF="src__objets_prolog__adb.htm#77_4">Topsymb</A>;
-<EM><FONT SIZE=-1> 385 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#77_4">Topsymb</A> := <A HREF="src__objets_prolog__adb.htm#77_4">Topsymb</A> + 1;
-<EM><FONT SIZE=-1> 386 </FONT></EM>         <b>return</b> <A HREF="src__objets_prolog__adb.htm#380_7">Adresse</A>;
-<EM><FONT SIZE=-1> 387 </FONT></EM>      <b>end</b> <b>if</b>;
-<EM><FONT SIZE=-1> 388 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__adb.htm#379_13">Symbole_Libre</A>;
-<EM><FONT SIZE=-1> 389 </FONT></EM>
-<EM><FONT SIZE=-1> 390 </FONT></EM>
-<EM><FONT SIZE=-1> 391 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__adb.htm#391_13">Doublet_Libre</A><FONT COLOR=red><A NAME="391_13"></A></FONT> <b>return</b> <A HREF="src__objets_prolog__adb.htm#21_12">Indice_Table_Doublets</A> <b>is</b>    <FONT COLOR=green><EM>-- Renvoie l'adresse d'un doublet libre.</EM></FONT>
-<EM><FONT SIZE=-1> 392 </FONT></EM>      <FONT COLOR=red><A NAME="392_7">Adresse</A></FONT> : <A HREF="src__objets_prolog__adb.htm#21_12">Indice_Table_Doublets</A>;
-<EM><FONT SIZE=-1> 393 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 394 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__adb.htm#28_4">Topnod</A> = T_Table_Doublets'Last <b>then</b> <b>raise</b> <A HREF="src__objets_prolog__ads.htm#14_4">Table_Doublets_Pleine</A>;
-<EM><FONT SIZE=-1> 395 </FONT></EM>      <b>else</b>
-<EM><FONT SIZE=-1> 396 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#392_7">Adresse</A> := <A HREF="src__objets_prolog__adb.htm#28_4">Topnod</A>;
-<EM><FONT SIZE=-1> 397 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#28_4">Topnod</A> := <A HREF="src__objets_prolog__adb.htm#28_4">Topnod</A> + 1;
-<EM><FONT SIZE=-1> 398 </FONT></EM>         <b>return</b> <A HREF="src__objets_prolog__adb.htm#392_7">Adresse</A>;
-<EM><FONT SIZE=-1> 399 </FONT></EM>      <b>end</b> <b>if</b>;
-<EM><FONT SIZE=-1> 400 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__adb.htm#391_13">Doublet_Libre</A>;
-<EM><FONT SIZE=-1> 401 </FONT></EM>
-<EM><FONT SIZE=-1> 402 </FONT></EM>
-<EM><FONT SIZE=-1> 403 </FONT></EM>   <FONT COLOR=green><EM>---------------------------------------</EM></FONT>
-<EM><FONT SIZE=-1> 404 </FONT></EM>   <FONT COLOR=green><EM>-- Fonctions d'acces aux objets PROLOG.</EM></FONT>
-<EM><FONT SIZE=-1> 405 </FONT></EM>   <FONT COLOR=green><EM>---------------------------------------</EM></FONT>
-<EM><FONT SIZE=-1> 406 </FONT></EM>
-<EM><FONT SIZE=-1> 407 </FONT></EM>   <b>procedure</b> <A HREF="src__objets_prolog__ads.htm#90_14">Symbole_Chaine</A><FONT COLOR=red><A NAME="407_14"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#90_29">Obj</A><FONT COLOR=red><A NAME="407_29"></A></FONT> : <b>in</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>;
-<EM><FONT SIZE=-1> 408 </FONT></EM>         <A HREF="src__objets_prolog__ads.htm#91_29">Chaine</A><FONT COLOR=red><A NAME="408_10"></A></FONT> : <b>out</b> String; <A HREF="src__objets_prolog__ads.htm#91_50">Long</A><FONT COLOR=red><A NAME="408_31"></A></FONT> : <b>out</b> Natural;
-<EM><FONT SIZE=-1> 409 </FONT></EM>         <A HREF="src__objets_prolog__ads.htm#92_29">Print_Quote</A><FONT COLOR=red><A NAME="409_10"></A></FONT> : <b>out</b> Boolean) <b>is</b>            <FONT COLOR=green><EM>-- Représentation externe d'un symbole.</EM></FONT>
-<EM><FONT SIZE=-1> 410 </FONT></EM>      <FONT COLOR=red><A NAME="410_7">Pname</A></FONT> : <A HREF="src__objets_prolog__adb.htm#49_9">R_Pname</A>;
-<EM><FONT SIZE=-1> 411 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 412 </FONT></EM>      <b>if</b> <b>not</b> <A HREF="src__objets_prolog__ads.htm#74_13">Symbole</A>(<A HREF="src__objets_prolog__ads.htm#90_29">Obj</A>) <b>then</b> <A HREF="src__objets_prolog__ads.htm#91_50">Long</A> := 0; <A HREF="src__objets_prolog__ads.htm#92_29">Print_Quote</A> := False; <b>return</b>;
-<EM><FONT SIZE=-1> 413 </FONT></EM>      <b>else</b>
-<EM><FONT SIZE=-1> 414 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#410_7">Pname</A> := <A HREF="src__objets_prolog__adb.htm#75_4">Table_Symb</A>(<A HREF="src__objets_prolog__ads.htm#90_29">Obj</A>.<A HREF="src__objets_prolog__ads.htm#155_7">Val</A>).<A HREF="src__objets_prolog__adb.htm#69_7">Pname</A>;
-<EM><FONT SIZE=-1> 415 </FONT></EM>         <A HREF="src__objets_prolog__ads.htm#91_50">Long</A> := <A HREF="src__objets_prolog__adb.htm#410_7">Pname</A>.<A HREF="src__objets_prolog__adb.htm#50_7">Long</A>;
-<EM><FONT SIZE=-1> 416 </FONT></EM>         <A HREF="src__objets_prolog__ads.htm#91_29">Chaine</A>(1..<A HREF="src__objets_prolog__adb.htm#410_7">Pname</A>.<A HREF="src__objets_prolog__adb.htm#50_7">Long</A>) := <A HREF="src__objets_prolog__adb.htm#40_4">Table_Carac</A>(<A HREF="src__objets_prolog__adb.htm#410_7">Pname</A>.<A HREF="src__objets_prolog__adb.htm#51_7">Ind_Carac</A>..
-<EM><FONT SIZE=-1> 417 </FONT></EM>            <A HREF="src__objets_prolog__adb.htm#410_7">Pname</A>.<A HREF="src__objets_prolog__adb.htm#51_7">Ind_Carac</A>+<A HREF="src__objets_prolog__adb.htm#410_7">Pname</A>.<A HREF="src__objets_prolog__adb.htm#50_7">Long</A>-1); <FONT COLOR=green><EM>-- 1er p-name ne doit pas etre ""</EM></FONT>
-<EM><FONT SIZE=-1> 418 </FONT></EM>         <A HREF="src__objets_prolog__ads.htm#92_29">Print_Quote</A> := <A HREF="src__objets_prolog__adb.htm#410_7">Pname</A>.<A HREF="src__objets_prolog__adb.htm#52_7">Print_Quote</A>;
-<EM><FONT SIZE=-1> 419 </FONT></EM>      <b>end</b> <b>if</b>;
-<EM><FONT SIZE=-1> 420 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#90_14">Symbole_Chaine</A>;
+<EM><FONT SIZE=-1> 297 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#87_34">C</A> <b>in</b> 'A'..'Z' <b>or</b> <b>else</b>
+<EM><FONT SIZE=-1> 298 </FONT></EM>         <A HREF="src__objets_prolog__ads.htm#87_34">C</A> <b>in</b> 'a'..'z' <b>or</b> <b>else</b>
+<EM><FONT SIZE=-1> 299 </FONT></EM>         <A HREF="src__objets_prolog__ads.htm#87_34">C</A> <b>in</b> '0'..'9' <b>or</b> <b>else</b>
+<EM><FONT SIZE=-1> 300 </FONT></EM>         <A HREF="src__objets_prolog__ads.htm#87_34">C</A> = '_'         <b>or</b> <b>else</b>
+<EM><FONT SIZE=-1> 301 </FONT></EM>         Character'Pos(<A HREF="src__objets_prolog__ads.htm#87_34">C</A>) <b>in</b> 129..154; <FONT COLOR=green><EM>-- Tous les caracteres accentués</EM></FONT>
+<EM><FONT SIZE=-1> 302 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#87_13">Caractere_De_Symbole</A>;
+<EM><FONT SIZE=-1> 303 </FONT></EM>
+<EM><FONT SIZE=-1> 304 </FONT></EM>
+<EM><FONT SIZE=-1> 305 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#75_13">Symbole</A><FONT COLOR=red><A NAME="305_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#75_21">Obj</A><FONT COLOR=red><A NAME="305_21"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
+<EM><FONT SIZE=-1> 306 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 307 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#75_21">Obj</A>.<A HREF="src__objets_prolog__ads.htm#159_7">T</A> = <A HREF="src__objets_prolog__ads.htm#148_29">Symbole</A>;
+<EM><FONT SIZE=-1> 308 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#75_13">Symbole</A>;
+<EM><FONT SIZE=-1> 309 </FONT></EM>
+<EM><FONT SIZE=-1> 310 </FONT></EM>
+<EM><FONT SIZE=-1> 311 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#76_13">Atome</A><FONT COLOR=red><A NAME="311_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#76_19">Obj</A><FONT COLOR=red><A NAME="311_19"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
+<EM><FONT SIZE=-1> 312 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 313 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#76_19">Obj</A>.<A HREF="src__objets_prolog__ads.htm#159_7">T</A> <b>in</b> <A HREF="src__objets_prolog__ads.htm#148_29">Symbole</A>..<A HREF="src__objets_prolog__ads.htm#149_29">Entier</A>;
+<EM><FONT SIZE=-1> 314 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#76_13">Atome</A>;
+<EM><FONT SIZE=-1> 315 </FONT></EM>
+<EM><FONT SIZE=-1> 316 </FONT></EM>
+<EM><FONT SIZE=-1> 317 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#80_13">Doublet</A><FONT COLOR=red><A NAME="317_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#80_21">Obj</A><FONT COLOR=red><A NAME="317_21"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
+<EM><FONT SIZE=-1> 318 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 319 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#80_21">Obj</A>.<A HREF="src__objets_prolog__ads.htm#159_7">T</A> <b>in</b> <A HREF="src__objets_prolog__ads.htm#150_29">Doublet_V</A>..<A HREF="src__objets_prolog__ads.htm#152_29">Doublet_L</A>;
+<EM><FONT SIZE=-1> 320 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#80_13">Doublet</A>;
+<EM><FONT SIZE=-1> 321 </FONT></EM>
+<EM><FONT SIZE=-1> 322 </FONT></EM>
+<EM><FONT SIZE=-1> 323 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#77_13">Doublet_V</A><FONT COLOR=red><A NAME="323_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#77_23">Obj</A><FONT COLOR=red><A NAME="323_23"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
+<EM><FONT SIZE=-1> 324 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 325 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#77_23">Obj</A>.<A HREF="src__objets_prolog__ads.htm#159_7">T</A> = <A HREF="src__objets_prolog__ads.htm#150_29">Doublet_V</A>;
+<EM><FONT SIZE=-1> 326 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#77_13">Doublet_V</A>;
+<EM><FONT SIZE=-1> 327 </FONT></EM>
+<EM><FONT SIZE=-1> 328 </FONT></EM>
+<EM><FONT SIZE=-1> 329 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#78_13">Doublet_F</A><FONT COLOR=red><A NAME="329_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#78_23">Obj</A><FONT COLOR=red><A NAME="329_23"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
+<EM><FONT SIZE=-1> 330 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 331 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#78_23">Obj</A>.<A HREF="src__objets_prolog__ads.htm#159_7">T</A> = <A HREF="src__objets_prolog__ads.htm#151_29">Doublet_F</A>;
+<EM><FONT SIZE=-1> 332 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#78_13">Doublet_F</A>;
+<EM><FONT SIZE=-1> 333 </FONT></EM>
+<EM><FONT SIZE=-1> 334 </FONT></EM>
+<EM><FONT SIZE=-1> 335 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#79_13">Doublet_L</A><FONT COLOR=red><A NAME="335_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#79_23">Obj</A><FONT COLOR=red><A NAME="335_23"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
+<EM><FONT SIZE=-1> 336 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 337 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#79_23">Obj</A>.<A HREF="src__objets_prolog__ads.htm#159_7">T</A> = <A HREF="src__objets_prolog__ads.htm#152_29">Doublet_L</A>;
+<EM><FONT SIZE=-1> 338 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#79_13">Doublet_L</A>;
+<EM><FONT SIZE=-1> 339 </FONT></EM>
+<EM><FONT SIZE=-1> 340 </FONT></EM>
+<EM><FONT SIZE=-1> 341 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#81_13">Variable</A><FONT COLOR=red><A NAME="341_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#81_22">Obj</A><FONT COLOR=red><A NAME="341_22"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
+<EM><FONT SIZE=-1> 342 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 343 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#81_22">Obj</A>.<A HREF="src__objets_prolog__ads.htm#159_7">T</A> = <A HREF="src__objets_prolog__ads.htm#147_29">Variable</A>;
+<EM><FONT SIZE=-1> 344 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#81_13">Variable</A>;
+<EM><FONT SIZE=-1> 345 </FONT></EM>
+<EM><FONT SIZE=-1> 346 </FONT></EM>
+<EM><FONT SIZE=-1> 347 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#82_13">Vect1</A><FONT COLOR=red><A NAME="347_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#82_19">Obj</A><FONT COLOR=red><A NAME="347_19"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
+<EM><FONT SIZE=-1> 348 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 349 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#82_19">Obj</A>.<A HREF="src__objets_prolog__ads.htm#159_7">T</A> = <A HREF="src__objets_prolog__ads.htm#150_29">Doublet_V</A> <b>and</b> <b>then</b> <A HREF="src__objets_prolog__ads.htm#60_13">Egalite_Mot</A>(<A HREF="src__objets_prolog__ads.htm#99_13">Reste</A>(<A HREF="src__objets_prolog__ads.htm#82_19">Obj</A>), <A HREF="src__objets_prolog__adb.htm#112_4">Vecteur_Vide</A>);
+<EM><FONT SIZE=-1> 350 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#82_13">Vect1</A>;
+<EM><FONT SIZE=-1> 351 </FONT></EM>
+<EM><FONT SIZE=-1> 352 </FONT></EM>
+<EM><FONT SIZE=-1> 353 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#83_13">Vect2</A><FONT COLOR=red><A NAME="353_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#83_19">Obj</A><FONT COLOR=red><A NAME="353_19"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
+<EM><FONT SIZE=-1> 354 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 355 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#83_19">Obj</A>.<A HREF="src__objets_prolog__ads.htm#159_7">T</A> = <A HREF="src__objets_prolog__ads.htm#150_29">Doublet_V</A> <b>and</b> <b>then</b> <A HREF="src__objets_prolog__ads.htm#82_13">Vect1</A>(<A HREF="src__objets_prolog__ads.htm#99_13">Reste</A>(<A HREF="src__objets_prolog__ads.htm#83_19">Obj</A>));
+<EM><FONT SIZE=-1> 356 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#83_13">Vect2</A>;
+<EM><FONT SIZE=-1> 357 </FONT></EM>
+<EM><FONT SIZE=-1> 358 </FONT></EM>
+<EM><FONT SIZE=-1> 359 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#84_13">Func1</A><FONT COLOR=red><A NAME="359_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#84_19">Obj</A><FONT COLOR=red><A NAME="359_19"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
+<EM><FONT SIZE=-1> 360 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 361 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#78_13">Doublet_F</A>(<A HREF="src__objets_prolog__ads.htm#84_19">Obj</A>) <b>and</b> <b>then</b> <A HREF="src__objets_prolog__ads.htm#82_13">Vect1</A>(<A HREF="src__objets_prolog__ads.htm#99_13">Reste</A>(<A HREF="src__objets_prolog__ads.htm#84_19">Obj</A>));
+<EM><FONT SIZE=-1> 362 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#84_13">Func1</A>;
+<EM><FONT SIZE=-1> 363 </FONT></EM>
+<EM><FONT SIZE=-1> 364 </FONT></EM>
+<EM><FONT SIZE=-1> 365 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#85_13">Func2</A><FONT COLOR=red><A NAME="365_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#85_19">Obj</A><FONT COLOR=red><A NAME="365_19"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> Boolean <b>is</b>
+<EM><FONT SIZE=-1> 366 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 367 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#78_13">Doublet_F</A>(<A HREF="src__objets_prolog__ads.htm#85_19">Obj</A>) <b>and</b> <b>then</b> <A HREF="src__objets_prolog__ads.htm#83_13">Vect2</A>(<A HREF="src__objets_prolog__ads.htm#99_13">Reste</A>(<A HREF="src__objets_prolog__ads.htm#85_19">Obj</A>));
+<EM><FONT SIZE=-1> 368 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#85_13">Func2</A>;
+<EM><FONT SIZE=-1> 369 </FONT></EM>
+<EM><FONT SIZE=-1> 370 </FONT></EM>
+<EM><FONT SIZE=-1> 371 </FONT></EM>   <FONT COLOR=green><EM>------------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 372 </FONT></EM>   <FONT COLOR=green><EM>-- Garbage collecting : récupération de mémoire.</EM></FONT>
+<EM><FONT SIZE=-1> 373 </FONT></EM>   <FONT COLOR=green><EM>------------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 374 </FONT></EM>   <FONT COLOR=green><EM>-- Pas encore implémenté : Quand la mémoire est pleine, c'est fini.</EM></FONT>
+<EM><FONT SIZE=-1> 375 </FONT></EM>
+<EM><FONT SIZE=-1> 376 </FONT></EM>
+<EM><FONT SIZE=-1> 377 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__adb.htm#377_13">Pname_Libre</A><FONT COLOR=red><A NAME="377_13"></A></FONT>(<FONT COLOR=red><A NAME="377_25">Longueur</A></FONT> : Natural) <b>return</b> <A HREF="src__objets_prolog__adb.htm#36_12">Indice_Table_Carac</A> <b>is</b> <FONT COLOR=green><EM>-- Renvoie adresse zone de LONGUEUR caracteres libres.</EM></FONT>
+<EM><FONT SIZE=-1> 378 </FONT></EM>      <FONT COLOR=red><A NAME="378_7">Adresse</A></FONT> : <A HREF="src__objets_prolog__adb.htm#36_12">Indice_Table_Carac</A>;
+<EM><FONT SIZE=-1> 379 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 380 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__adb.htm#40_4">Table_Carac</A>'Last - <A HREF="src__objets_prolog__adb.htm#42_4">Topcarac</A> &lt; <A HREF="src__objets_prolog__adb.htm#377_25">Longueur</A> <b>then</b> <b>raise</b> <A HREF="src__objets_prolog__ads.htm#15_4">Table_Carac_Pleine</A>;
+<EM><FONT SIZE=-1> 381 </FONT></EM>      <b>else</b>
+<EM><FONT SIZE=-1> 382 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#378_7">Adresse</A> := <A HREF="src__objets_prolog__adb.htm#42_4">Topcarac</A>;
+<EM><FONT SIZE=-1> 383 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#42_4">Topcarac</A> := <A HREF="src__objets_prolog__adb.htm#42_4">Topcarac</A> + <A HREF="src__objets_prolog__adb.htm#377_25">Longueur</A>;
+<EM><FONT SIZE=-1> 384 </FONT></EM>         <b>return</b> <A HREF="src__objets_prolog__adb.htm#378_7">Adresse</A>;
+<EM><FONT SIZE=-1> 385 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 386 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__adb.htm#377_13">Pname_Libre</A>;
+<EM><FONT SIZE=-1> 387 </FONT></EM>
+<EM><FONT SIZE=-1> 388 </FONT></EM>
+<EM><FONT SIZE=-1> 389 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__adb.htm#389_13">Symbole_Libre</A><FONT COLOR=red><A NAME="389_13"></A></FONT> <b>return</b> <A HREF="src__objets_prolog__adb.htm#63_12">Indice_Table_Symb</A> <b>is</b>       <FONT COLOR=green><EM>-- Renvoie l'adresse d'un symbole libre.</EM></FONT>
+<EM><FONT SIZE=-1> 390 </FONT></EM>      <FONT COLOR=red><A NAME="390_7">Adresse</A></FONT> : <A HREF="src__objets_prolog__adb.htm#63_12">Indice_Table_Symb</A>;
+<EM><FONT SIZE=-1> 391 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 392 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__adb.htm#77_4">Topsymb</A> = <A HREF="src__objets_prolog__adb.htm#75_4">Table_Symb</A>'Last <b>then</b> <b>raise</b> <A HREF="src__objets_prolog__ads.htm#16_4">Table_Symb_Pleine</A>;
+<EM><FONT SIZE=-1> 393 </FONT></EM>      <b>else</b>
+<EM><FONT SIZE=-1> 394 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#390_7">Adresse</A> := <A HREF="src__objets_prolog__adb.htm#77_4">Topsymb</A>;
+<EM><FONT SIZE=-1> 395 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#77_4">Topsymb</A> := <A HREF="src__objets_prolog__adb.htm#77_4">Topsymb</A> + 1;
+<EM><FONT SIZE=-1> 396 </FONT></EM>         <b>return</b> <A HREF="src__objets_prolog__adb.htm#390_7">Adresse</A>;
+<EM><FONT SIZE=-1> 397 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 398 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__adb.htm#389_13">Symbole_Libre</A>;
+<EM><FONT SIZE=-1> 399 </FONT></EM>
+<EM><FONT SIZE=-1> 400 </FONT></EM>
+<EM><FONT SIZE=-1> 401 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__adb.htm#401_13">Doublet_Libre</A><FONT COLOR=red><A NAME="401_13"></A></FONT> <b>return</b> <A HREF="src__objets_prolog__adb.htm#21_12">Indice_Table_Doublets</A> <b>is</b>    <FONT COLOR=green><EM>-- Renvoie l'adresse d'un doublet libre.</EM></FONT>
+<EM><FONT SIZE=-1> 402 </FONT></EM>      <FONT COLOR=red><A NAME="402_7">Adresse</A></FONT> : <A HREF="src__objets_prolog__adb.htm#21_12">Indice_Table_Doublets</A>;
+<EM><FONT SIZE=-1> 403 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 404 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__adb.htm#28_4">Topnod</A> = T_Table_Doublets'Last <b>then</b> <b>raise</b> <A HREF="src__objets_prolog__ads.htm#14_4">Table_Doublets_Pleine</A>;
+<EM><FONT SIZE=-1> 405 </FONT></EM>      <b>else</b>
+<EM><FONT SIZE=-1> 406 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#402_7">Adresse</A> := <A HREF="src__objets_prolog__adb.htm#28_4">Topnod</A>;
+<EM><FONT SIZE=-1> 407 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#28_4">Topnod</A> := <A HREF="src__objets_prolog__adb.htm#28_4">Topnod</A> + 1;
+<EM><FONT SIZE=-1> 408 </FONT></EM>         <b>return</b> <A HREF="src__objets_prolog__adb.htm#402_7">Adresse</A>;
+<EM><FONT SIZE=-1> 409 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 410 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__adb.htm#401_13">Doublet_Libre</A>;
+<EM><FONT SIZE=-1> 411 </FONT></EM>
+<EM><FONT SIZE=-1> 412 </FONT></EM>
+<EM><FONT SIZE=-1> 413 </FONT></EM>   <FONT COLOR=green><EM>---------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 414 </FONT></EM>   <FONT COLOR=green><EM>-- Fonctions d'acces aux objets PROLOG.</EM></FONT>
+<EM><FONT SIZE=-1> 415 </FONT></EM>   <FONT COLOR=green><EM>---------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 416 </FONT></EM>
+<EM><FONT SIZE=-1> 417 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#26_13">Mot_Nul</A><FONT COLOR=red><A NAME="417_13"></A></FONT> <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>
+<EM><FONT SIZE=-1> 418 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 419 </FONT></EM>      <b>return</b> (<A HREF="src__objets_prolog__ads.htm#146_29">Libre</A>, 0); <FONT COLOR=green><EM>-- Valeur retournée en interne quand pas de résultat</EM></FONT>
+<EM><FONT SIZE=-1> 420 </FONT></EM>   <b>end</b>;
 <EM><FONT SIZE=-1> 421 </FONT></EM>
 <EM><FONT SIZE=-1> 422 </FONT></EM>
-<EM><FONT SIZE=-1> 423 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#93_13">Entier_Val</A><FONT COLOR=red><A NAME="423_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#93_24">Obj</A><FONT COLOR=red><A NAME="423_24"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#30_12">Type_Nombre</A> <b>is</b>     <FONT COLOR=green><EM>-- Renvoie la valeur numérique d'un entier.</EM></FONT>
-<EM><FONT SIZE=-1> 424 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 425 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#93_24">Obj</A>.<A HREF="src__objets_prolog__ads.htm#155_7">Val</A>;
-<EM><FONT SIZE=-1> 426 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#93_13">Entier_Val</A>;
-<EM><FONT SIZE=-1> 427 </FONT></EM>
-<EM><FONT SIZE=-1> 428 </FONT></EM>
-<EM><FONT SIZE=-1> 429 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#94_13">Variable_Rang</A><FONT COLOR=red><A NAME="429_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#94_27">Obj</A><FONT COLOR=red><A NAME="429_27"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#30_12">Type_Nombre</A> <b>is</b>   <FONT COLOR=green><EM>-- Renvoie le rang d'une variable.</EM></FONT>
-<EM><FONT SIZE=-1> 430 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 431 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#94_27">Obj</A>.<A HREF="src__objets_prolog__ads.htm#155_7">Val</A>;
-<EM><FONT SIZE=-1> 432 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#94_13">Variable_Rang</A>;
-<EM><FONT SIZE=-1> 433 </FONT></EM>
-<EM><FONT SIZE=-1> 434 </FONT></EM>
-<EM><FONT SIZE=-1> 435 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#95_13">Variable_Nom</A><FONT COLOR=red><A NAME="435_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#95_26">Ind</A><FONT COLOR=red><A NAME="435_26"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#30_12">Type_Nombre</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>    <FONT COLOR=green><EM>-- Renvoie le symbole correspondant au nom d'une variable.</EM></FONT>
-<EM><FONT SIZE=-1> 436 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 437 </FONT></EM>      <b>return</b> (<A HREF="src__objets_prolog__ads.htm#143_29">Symbole</A>, <A HREF="src__objets_prolog__adb.htm#102_4">Table_Var</A>(<A HREF="src__objets_prolog__ads.htm#95_26">Ind</A>));
-<EM><FONT SIZE=-1> 438 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#95_13">Variable_Nom</A>;
-<EM><FONT SIZE=-1> 439 </FONT></EM>
-<EM><FONT SIZE=-1> 440 </FONT></EM>
-<EM><FONT SIZE=-1> 441 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#96_13">Premier</A><FONT COLOR=red><A NAME="441_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#96_21">Obj</A><FONT COLOR=red><A NAME="441_21"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>                <FONT COLOR=green><EM>-- Correspond au CAR de LISP.</EM></FONT>
-<EM><FONT SIZE=-1> 442 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 443 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__ads.htm#79_13">Doublet</A>(<A HREF="src__objets_prolog__ads.htm#96_21">Obj</A>) <b>then</b> <b>return</b> <A HREF="src__objets_prolog__adb.htm#25_4">First</A>(<A HREF="src__objets_prolog__ads.htm#96_21">Obj</A>.<A HREF="src__objets_prolog__ads.htm#155_7">Val</A>);
-<EM><FONT SIZE=-1> 444 </FONT></EM>      <b>else</b> <b>return</b> <A HREF="src__objets_prolog__adb.htm#111_4">Liste_Vide</A>;
-<EM><FONT SIZE=-1> 445 </FONT></EM>      <b>end</b> <b>if</b>;
-<EM><FONT SIZE=-1> 446 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#96_13">Premier</A>;
-<EM><FONT SIZE=-1> 447 </FONT></EM>
-<EM><FONT SIZE=-1> 448 </FONT></EM>
-<EM><FONT SIZE=-1> 449 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#97_13">Reste</A><FONT COLOR=red><A NAME="449_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#97_19">Obj</A><FONT COLOR=red><A NAME="449_19"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>                  <FONT COLOR=green><EM>-- Correspond au CDR de LISP. Le CDR d'un n-uplet est un n-uplet.</EM></FONT>
-<EM><FONT SIZE=-1> 450 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 451 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__ads.htm#79_13">Doublet</A>(<A HREF="src__objets_prolog__ads.htm#97_19">Obj</A>) <b>then</b> <b>return</b> <A HREF="src__objets_prolog__adb.htm#26_4">Rest</A>(<A HREF="src__objets_prolog__ads.htm#97_19">Obj</A>.<A HREF="src__objets_prolog__ads.htm#155_7">Val</A>);
-<EM><FONT SIZE=-1> 452 </FONT></EM>      <b>else</b> <b>return</b> <A HREF="src__objets_prolog__adb.htm#111_4">Liste_Vide</A>;
-<EM><FONT SIZE=-1> 453 </FONT></EM>      <b>end</b> <b>if</b>;
-<EM><FONT SIZE=-1> 454 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#97_13">Reste</A>;
+<EM><FONT SIZE=-1> 423 </FONT></EM>   <b>procedure</b> <A HREF="src__objets_prolog__ads.htm#92_14">Symbole_Chaine</A><FONT COLOR=red><A NAME="423_14"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#92_29">Obj</A><FONT COLOR=red><A NAME="423_29"></A></FONT> : <b>in</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>;
+<EM><FONT SIZE=-1> 424 </FONT></EM>         <A HREF="src__objets_prolog__ads.htm#93_29">Chaine</A><FONT COLOR=red><A NAME="424_10"></A></FONT> : <b>out</b> String; <A HREF="src__objets_prolog__ads.htm#93_50">Long</A><FONT COLOR=red><A NAME="424_31"></A></FONT> : <b>out</b> Natural;
+<EM><FONT SIZE=-1> 425 </FONT></EM>         <A HREF="src__objets_prolog__ads.htm#94_29">Print_Quote</A><FONT COLOR=red><A NAME="425_10"></A></FONT> : <b>out</b> Boolean) <b>is</b>            <FONT COLOR=green><EM>-- Représentation externe d'un symbole.</EM></FONT>
+<EM><FONT SIZE=-1> 426 </FONT></EM>      <FONT COLOR=red><A NAME="426_7">Pname</A></FONT> : <A HREF="src__objets_prolog__adb.htm#49_9">R_Pname</A>;
+<EM><FONT SIZE=-1> 427 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 428 </FONT></EM>      <b>if</b> <b>not</b> <A HREF="src__objets_prolog__ads.htm#75_13">Symbole</A>(<A HREF="src__objets_prolog__ads.htm#92_29">Obj</A>) <b>then</b> <A HREF="src__objets_prolog__ads.htm#93_50">Long</A> := 0; <A HREF="src__objets_prolog__ads.htm#94_29">Print_Quote</A> := False; <b>return</b>;
+<EM><FONT SIZE=-1> 429 </FONT></EM>      <b>else</b>
+<EM><FONT SIZE=-1> 430 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#426_7">Pname</A> := <A HREF="src__objets_prolog__adb.htm#75_4">Table_Symb</A>(<A HREF="src__objets_prolog__ads.htm#92_29">Obj</A>.<A HREF="src__objets_prolog__ads.htm#160_7">Val</A>).<A HREF="src__objets_prolog__adb.htm#69_7">Pname</A>;
+<EM><FONT SIZE=-1> 431 </FONT></EM>         <A HREF="src__objets_prolog__ads.htm#93_50">Long</A> := <A HREF="src__objets_prolog__adb.htm#426_7">Pname</A>.<A HREF="src__objets_prolog__adb.htm#50_7">Long</A>;
+<EM><FONT SIZE=-1> 432 </FONT></EM>         <A HREF="src__objets_prolog__ads.htm#93_29">Chaine</A>(<A HREF="src__objets_prolog__ads.htm#93_29">Chaine</A>'First..<A HREF="src__objets_prolog__adb.htm#426_7">Pname</A>.<A HREF="src__objets_prolog__adb.htm#50_7">Long</A>) := <A HREF="src__objets_prolog__adb.htm#40_4">Table_Carac</A>(<A HREF="src__objets_prolog__adb.htm#426_7">Pname</A>.<A HREF="src__objets_prolog__adb.htm#51_7">Ind_Carac</A>..
+<EM><FONT SIZE=-1> 433 </FONT></EM>            <A HREF="src__objets_prolog__adb.htm#426_7">Pname</A>.<A HREF="src__objets_prolog__adb.htm#51_7">Ind_Carac</A>+<A HREF="src__objets_prolog__adb.htm#426_7">Pname</A>.<A HREF="src__objets_prolog__adb.htm#50_7">Long</A>-1); <FONT COLOR=green><EM>-- 1er p-name ne doit pas etre ""</EM></FONT>
+<EM><FONT SIZE=-1> 434 </FONT></EM>         <A HREF="src__objets_prolog__ads.htm#94_29">Print_Quote</A> := <A HREF="src__objets_prolog__adb.htm#426_7">Pname</A>.<A HREF="src__objets_prolog__adb.htm#52_7">Print_Quote</A>;
+<EM><FONT SIZE=-1> 435 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 436 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#92_14">Symbole_Chaine</A>;
+<EM><FONT SIZE=-1> 437 </FONT></EM>
+<EM><FONT SIZE=-1> 438 </FONT></EM>
+<EM><FONT SIZE=-1> 439 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#95_13">Entier_Val</A><FONT COLOR=red><A NAME="439_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#95_24">Obj</A><FONT COLOR=red><A NAME="439_24"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#31_12">Type_Nombre</A> <b>is</b>     <FONT COLOR=green><EM>-- Renvoie la valeur numérique d'un entier.</EM></FONT>
+<EM><FONT SIZE=-1> 440 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 441 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#95_24">Obj</A>.<A HREF="src__objets_prolog__ads.htm#160_7">Val</A>;
+<EM><FONT SIZE=-1> 442 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#95_13">Entier_Val</A>;
+<EM><FONT SIZE=-1> 443 </FONT></EM>
+<EM><FONT SIZE=-1> 444 </FONT></EM>
+<EM><FONT SIZE=-1> 445 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#96_13">Variable_Rang</A><FONT COLOR=red><A NAME="445_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#96_27">Obj</A><FONT COLOR=red><A NAME="445_27"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#31_12">Type_Nombre</A> <b>is</b>   <FONT COLOR=green><EM>-- Renvoie le rang d'une variable.</EM></FONT>
+<EM><FONT SIZE=-1> 446 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 447 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#96_27">Obj</A>.<A HREF="src__objets_prolog__ads.htm#160_7">Val</A>;
+<EM><FONT SIZE=-1> 448 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#96_13">Variable_Rang</A>;
+<EM><FONT SIZE=-1> 449 </FONT></EM>
+<EM><FONT SIZE=-1> 450 </FONT></EM>
+<EM><FONT SIZE=-1> 451 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#97_13">Variable_Nom</A><FONT COLOR=red><A NAME="451_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#97_26">Ind</A><FONT COLOR=red><A NAME="451_26"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#31_12">Type_Nombre</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>    <FONT COLOR=green><EM>-- Renvoie le symbole correspondant au nom d'une variable.</EM></FONT>
+<EM><FONT SIZE=-1> 452 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 453 </FONT></EM>      <b>return</b> (<A HREF="src__objets_prolog__ads.htm#148_29">Symbole</A>, <A HREF="src__objets_prolog__adb.htm#102_4">Table_Var</A>(<A HREF="src__objets_prolog__ads.htm#97_26">Ind</A>));
+<EM><FONT SIZE=-1> 454 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#97_13">Variable_Nom</A>;
 <EM><FONT SIZE=-1> 455 </FONT></EM>
 <EM><FONT SIZE=-1> 456 </FONT></EM>
-<EM><FONT SIZE=-1> 457 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#98_13">Id_Liste_Regles</A><FONT COLOR=red><A NAME="457_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#98_29">Symb</A><FONT COLOR=red><A NAME="457_29"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>       <FONT COLOR=green><EM>-- Renvoie la liste des regles rattachées au symbole SYMB.</EM></FONT>
+<EM><FONT SIZE=-1> 457 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#98_13">Premier</A><FONT COLOR=red><A NAME="457_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#98_21">Obj</A><FONT COLOR=red><A NAME="457_21"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>                <FONT COLOR=green><EM>-- Correspond au CAR de LISP.</EM></FONT>
 <EM><FONT SIZE=-1> 458 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 459 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__ads.htm#74_13">Symbole</A>(<A HREF="src__objets_prolog__ads.htm#98_29">Symb</A>) <b>then</b>
-<EM><FONT SIZE=-1> 460 </FONT></EM>         <b>return</b> <A HREF="src__objets_prolog__adb.htm#75_4">Table_Symb</A>(<A HREF="src__objets_prolog__ads.htm#98_29">Symb</A>.<A HREF="src__objets_prolog__ads.htm#155_7">Val</A>).<A HREF="src__objets_prolog__adb.htm#68_7">Liste_Regles</A>;
-<EM><FONT SIZE=-1> 461 </FONT></EM>      <b>else</b>
-<EM><FONT SIZE=-1> 462 </FONT></EM>         <b>return</b> <A HREF="src__objets_prolog__adb.htm#111_4">Liste_Vide</A>;
-<EM><FONT SIZE=-1> 463 </FONT></EM>      <b>end</b> <b>if</b>;
-<EM><FONT SIZE=-1> 464 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#98_13">Id_Liste_Regles</A>;
-<EM><FONT SIZE=-1> 465 </FONT></EM>
-<EM><FONT SIZE=-1> 466 </FONT></EM>
-<EM><FONT SIZE=-1> 467 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#99_13">Nbre_De_Variables</A><FONT COLOR=red><A NAME="467_13"></A></FONT> <b>return</b> Natural <b>is</b>             <FONT COLOR=green><EM>-- Renvoie le nbre de variables crées depuis le dernier RAZ_VARIABLES.</EM></FONT>
-<EM><FONT SIZE=-1> 468 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 469 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__adb.htm#104_4">Topvar</A> - 1;
-<EM><FONT SIZE=-1> 470 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#99_13">Nbre_De_Variables</A>;
+<EM><FONT SIZE=-1> 459 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__ads.htm#80_13">Doublet</A>(<A HREF="src__objets_prolog__ads.htm#98_21">Obj</A>) <b>then</b> <b>return</b> <A HREF="src__objets_prolog__adb.htm#25_4">First</A>(<A HREF="src__objets_prolog__ads.htm#98_21">Obj</A>.<A HREF="src__objets_prolog__ads.htm#160_7">Val</A>);
+<EM><FONT SIZE=-1> 460 </FONT></EM>      <b>else</b> <b>return</b> <A HREF="src__objets_prolog__adb.htm#111_4">Liste_Vide</A>;
+<EM><FONT SIZE=-1> 461 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 462 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#98_13">Premier</A>;
+<EM><FONT SIZE=-1> 463 </FONT></EM>
+<EM><FONT SIZE=-1> 464 </FONT></EM>
+<EM><FONT SIZE=-1> 465 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#99_13">Reste</A><FONT COLOR=red><A NAME="465_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#99_19">Obj</A><FONT COLOR=red><A NAME="465_19"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>                  <FONT COLOR=green><EM>-- Correspond au CDR de LISP. Le CDR d'un n-uplet est un n-uplet.</EM></FONT>
+<EM><FONT SIZE=-1> 466 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 467 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__ads.htm#80_13">Doublet</A>(<A HREF="src__objets_prolog__ads.htm#99_19">Obj</A>) <b>then</b> <b>return</b> <A HREF="src__objets_prolog__adb.htm#26_4">Rest</A>(<A HREF="src__objets_prolog__ads.htm#99_19">Obj</A>.<A HREF="src__objets_prolog__ads.htm#160_7">Val</A>);
+<EM><FONT SIZE=-1> 468 </FONT></EM>      <b>else</b> <b>return</b> <A HREF="src__objets_prolog__adb.htm#111_4">Liste_Vide</A>;
+<EM><FONT SIZE=-1> 469 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 470 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#99_13">Reste</A>;
 <EM><FONT SIZE=-1> 471 </FONT></EM>
 <EM><FONT SIZE=-1> 472 </FONT></EM>
-<EM><FONT SIZE=-1> 473 </FONT></EM>   <FONT COLOR=green><EM>----------------------------------------------</EM></FONT>
-<EM><FONT SIZE=-1> 474 </FONT></EM>   <FONT COLOR=green><EM>-- Fonctions de fabrication des objets PROLOG.</EM></FONT>
-<EM><FONT SIZE=-1> 475 </FONT></EM>   <FONT COLOR=green><EM>----------------------------------------------</EM></FONT>
-<EM><FONT SIZE=-1> 476 </FONT></EM>
-<EM><FONT SIZE=-1> 477 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__adb.htm#477_13">Egal_Pname_Chaine</A><FONT COLOR=red><A NAME="477_13"></A></FONT>(<FONT COLOR=red><A NAME="477_31">Pname</A></FONT> : <A HREF="src__objets_prolog__adb.htm#49_9">R_Pname</A>; <FONT COLOR=red><A NAME="477_48">Chaine</A></FONT> : String) <b>return</b> Boolean <b>is</b>
-<EM><FONT SIZE=-1> 478 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 479 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__adb.htm#477_31">Pname</A>.<A HREF="src__objets_prolog__adb.htm#50_7">Long</A> = <A HREF="src__objets_prolog__adb.htm#477_48">Chaine</A>'Length <b>and</b> <b>then</b>
-<EM><FONT SIZE=-1> 480 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#40_4">Table_Carac</A>(<A HREF="src__objets_prolog__adb.htm#477_31">Pname</A>.<A HREF="src__objets_prolog__adb.htm#51_7">Ind_Carac</A>..<A HREF="src__objets_prolog__adb.htm#477_31">Pname</A>.<A HREF="src__objets_prolog__adb.htm#51_7">Ind_Carac</A> + <A HREF="src__objets_prolog__adb.htm#477_31">Pname</A>.<A HREF="src__objets_prolog__adb.htm#50_7">Long</A> - 1) = <A HREF="src__objets_prolog__adb.htm#477_48">Chaine</A>(<A HREF="src__objets_prolog__adb.htm#477_48">Chaine</A>'<b>range</b>);
-<EM><FONT SIZE=-1> 481 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__adb.htm#477_13">Egal_Pname_Chaine</A>;
+<EM><FONT SIZE=-1> 473 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#100_13">Id_Liste_Regles</A><FONT COLOR=red><A NAME="473_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#100_29">Symb</A><FONT COLOR=red><A NAME="473_29"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>       <FONT COLOR=green><EM>-- Renvoie la liste des regles rattachées au symbole SYMB.</EM></FONT>
+<EM><FONT SIZE=-1> 474 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 475 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__ads.htm#75_13">Symbole</A>(<A HREF="src__objets_prolog__ads.htm#100_29">Symb</A>) <b>then</b>
+<EM><FONT SIZE=-1> 476 </FONT></EM>         <b>return</b> <A HREF="src__objets_prolog__adb.htm#75_4">Table_Symb</A>(<A HREF="src__objets_prolog__ads.htm#100_29">Symb</A>.<A HREF="src__objets_prolog__ads.htm#160_7">Val</A>).<A HREF="src__objets_prolog__adb.htm#68_7">Liste_Regles</A>;
+<EM><FONT SIZE=-1> 477 </FONT></EM>      <b>else</b>
+<EM><FONT SIZE=-1> 478 </FONT></EM>         <b>return</b> <A HREF="src__objets_prolog__adb.htm#111_4">Liste_Vide</A>;
+<EM><FONT SIZE=-1> 479 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 480 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#100_13">Id_Liste_Regles</A>;
+<EM><FONT SIZE=-1> 481 </FONT></EM>
 <EM><FONT SIZE=-1> 482 </FONT></EM>
-<EM><FONT SIZE=-1> 483 </FONT></EM>
-<EM><FONT SIZE=-1> 484 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__adb.htm#484_13">Cree_Pname</A><FONT COLOR=red><A NAME="484_13"></A></FONT>(<FONT COLOR=red><A NAME="484_24">Str</A></FONT> : String; <FONT COLOR=red><A NAME="484_38">Print_Quote</A></FONT> : Boolean := False) <b>return</b> <A HREF="src__objets_prolog__adb.htm#49_9">R_Pname</A> <b>is</b>
-<EM><FONT SIZE=-1> 485 </FONT></EM>      <FONT COLOR=green><EM>-- En entrée : Une chaine, en sortie un record (long, ind_carac, flag).</EM></FONT>
-<EM><FONT SIZE=-1> 486 </FONT></EM>      <FONT COLOR=red><A NAME="486_7">Longueur</A></FONT> : Natural := <A HREF="src__objets_prolog__adb.htm#484_24">Str</A>'Length;
-<EM><FONT SIZE=-1> 487 </FONT></EM>      <FONT COLOR=red><A NAME="487_7">Pname</A></FONT> : <A HREF="src__objets_prolog__adb.htm#49_9">R_Pname</A>;
-<EM><FONT SIZE=-1> 488 </FONT></EM>      <FONT COLOR=red><A NAME="488_7">Adresse</A></FONT> : <A HREF="src__objets_prolog__adb.htm#36_12">Indice_Table_Carac</A>;
-<EM><FONT SIZE=-1> 489 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 490 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__adb.htm#486_7">Longueur</A> &gt; <A HREF="src__objets_prolog__ads.htm#31_4">Longmax_Pname</A> <b>then</b>
-<EM><FONT SIZE=-1> 491 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#486_7">Longueur</A> := <A HREF="src__objets_prolog__ads.htm#31_4">Longmax_Pname</A>;                         <FONT COLOR=green><EM>-- Si chaine trop longue alors on tronque.</EM></FONT>
-<EM><FONT SIZE=-1> 492 </FONT></EM>      <b>end</b> <b>if</b>;
-<EM><FONT SIZE=-1> 493 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#487_7">Pname</A>.<A HREF="src__objets_prolog__adb.htm#50_7">Long</A> := <A HREF="src__objets_prolog__adb.htm#486_7">Longueur</A>;
-<EM><FONT SIZE=-1> 494 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#487_7">Pname</A>.<A HREF="src__objets_prolog__adb.htm#51_7">Ind_Carac</A> := <A HREF="src__objets_prolog__adb.htm#42_4">Topcarac</A>;
-<EM><FONT SIZE=-1> 495 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#487_7">Pname</A>.<A HREF="src__objets_prolog__adb.htm#52_7">Print_Quote</A> := <A HREF="src__objets_prolog__adb.htm#484_38">Print_Quote</A>;
-<EM><FONT SIZE=-1> 496 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#488_7">Adresse</A> := <A HREF="src__objets_prolog__adb.htm#367_13">Pname_Libre</A>(<A HREF="src__objets_prolog__adb.htm#486_7">Longueur</A>);
-<EM><FONT SIZE=-1> 497 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#40_4">Table_Carac</A>(<A HREF="src__objets_prolog__adb.htm#488_7">Adresse</A>..<A HREF="src__objets_prolog__adb.htm#488_7">Adresse</A>+<A HREF="src__objets_prolog__adb.htm#486_7">Longueur</A>-1) := <A HREF="src__objets_prolog__adb.htm#484_24">Str</A>(<A HREF="src__objets_prolog__adb.htm#484_24">Str</A>'First..<A HREF="src__objets_prolog__adb.htm#484_24">Str</A>'First+<A HREF="src__objets_prolog__adb.htm#486_7">Longueur</A>-1);
-<EM><FONT SIZE=-1> 498 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__adb.htm#487_7">Pname</A>;
-<EM><FONT SIZE=-1> 499 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__adb.htm#484_13">Cree_Pname</A>;
-<EM><FONT SIZE=-1> 500 </FONT></EM>
-<EM><FONT SIZE=-1> 501 </FONT></EM>
-<EM><FONT SIZE=-1> 502 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A><FONT COLOR=red><A NAME="502_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#105_26">Str</A><FONT COLOR=red><A NAME="502_26"></A></FONT> : String; <A HREF="src__objets_prolog__ads.htm#105_40">Print_Quote</A><FONT COLOR=red><A NAME="502_40"></A></FONT> : Boolean := False) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>
-<EM><FONT SIZE=-1> 503 </FONT></EM>      <FONT COLOR=green><EM>-- En entree : La représentation externe du symbole, en sortie : l'objet symbole.</EM></FONT>
-<EM><FONT SIZE=-1> 504 </FONT></EM>      <FONT COLOR=red><A NAME="504_7">Indice_Symb</A></FONT> : <A HREF="src__objets_prolog__adb.htm#63_12">Indice_Table_Symb</A>;
-<EM><FONT SIZE=-1> 505 </FONT></EM>      <FONT COLOR=red><A NAME="505_7">Symb_Suiv</A></FONT> : <A HREF="src__objets_prolog__adb.htm#65_12">Symbole_Suivant</A>;
-<EM><FONT SIZE=-1> 506 </FONT></EM>      <FONT COLOR=red><A NAME="506_7">H</A></FONT> : <A HREF="src__objets_prolog__adb.htm#87_12">Hash_Code</A>;
-<EM><FONT SIZE=-1> 507 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 508 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__ads.htm#105_26">Str</A>'Length = 0 <b>then</b>
-<EM><FONT SIZE=-1> 509 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#506_7">H</A> := 0;
-<EM><FONT SIZE=-1> 510 </FONT></EM>      <b>else</b>
-<EM><FONT SIZE=-1> 511 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#506_7">H</A> := Character'Pos(<A HREF="src__objets_prolog__ads.htm#105_26">Str</A>(<A HREF="src__objets_prolog__ads.htm#105_26">Str</A>'First));
-<EM><FONT SIZE=-1> 512 </FONT></EM>      <b>end</b> <b>if</b>;
-<EM><FONT SIZE=-1> 513 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#505_7">Symb_Suiv</A> := <A HREF="src__objets_prolog__adb.htm#91_4">Table_Hashcode</A>(<A HREF="src__objets_prolog__adb.htm#506_7">H</A>);
-<EM><FONT SIZE=-1> 514 </FONT></EM>      <b>while</b> <A HREF="src__objets_prolog__adb.htm#505_7">Symb_Suiv</A> /= -1 <b>loop</b>
-<EM><FONT SIZE=-1> 515 </FONT></EM>         <b>if</b> <A HREF="src__objets_prolog__adb.htm#477_13">Egal_Pname_Chaine</A>(<A HREF="src__objets_prolog__adb.htm#75_4">Table_Symb</A>(<A HREF="src__objets_prolog__adb.htm#505_7">Symb_Suiv</A>).<A HREF="src__objets_prolog__adb.htm#69_7">Pname</A>, <A HREF="src__objets_prolog__ads.htm#105_26">Str</A>) <b>then</b>
-<EM><FONT SIZE=-1> 516 </FONT></EM>            <b>return</b> (<A HREF="src__objets_prolog__ads.htm#143_29">Symbole</A>, <A HREF="src__objets_prolog__adb.htm#505_7">Symb_Suiv</A>);
-<EM><FONT SIZE=-1> 517 </FONT></EM>         <b>end</b> <b>if</b>;
-<EM><FONT SIZE=-1> 518 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#505_7">Symb_Suiv</A> := <A HREF="src__objets_prolog__adb.htm#75_4">Table_Symb</A>(<A HREF="src__objets_prolog__adb.htm#505_7">Symb_Suiv</A>).<A HREF="src__objets_prolog__adb.htm#70_7">Hash_Link</A>;
-<EM><FONT SIZE=-1> 519 </FONT></EM>      <b>end</b> <b>loop</b>;
-<EM><FONT SIZE=-1> 520 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#504_7">Indice_Symb</A> := <A HREF="src__objets_prolog__adb.htm#379_13">Symbole_Libre</A>;
-<EM><FONT SIZE=-1> 521 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#75_4">Table_Symb</A>(<A HREF="src__objets_prolog__adb.htm#504_7">Indice_Symb</A>) := (<A HREF="src__objets_prolog__adb.htm#111_4">Liste_Vide</A>, <A HREF="src__objets_prolog__adb.htm#484_13">Cree_Pname</A>(<A HREF="src__objets_prolog__ads.htm#105_26">Str</A>, <A HREF="src__objets_prolog__ads.htm#105_40">Print_Quote</A>), <A HREF="src__objets_prolog__adb.htm#91_4">Table_Hashcode</A>(<A HREF="src__objets_prolog__adb.htm#506_7">H</A>));
-<EM><FONT SIZE=-1> 522 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#91_4">Table_Hashcode</A>(<A HREF="src__objets_prolog__adb.htm#506_7">H</A>) := <A HREF="src__objets_prolog__adb.htm#504_7">Indice_Symb</A>;
-<EM><FONT SIZE=-1> 523 </FONT></EM>      <b>return</b> (<A HREF="src__objets_prolog__ads.htm#143_29">Symbole</A>, <A HREF="src__objets_prolog__adb.htm#504_7">Indice_Symb</A>);
-<EM><FONT SIZE=-1> 524 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>;
-<EM><FONT SIZE=-1> 525 </FONT></EM>
-<EM><FONT SIZE=-1> 526 </FONT></EM>
-<EM><FONT SIZE=-1> 527 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#106_13">Cree_Variable</A><FONT COLOR=red><A NAME="527_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#106_27">Str</A><FONT COLOR=red><A NAME="527_27"></A></FONT> : String) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>       <FONT COLOR=green><EM>-- Renvoie l'objet 'variable' correspondant</EM></FONT>
-<EM><FONT SIZE=-1> 528 </FONT></EM>      <FONT COLOR=red><A NAME="528_7">Indice_Symb</A></FONT> : <A HREF="src__objets_prolog__adb.htm#63_12">Indice_Table_Symb</A>;
-<EM><FONT SIZE=-1> 529 </FONT></EM>      <FONT COLOR=red><A NAME="529_7">Indice_Var</A></FONT>        : <A HREF="src__objets_prolog__adb.htm#98_12">Indice_Table_Var</A>;
-<EM><FONT SIZE=-1> 530 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 531 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__ads.htm#106_27">Str</A> = "_" <b>then</b> <b>return</b> (<A HREF="src__objets_prolog__ads.htm#142_29">Variable</A>, 0); <b>end</b> <b>if</b>;       <FONT COLOR=green><EM>-- Variable muette pour optimiser les unifications.</EM></FONT>
-<EM><FONT SIZE=-1> 532 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#528_7">Indice_Symb</A> := <A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>(<A HREF="src__objets_prolog__ads.htm#106_27">Str</A>).<A HREF="src__objets_prolog__ads.htm#155_7">Val</A>;
-<EM><FONT SIZE=-1> 533 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__adb.htm#104_4">Topvar</A> /= <A HREF="src__objets_prolog__adb.htm#102_4">Table_Var</A>'First <b>then</b>                       <FONT COLOR=green><EM>-- Si table non vide</EM></FONT>
-<EM><FONT SIZE=-1> 534 </FONT></EM>         <b>for</b> <FONT COLOR=red><A NAME="534_14">I</A></FONT> <b>in</b> <A HREF="src__objets_prolog__adb.htm#102_4">Table_Var</A>'First..<A HREF="src__objets_prolog__adb.htm#104_4">Topvar</A>-1 <b>loop</b>
-<EM><FONT SIZE=-1> 535 </FONT></EM>            <b>if</b> <A HREF="src__objets_prolog__adb.htm#528_7">Indice_Symb</A> = <A HREF="src__objets_prolog__adb.htm#102_4">Table_Var</A>(<A HREF="src__objets_prolog__adb.htm#534_14">I</A>) <b>then</b>
-<EM><FONT SIZE=-1> 536 </FONT></EM>               <b>return</b> (<A HREF="src__objets_prolog__ads.htm#142_29">Variable</A>, <A HREF="src__objets_prolog__adb.htm#534_14">I</A>);
-<EM><FONT SIZE=-1> 537 </FONT></EM>            <b>end</b> <b>if</b>;
-<EM><FONT SIZE=-1> 538 </FONT></EM>         <b>end</b> <b>loop</b>;
-<EM><FONT SIZE=-1> 539 </FONT></EM>      <b>end</b> <b>if</b>;
-<EM><FONT SIZE=-1> 540 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#102_4">Table_Var</A>(<A HREF="src__objets_prolog__adb.htm#104_4">Topvar</A>) := <A HREF="src__objets_prolog__adb.htm#528_7">Indice_Symb</A>;
-<EM><FONT SIZE=-1> 541 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#529_7">Indice_Var</A> := <A HREF="src__objets_prolog__adb.htm#104_4">Topvar</A>;
-<EM><FONT SIZE=-1> 542 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__adb.htm#104_4">Topvar</A> = <A HREF="src__objets_prolog__adb.htm#102_4">Table_Var</A>'Last <b>then</b> <b>raise</b> <A HREF="src__objets_prolog__ads.htm#17_4">Table_Var_Pleine</A>; <b>end</b> <b>if</b>;
-<EM><FONT SIZE=-1> 543 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#104_4">Topvar</A> := <A HREF="src__objets_prolog__adb.htm#104_4">Topvar</A> + 1;
-<EM><FONT SIZE=-1> 544 </FONT></EM>      <b>return</b> (<A HREF="src__objets_prolog__ads.htm#142_29">Variable</A>, <A HREF="src__objets_prolog__adb.htm#529_7">Indice_Var</A>);
-<EM><FONT SIZE=-1> 545 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#106_13">Cree_Variable</A>;
-<EM><FONT SIZE=-1> 546 </FONT></EM>
-<EM><FONT SIZE=-1> 547 </FONT></EM>
-<EM><FONT SIZE=-1> 548 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#107_13">Cree_Variable</A><FONT COLOR=red><A NAME="548_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#107_27">Num</A><FONT COLOR=red><A NAME="548_27"></A></FONT> : Natural) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>      <FONT COLOR=green><EM>-- Création d'une variable à partir de son numéro.</EM></FONT>
-<EM><FONT SIZE=-1> 549 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 550 </FONT></EM>      <b>return</b> (<A HREF="src__objets_prolog__ads.htm#142_29">Variable</A>, <A HREF="src__objets_prolog__ads.htm#107_27">Num</A>);
-<EM><FONT SIZE=-1> 551 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#107_13">Cree_Variable</A>;
+<EM><FONT SIZE=-1> 483 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#101_13">Nbre_De_Variables</A><FONT COLOR=red><A NAME="483_13"></A></FONT> <b>return</b> Natural <b>is</b>             <FONT COLOR=green><EM>-- Renvoie le nbre de variables crées depuis le dernier RAZ_VARIABLES.</EM></FONT>
+<EM><FONT SIZE=-1> 484 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 485 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__adb.htm#104_4">Topvar</A> - 1;
+<EM><FONT SIZE=-1> 486 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#101_13">Nbre_De_Variables</A>;
+<EM><FONT SIZE=-1> 487 </FONT></EM>
+<EM><FONT SIZE=-1> 488 </FONT></EM>
+<EM><FONT SIZE=-1> 489 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#103_13">Decompose_Entier</A><FONT COLOR=red><A NAME="489_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#103_30">N</A><FONT COLOR=red><A NAME="489_30"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#103_33">un_Entier</A><FONT COLOR=red><A NAME="489_33"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>
+<EM><FONT SIZE=-1> 490 </FONT></EM>      <FONT COLOR=green><EM>-- si N=0, Item = longueur(un_Entier'Image)</EM></FONT>
+<EM><FONT SIZE=-1> 491 </FONT></EM>      <FONT COLOR=green><EM>-- si N≠0, Item = nième caractère de un_Entier'Image.</EM></FONT>
+<EM><FONT SIZE=-1> 492 </FONT></EM>      <FONT COLOR=green><EM>-- Ada RM: The image of an integer value is the corresponding decimal literal,</EM></FONT>
+<EM><FONT SIZE=-1> 493 </FONT></EM>      <FONT COLOR=green><EM>-- without underlines, leading zeros, exponent, or trailing spaces, but</EM></FONT>
+<EM><FONT SIZE=-1> 494 </FONT></EM>      <FONT COLOR=green><EM>-- with a single leading character that is either a minus sign or a space.</EM></FONT>
+<EM><FONT SIZE=-1> 495 </FONT></EM>      <FONT COLOR=red><A NAME="495_7">Index</A></FONT> : <A HREF="src__objets_prolog__ads.htm#31_12">Type_Nombre</A> := <A HREF="src__objets_prolog__ads.htm#95_13">Entier_Val</A>(<A HREF="src__objets_prolog__ads.htm#103_30">N</A>);
+<EM><FONT SIZE=-1> 496 </FONT></EM>      <FONT COLOR=red><A NAME="496_7">Nombre</A></FONT> : <A HREF="src__objets_prolog__ads.htm#31_12">Type_Nombre</A> := <A HREF="src__objets_prolog__ads.htm#95_13">Entier_Val</A>(<A HREF="src__objets_prolog__ads.htm#103_33">un_Entier</A>);
+<EM><FONT SIZE=-1> 497 </FONT></EM>      <FONT COLOR=red><A NAME="497_7">Nombre_Image</A></FONT> : String := <A HREF="src__objets_prolog__ads.htm#31_12">Type_Nombre</A>'Image(<A HREF="src__objets_prolog__adb.htm#496_7">Nombre</A>);
+<EM><FONT SIZE=-1> 498 </FONT></EM>      <FONT COLOR=red><A NAME="498_7">Length</A></FONT> : <A HREF="src__objets_prolog__ads.htm#31_12">Type_Nombre</A> := <A HREF="src__objets_prolog__adb.htm#497_7">Nombre_Image</A>'Length;
+<EM><FONT SIZE=-1> 499 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 500 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__adb.htm#495_7">Index</A> = 0 <b>then</b> <b>return</b> <A HREF="src__objets_prolog__ads.htm#114_13">Cree_Entier</A>(<A HREF="src__objets_prolog__adb.htm#498_7">Length</A>); <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 501 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__adb.htm#495_7">Index</A> &gt; 0 <b>and</b> <A HREF="src__objets_prolog__adb.htm#495_7">Index</A> &lt;= <A HREF="src__objets_prolog__adb.htm#498_7">Length</A> <b>then</b>
+<EM><FONT SIZE=-1> 502 </FONT></EM>         <b>return</b> <A HREF="src__objets_prolog__ads.htm#110_13">Cree_Symbole</A>(<A HREF="src__objets_prolog__adb.htm#497_7">Nombre_Image</A>(<A HREF="src__objets_prolog__adb.htm#495_7">Index</A>..<A HREF="src__objets_prolog__adb.htm#495_7">Index</A>),
+<EM><FONT SIZE=-1> 503 </FONT></EM>                             <b>not</b> <A HREF="src__objets_prolog__ads.htm#87_13">Caractere_De_Symbole</A>(<A HREF="src__objets_prolog__adb.htm#497_7">Nombre_Image</A>(<A HREF="src__objets_prolog__adb.htm#495_7">Index</A>)));
+<EM><FONT SIZE=-1> 504 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 505 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#26_13">Mot_Nul</A>;
+<EM><FONT SIZE=-1> 506 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#103_13">Decompose_Entier</A>;
+<EM><FONT SIZE=-1> 507 </FONT></EM>
+<EM><FONT SIZE=-1> 508 </FONT></EM>
+<EM><FONT SIZE=-1> 509 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#104_13">Decompose_Symbole</A><FONT COLOR=red><A NAME="509_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#104_31">N</A><FONT COLOR=red><A NAME="509_31"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#104_34">un_Symbole</A><FONT COLOR=red><A NAME="509_34"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>
+<EM><FONT SIZE=-1> 510 </FONT></EM>      <FONT COLOR=green><EM>-- si N=0, Item = longueur(un_Symbole.pname)</EM></FONT>
+<EM><FONT SIZE=-1> 511 </FONT></EM>      <FONT COLOR=green><EM>-- si N≠0, Item = nième caractère de un_Symbole.pname.</EM></FONT>
+<EM><FONT SIZE=-1> 512 </FONT></EM>      <FONT COLOR=red><A NAME="512_7">Index</A></FONT> : <A HREF="src__objets_prolog__ads.htm#31_12">Type_Nombre</A> := <A HREF="src__objets_prolog__ads.htm#95_13">Entier_Val</A>(<A HREF="src__objets_prolog__ads.htm#104_31">N</A>);
+<EM><FONT SIZE=-1> 513 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 514 </FONT></EM>      <A HREF="src__objets_prolog__ads.htm#92_14">Symbole_Chaine</A>(<A HREF="src__objets_prolog__ads.htm#104_34">un_Symbole</A>, <A HREF="src__objets_prolog__ads.htm#33_4">Pname_Buffer</A>, <A HREF="src__objets_prolog__ads.htm#34_4">Pname_Long</A>, <A HREF="src__objets_prolog__ads.htm#35_4">Pname_Print_Quote</A>);
+<EM><FONT SIZE=-1> 515 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__adb.htm#512_7">Index</A> = 0 <b>then</b> <b>return</b> <A HREF="src__objets_prolog__ads.htm#114_13">Cree_Entier</A>(<A HREF="src__objets_prolog__ads.htm#34_4">Pname_Long</A>); <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 516 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__adb.htm#512_7">Index</A> &gt; 0 <b>and</b> <A HREF="src__objets_prolog__adb.htm#512_7">Index</A> &lt;= <A HREF="src__objets_prolog__ads.htm#34_4">Pname_Long</A> <b>then</b>
+<EM><FONT SIZE=-1> 517 </FONT></EM>         <b>return</b> <A HREF="src__objets_prolog__ads.htm#110_13">Cree_Symbole</A>(<A HREF="src__objets_prolog__ads.htm#33_4">Pname_Buffer</A>(<A HREF="src__objets_prolog__adb.htm#512_7">Index</A>..<A HREF="src__objets_prolog__adb.htm#512_7">Index</A>),
+<EM><FONT SIZE=-1> 518 </FONT></EM>                             <b>not</b> <A HREF="src__objets_prolog__ads.htm#87_13">Caractere_De_Symbole</A>(<A HREF="src__objets_prolog__ads.htm#33_4">Pname_Buffer</A>(<A HREF="src__objets_prolog__adb.htm#512_7">Index</A>)));
+<EM><FONT SIZE=-1> 519 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 520 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#26_13">Mot_Nul</A>;
+<EM><FONT SIZE=-1> 521 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#104_13">Decompose_Symbole</A>;
+<EM><FONT SIZE=-1> 522 </FONT></EM>
+<EM><FONT SIZE=-1> 523 </FONT></EM>
+<EM><FONT SIZE=-1> 524 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#105_13">Decompose_Doublet</A><FONT COLOR=red><A NAME="524_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#105_31">N</A><FONT COLOR=red><A NAME="524_31"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#105_34">un_Doublet</A><FONT COLOR=red><A NAME="524_34"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>
+<EM><FONT SIZE=-1> 525 </FONT></EM>       <FONT COLOR=green><EM>-- si N=0, Item = nombre d'éléments de la liste ou du vecteur ou de la fonction</EM></FONT>
+<EM><FONT SIZE=-1> 526 </FONT></EM>       <FONT COLOR=green><EM>-- si N≠0, Item = nième élément de la liste ou du vecteur ou de la fonction</EM></FONT>
+<EM><FONT SIZE=-1> 527 </FONT></EM>      <FONT COLOR=red><A NAME="527_7">Index</A></FONT> : <A HREF="src__objets_prolog__ads.htm#31_12">Type_Nombre</A> := <A HREF="src__objets_prolog__ads.htm#95_13">Entier_Val</A>(<A HREF="src__objets_prolog__ads.htm#105_31">N</A>);
+<EM><FONT SIZE=-1> 528 </FONT></EM>      <FONT COLOR=red><A NAME="528_7">Obj</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#105_34">un_Doublet</A>;
+<EM><FONT SIZE=-1> 529 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 530 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__adb.htm#527_7">Index</A> = 0 <b>then</b>
+<EM><FONT SIZE=-1> 531 </FONT></EM>         <b>loop</b>
+<EM><FONT SIZE=-1> 532 </FONT></EM>            <A HREF="src__objets_prolog__adb.htm#527_7">Index</A> := <A HREF="src__objets_prolog__adb.htm#527_7">Index</A> + 1;
+<EM><FONT SIZE=-1> 533 </FONT></EM>            <A HREF="src__objets_prolog__adb.htm#528_7">Obj</A> := <A HREF="src__objets_prolog__ads.htm#99_13">Reste</A>(<A HREF="src__objets_prolog__adb.htm#528_7">Obj</A>);
+<EM><FONT SIZE=-1> 534 </FONT></EM>            <b>exit</b> <b>when</b> <b>not</b> <A HREF="src__objets_prolog__ads.htm#80_13">Doublet</A>(<A HREF="src__objets_prolog__adb.htm#528_7">Obj</A>);
+<EM><FONT SIZE=-1> 535 </FONT></EM>         <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 536 </FONT></EM>         <b>return</b> <A HREF="src__objets_prolog__ads.htm#114_13">Cree_Entier</A>(<A HREF="src__objets_prolog__adb.htm#527_7">Index</A>);
+<EM><FONT SIZE=-1> 537 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 538 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__adb.htm#527_7">Index</A> &gt; 0 <b>then</b>
+<EM><FONT SIZE=-1> 539 </FONT></EM>         <b>loop</b>
+<EM><FONT SIZE=-1> 540 </FONT></EM>            <A HREF="src__objets_prolog__adb.htm#527_7">Index</A> := <A HREF="src__objets_prolog__adb.htm#527_7">Index</A> - 1;
+<EM><FONT SIZE=-1> 541 </FONT></EM>            <b>if</b> <A HREF="src__objets_prolog__adb.htm#527_7">Index</A> = 0 <b>then</b> <b>return</b> <A HREF="src__objets_prolog__ads.htm#98_13">Premier</A>(<A HREF="src__objets_prolog__adb.htm#528_7">Obj</A>); <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 542 </FONT></EM>            <A HREF="src__objets_prolog__adb.htm#528_7">Obj</A> := <A HREF="src__objets_prolog__ads.htm#99_13">Reste</A>(<A HREF="src__objets_prolog__adb.htm#528_7">Obj</A>);
+<EM><FONT SIZE=-1> 543 </FONT></EM>            <b>exit</b> <b>when</b> <b>not</b> <A HREF="src__objets_prolog__ads.htm#80_13">Doublet</A>(<A HREF="src__objets_prolog__adb.htm#528_7">Obj</A>);
+<EM><FONT SIZE=-1> 544 </FONT></EM>         <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 545 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 546 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#26_13">Mot_Nul</A>;
+<EM><FONT SIZE=-1> 547 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#105_13">Decompose_Doublet</A>;
+<EM><FONT SIZE=-1> 548 </FONT></EM>
+<EM><FONT SIZE=-1> 549 </FONT></EM>   <FONT COLOR=green><EM>----------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 550 </FONT></EM>   <FONT COLOR=green><EM>-- Fonctions de fabrication des objets PROLOG.</EM></FONT>
+<EM><FONT SIZE=-1> 551 </FONT></EM>   <FONT COLOR=green><EM>----------------------------------------------</EM></FONT>
 <EM><FONT SIZE=-1> 552 </FONT></EM>
-<EM><FONT SIZE=-1> 553 </FONT></EM>
-<EM><FONT SIZE=-1> 554 </FONT></EM>   <b>procedure</b> <A HREF="src__objets_prolog__ads.htm#108_14">Raz_Variables</A><FONT COLOR=red><A NAME="554_14"></A></FONT> <b>is</b>                               <FONT COLOR=green><EM>-- Vide la table des variables (nécessaire lorsqu'on change de regle)</EM></FONT>
-<EM><FONT SIZE=-1> 555 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 556 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#104_4">Topvar</A> := <A HREF="src__objets_prolog__adb.htm#102_4">Table_Var</A>'First;
-<EM><FONT SIZE=-1> 557 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#108_14">Raz_Variables</A>;
+<EM><FONT SIZE=-1> 553 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__adb.htm#553_13">Egal_Pname_Chaine</A><FONT COLOR=red><A NAME="553_13"></A></FONT>(<FONT COLOR=red><A NAME="553_31">Pname</A></FONT> : <A HREF="src__objets_prolog__adb.htm#49_9">R_Pname</A>; <FONT COLOR=red><A NAME="553_48">Chaine</A></FONT> : String) <b>return</b> Boolean <b>is</b>
+<EM><FONT SIZE=-1> 554 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 555 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__adb.htm#553_31">Pname</A>.<A HREF="src__objets_prolog__adb.htm#50_7">Long</A> = <A HREF="src__objets_prolog__adb.htm#553_48">Chaine</A>'Length <b>and</b> <b>then</b>
+<EM><FONT SIZE=-1> 556 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#40_4">Table_Carac</A>(<A HREF="src__objets_prolog__adb.htm#553_31">Pname</A>.<A HREF="src__objets_prolog__adb.htm#51_7">Ind_Carac</A>..<A HREF="src__objets_prolog__adb.htm#553_31">Pname</A>.<A HREF="src__objets_prolog__adb.htm#51_7">Ind_Carac</A> + <A HREF="src__objets_prolog__adb.htm#553_31">Pname</A>.<A HREF="src__objets_prolog__adb.htm#50_7">Long</A> - 1) = <A HREF="src__objets_prolog__adb.htm#553_48">Chaine</A>(<A HREF="src__objets_prolog__adb.htm#553_48">Chaine</A>'<b>range</b>);
+<EM><FONT SIZE=-1> 557 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__adb.htm#553_13">Egal_Pname_Chaine</A>;
 <EM><FONT SIZE=-1> 558 </FONT></EM>
 <EM><FONT SIZE=-1> 559 </FONT></EM>
-<EM><FONT SIZE=-1> 560 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#109_13">Cree_Entier</A><FONT COLOR=red><A NAME="560_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#109_25">Nombre</A><FONT COLOR=red><A NAME="560_25"></A></FONT>: <A HREF="src__objets_prolog__ads.htm#30_12">Type_Nombre</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>
-<EM><FONT SIZE=-1> 561 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 562 </FONT></EM>      <b>return</b> (<A HREF="src__objets_prolog__ads.htm#144_29">Entier</A>, <A HREF="src__objets_prolog__ads.htm#109_25">Nombre</A>);
-<EM><FONT SIZE=-1> 563 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#109_13">Cree_Entier</A>;
-<EM><FONT SIZE=-1> 564 </FONT></EM>
-<EM><FONT SIZE=-1> 565 </FONT></EM>
-<EM><FONT SIZE=-1> 566 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#110_13">Cree_Doublet_V</A><FONT COLOR=red><A NAME="566_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#110_28">Car</A><FONT COLOR=red><A NAME="566_28"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#110_33">Cdr</A><FONT COLOR=red><A NAME="566_33"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>     <FONT COLOR=green><EM>-- Renvoie le doublet [CAR | CDR] étiqueté 'VECTEUR'.</EM></FONT>
-<EM><FONT SIZE=-1> 567 </FONT></EM>      <FONT COLOR=red><A NAME="567_7">Adresse</A></FONT> : <A HREF="src__objets_prolog__adb.htm#21_12">Indice_Table_Doublets</A> := <A HREF="src__objets_prolog__adb.htm#391_13">Doublet_Libre</A>;
-<EM><FONT SIZE=-1> 568 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 569 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#25_4">First</A>(<A HREF="src__objets_prolog__adb.htm#567_7">Adresse</A>) := <A HREF="src__objets_prolog__ads.htm#110_28">Car</A>;
-<EM><FONT SIZE=-1> 570 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#26_4">Rest</A>(<A HREF="src__objets_prolog__adb.htm#567_7">Adresse</A>)  := <A HREF="src__objets_prolog__ads.htm#110_33">Cdr</A>;
-<EM><FONT SIZE=-1> 571 </FONT></EM>      <b>return</b> (<A HREF="src__objets_prolog__ads.htm#145_29">Doublet_V</A>, <A HREF="src__objets_prolog__adb.htm#567_7">Adresse</A>);
-<EM><FONT SIZE=-1> 572 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#110_13">Cree_Doublet_V</A>;
-<EM><FONT SIZE=-1> 573 </FONT></EM>
-<EM><FONT SIZE=-1> 574 </FONT></EM>
-<EM><FONT SIZE=-1> 575 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#111_13">Cree_Doublet_F</A><FONT COLOR=red><A NAME="575_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#111_28">Car</A><FONT COLOR=red><A NAME="575_28"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#111_33">Cdr</A><FONT COLOR=red><A NAME="575_33"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>     <FONT COLOR=green><EM>-- Renvoie le doublet [CAR | CDR] étiqueté 'FONCTION'.</EM></FONT>
-<EM><FONT SIZE=-1> 576 </FONT></EM>      <FONT COLOR=red><A NAME="576_7">Adresse</A></FONT> : <A HREF="src__objets_prolog__adb.htm#21_12">Indice_Table_Doublets</A> := <A HREF="src__objets_prolog__adb.htm#391_13">Doublet_Libre</A>;
-<EM><FONT SIZE=-1> 577 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 578 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#25_4">First</A>(<A HREF="src__objets_prolog__adb.htm#576_7">Adresse</A>) := <A HREF="src__objets_prolog__ads.htm#111_28">Car</A>;
-<EM><FONT SIZE=-1> 579 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#26_4">Rest</A>(<A HREF="src__objets_prolog__adb.htm#576_7">Adresse</A>)  := <A HREF="src__objets_prolog__ads.htm#111_33">Cdr</A>;
-<EM><FONT SIZE=-1> 580 </FONT></EM>      <b>return</b> (<A HREF="src__objets_prolog__ads.htm#146_29">Doublet_F</A>, <A HREF="src__objets_prolog__adb.htm#576_7">Adresse</A>);
-<EM><FONT SIZE=-1> 581 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#111_13">Cree_Doublet_F</A>;
-<EM><FONT SIZE=-1> 582 </FONT></EM>
-<EM><FONT SIZE=-1> 583 </FONT></EM>
-<EM><FONT SIZE=-1> 584 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#112_13">Cree_Doublet_L</A><FONT COLOR=red><A NAME="584_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#112_28">Car</A><FONT COLOR=red><A NAME="584_28"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#112_33">Cdr</A><FONT COLOR=red><A NAME="584_33"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>     <FONT COLOR=green><EM>-- Renvoie le doublet [CAR | CDR] étiqueté 'LISTE'.</EM></FONT>
-<EM><FONT SIZE=-1> 585 </FONT></EM>      <FONT COLOR=red><A NAME="585_7">Adresse</A></FONT> : <A HREF="src__objets_prolog__adb.htm#21_12">Indice_Table_Doublets</A> := <A HREF="src__objets_prolog__adb.htm#391_13">Doublet_Libre</A>;
-<EM><FONT SIZE=-1> 586 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 587 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#25_4">First</A>(<A HREF="src__objets_prolog__adb.htm#585_7">Adresse</A>) := <A HREF="src__objets_prolog__ads.htm#112_28">Car</A>;
-<EM><FONT SIZE=-1> 588 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#26_4">Rest</A>(<A HREF="src__objets_prolog__adb.htm#585_7">Adresse</A>)  := <A HREF="src__objets_prolog__ads.htm#112_33">Cdr</A>;
-<EM><FONT SIZE=-1> 589 </FONT></EM>      <b>return</b> (<A HREF="src__objets_prolog__ads.htm#147_29">Doublet_L</A>, <A HREF="src__objets_prolog__adb.htm#585_7">Adresse</A>);
-<EM><FONT SIZE=-1> 590 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#112_13">Cree_Doublet_L</A>;
-<EM><FONT SIZE=-1> 591 </FONT></EM>
-<EM><FONT SIZE=-1> 592 </FONT></EM>
-<EM><FONT SIZE=-1> 593 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#113_13">Concatene</A><FONT COLOR=red><A NAME="593_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#113_23">Obj1</A><FONT COLOR=red><A NAME="593_23"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#113_29">Obj2</A><FONT COLOR=red><A NAME="593_29"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>       <FONT COLOR=green><EM>-- Concatene le vecteur, la fonction ou la liste OBJ1 avec OBJ2.</EM></FONT>
-<EM><FONT SIZE=-1> 594 </FONT></EM>      <FONT COLOR=red><A NAME="594_7">Dernier_Doublet</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#113_23">Obj1</A>;                        <FONT COLOR=green><EM>-- Le résultat sera du meme type que OBJ1 (vecteur, fonction ou liste)</EM></FONT>
-<EM><FONT SIZE=-1> 595 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 596 </FONT></EM>      <b>if</b> <b>not</b> <A HREF="src__objets_prolog__ads.htm#79_13">Doublet</A>(<A HREF="src__objets_prolog__ads.htm#113_23">Obj1</A>) <b>then</b> <b>return</b> <A HREF="src__objets_prolog__ads.htm#113_23">Obj1</A>;
-<EM><FONT SIZE=-1> 597 </FONT></EM>      <b>else</b>
-<EM><FONT SIZE=-1> 598 </FONT></EM>         <b>while</b> <A HREF="src__objets_prolog__ads.htm#79_13">Doublet</A>(<A HREF="src__objets_prolog__ads.htm#97_13">Reste</A>(<A HREF="src__objets_prolog__adb.htm#594_7">Dernier_Doublet</A>)) <b>loop</b>
-<EM><FONT SIZE=-1> 599 </FONT></EM>            <A HREF="src__objets_prolog__adb.htm#594_7">Dernier_Doublet</A> := <A HREF="src__objets_prolog__ads.htm#97_13">Reste</A>(<A HREF="src__objets_prolog__adb.htm#594_7">Dernier_Doublet</A>);
-<EM><FONT SIZE=-1> 600 </FONT></EM>         <b>end</b> <b>loop</b>;
-<EM><FONT SIZE=-1> 601 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#26_4">Rest</A>(<A HREF="src__objets_prolog__adb.htm#594_7">Dernier_Doublet</A>.<A HREF="src__objets_prolog__ads.htm#155_7">Val</A>) := <A HREF="src__objets_prolog__ads.htm#113_29">Obj2</A>;                 <FONT COLOR=green><EM>-- Fait pointer le dernier doublet sur OBJ2.</EM></FONT>
-<EM><FONT SIZE=-1> 602 </FONT></EM>         <b>return</b> <A HREF="src__objets_prolog__ads.htm#113_23">Obj1</A>;
-<EM><FONT SIZE=-1> 603 </FONT></EM>      <b>end</b> <b>if</b>;
-<EM><FONT SIZE=-1> 604 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#113_13">Concatene</A>;
-<EM><FONT SIZE=-1> 605 </FONT></EM>
-<EM><FONT SIZE=-1> 606 </FONT></EM>
-<EM><FONT SIZE=-1> 607 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#114_13">Cree_Liste</A><FONT COLOR=red><A NAME="607_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#114_24">Obj1</A><FONT COLOR=red><A NAME="607_24"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>            <FONT COLOR=green><EM>-- Renvoie la liste [OBJ1]</EM></FONT>
-<EM><FONT SIZE=-1> 608 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 609 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#112_13">Cree_Doublet_L</A>(<A HREF="src__objets_prolog__ads.htm#114_24">Obj1</A>, <A HREF="src__objets_prolog__adb.htm#111_4">Liste_Vide</A>);
-<EM><FONT SIZE=-1> 610 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#114_13">Cree_Liste</A>;
-<EM><FONT SIZE=-1> 611 </FONT></EM>
-<EM><FONT SIZE=-1> 612 </FONT></EM>
-<EM><FONT SIZE=-1> 613 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#115_13">Cree_Liste</A><FONT COLOR=red><A NAME="613_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#115_24">Obj1</A><FONT COLOR=red><A NAME="613_24"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#115_30">Obj2</A><FONT COLOR=red><A NAME="613_30"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>      <FONT COLOR=green><EM>-- Renvoie la liste [OBJ1, OBJ2]</EM></FONT>
-<EM><FONT SIZE=-1> 614 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 615 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#112_13">Cree_Doublet_L</A>(<A HREF="src__objets_prolog__ads.htm#115_24">Obj1</A>, <A HREF="src__objets_prolog__ads.htm#112_13">Cree_Doublet_L</A>(<A HREF="src__objets_prolog__ads.htm#115_30">Obj2</A>, <A HREF="src__objets_prolog__adb.htm#111_4">Liste_Vide</A>));
-<EM><FONT SIZE=-1> 616 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#115_13">Cree_Liste</A>;
-<EM><FONT SIZE=-1> 617 </FONT></EM>
-<EM><FONT SIZE=-1> 618 </FONT></EM>
-<EM><FONT SIZE=-1> 619 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#116_13">Cree_Liste</A><FONT COLOR=red><A NAME="619_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#116_24">Obj1</A><FONT COLOR=red><A NAME="619_24"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#116_30">Obj2</A><FONT COLOR=red><A NAME="619_30"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#116_36">Obj3</A><FONT COLOR=red><A NAME="619_36"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b> <FONT COLOR=green><EM>-- Renvoie la liste [OBJ1, OBJ2, OBJ3]</EM></FONT>
-<EM><FONT SIZE=-1> 620 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 621 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#112_13">Cree_Doublet_L</A>(<A HREF="src__objets_prolog__ads.htm#116_24">Obj1</A>, <A HREF="src__objets_prolog__ads.htm#112_13">Cree_Doublet_L</A>(<A HREF="src__objets_prolog__ads.htm#116_30">Obj2</A>, <A HREF="src__objets_prolog__ads.htm#112_13">Cree_Doublet_L</A>(<A HREF="src__objets_prolog__ads.htm#116_36">Obj3</A>, <A HREF="src__objets_prolog__adb.htm#111_4">Liste_Vide</A>)));
-<EM><FONT SIZE=-1> 622 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#116_13">Cree_Liste</A>;
+<EM><FONT SIZE=-1> 560 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__adb.htm#560_13">Cree_Pname</A><FONT COLOR=red><A NAME="560_13"></A></FONT>(<FONT COLOR=red><A NAME="560_24">Str</A></FONT> : String; <FONT COLOR=red><A NAME="560_38">Print_Quote</A></FONT> : Boolean := False) <b>return</b> <A HREF="src__objets_prolog__adb.htm#49_9">R_Pname</A> <b>is</b>
+<EM><FONT SIZE=-1> 561 </FONT></EM>      <FONT COLOR=green><EM>-- En entrée : Une chaine, en sortie un record (long, ind_carac, flag).</EM></FONT>
+<EM><FONT SIZE=-1> 562 </FONT></EM>      <FONT COLOR=red><A NAME="562_7">Longueur</A></FONT> : Natural := <A HREF="src__objets_prolog__adb.htm#560_24">Str</A>'Length;
+<EM><FONT SIZE=-1> 563 </FONT></EM>      <FONT COLOR=red><A NAME="563_7">Pname</A></FONT> : <A HREF="src__objets_prolog__adb.htm#49_9">R_Pname</A>;
+<EM><FONT SIZE=-1> 564 </FONT></EM>      <FONT COLOR=red><A NAME="564_7">Adresse</A></FONT> : <A HREF="src__objets_prolog__adb.htm#36_12">Indice_Table_Carac</A>;
+<EM><FONT SIZE=-1> 565 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 566 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__adb.htm#562_7">Longueur</A> &gt; <A HREF="src__objets_prolog__ads.htm#32_4">Longmax_Pname</A> <b>then</b>
+<EM><FONT SIZE=-1> 567 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#562_7">Longueur</A> := <A HREF="src__objets_prolog__ads.htm#32_4">Longmax_Pname</A>;                         <FONT COLOR=green><EM>-- Si chaine trop longue alors on tronque.</EM></FONT>
+<EM><FONT SIZE=-1> 568 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 569 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#563_7">Pname</A>.<A HREF="src__objets_prolog__adb.htm#50_7">Long</A> := <A HREF="src__objets_prolog__adb.htm#562_7">Longueur</A>;
+<EM><FONT SIZE=-1> 570 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#563_7">Pname</A>.<A HREF="src__objets_prolog__adb.htm#51_7">Ind_Carac</A> := <A HREF="src__objets_prolog__adb.htm#42_4">Topcarac</A>;
+<EM><FONT SIZE=-1> 571 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#563_7">Pname</A>.<A HREF="src__objets_prolog__adb.htm#52_7">Print_Quote</A> := <A HREF="src__objets_prolog__adb.htm#560_38">Print_Quote</A>;
+<EM><FONT SIZE=-1> 572 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#564_7">Adresse</A> := <A HREF="src__objets_prolog__adb.htm#377_13">Pname_Libre</A>(<A HREF="src__objets_prolog__adb.htm#562_7">Longueur</A>);
+<EM><FONT SIZE=-1> 573 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#40_4">Table_Carac</A>(<A HREF="src__objets_prolog__adb.htm#564_7">Adresse</A>..<A HREF="src__objets_prolog__adb.htm#564_7">Adresse</A>+<A HREF="src__objets_prolog__adb.htm#562_7">Longueur</A>-1) := <A HREF="src__objets_prolog__adb.htm#560_24">Str</A>(<A HREF="src__objets_prolog__adb.htm#560_24">Str</A>'First..<A HREF="src__objets_prolog__adb.htm#560_24">Str</A>'First+<A HREF="src__objets_prolog__adb.htm#562_7">Longueur</A>-1);
+<EM><FONT SIZE=-1> 574 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__adb.htm#563_7">Pname</A>;
+<EM><FONT SIZE=-1> 575 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__adb.htm#560_13">Cree_Pname</A>;
+<EM><FONT SIZE=-1> 576 </FONT></EM>
+<EM><FONT SIZE=-1> 577 </FONT></EM>
+<EM><FONT SIZE=-1> 578 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#110_13">Cree_Symbole</A><FONT COLOR=red><A NAME="578_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#110_26">Str</A><FONT COLOR=red><A NAME="578_26"></A></FONT> : String; <A HREF="src__objets_prolog__ads.htm#110_40">Print_Quote</A><FONT COLOR=red><A NAME="578_40"></A></FONT> : Boolean := False) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>
+<EM><FONT SIZE=-1> 579 </FONT></EM>      <FONT COLOR=green><EM>-- En entree : La représentation externe du symbole, en sortie : l'objet symbole.</EM></FONT>
+<EM><FONT SIZE=-1> 580 </FONT></EM>      <FONT COLOR=red><A NAME="580_7">Indice_Symb</A></FONT> : <A HREF="src__objets_prolog__adb.htm#63_12">Indice_Table_Symb</A>;
+<EM><FONT SIZE=-1> 581 </FONT></EM>      <FONT COLOR=red><A NAME="581_7">Symb_Suiv</A></FONT> : <A HREF="src__objets_prolog__adb.htm#65_12">Symbole_Suivant</A>;
+<EM><FONT SIZE=-1> 582 </FONT></EM>      <FONT COLOR=red><A NAME="582_7">H</A></FONT> : <A HREF="src__objets_prolog__adb.htm#87_12">Hash_Code</A>;
+<EM><FONT SIZE=-1> 583 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 584 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__ads.htm#110_26">Str</A>'Length = 0 <b>then</b>
+<EM><FONT SIZE=-1> 585 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#582_7">H</A> := 0;
+<EM><FONT SIZE=-1> 586 </FONT></EM>      <b>else</b>
+<EM><FONT SIZE=-1> 587 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#582_7">H</A> := Character'Pos(<A HREF="src__objets_prolog__ads.htm#110_26">Str</A>(<A HREF="src__objets_prolog__ads.htm#110_26">Str</A>'First));
+<EM><FONT SIZE=-1> 588 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 589 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#581_7">Symb_Suiv</A> := <A HREF="src__objets_prolog__adb.htm#91_4">Table_Hashcode</A>(<A HREF="src__objets_prolog__adb.htm#582_7">H</A>);
+<EM><FONT SIZE=-1> 590 </FONT></EM>      <b>while</b> <A HREF="src__objets_prolog__adb.htm#581_7">Symb_Suiv</A> /= -1 <b>loop</b>
+<EM><FONT SIZE=-1> 591 </FONT></EM>         <b>if</b> <A HREF="src__objets_prolog__adb.htm#553_13">Egal_Pname_Chaine</A>(<A HREF="src__objets_prolog__adb.htm#75_4">Table_Symb</A>(<A HREF="src__objets_prolog__adb.htm#581_7">Symb_Suiv</A>).<A HREF="src__objets_prolog__adb.htm#69_7">Pname</A>, <A HREF="src__objets_prolog__ads.htm#110_26">Str</A>) <b>then</b>
+<EM><FONT SIZE=-1> 592 </FONT></EM>            <b>return</b> (<A HREF="src__objets_prolog__ads.htm#148_29">Symbole</A>, <A HREF="src__objets_prolog__adb.htm#581_7">Symb_Suiv</A>);
+<EM><FONT SIZE=-1> 593 </FONT></EM>         <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 594 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#581_7">Symb_Suiv</A> := <A HREF="src__objets_prolog__adb.htm#75_4">Table_Symb</A>(<A HREF="src__objets_prolog__adb.htm#581_7">Symb_Suiv</A>).<A HREF="src__objets_prolog__adb.htm#70_7">Hash_Link</A>;
+<EM><FONT SIZE=-1> 595 </FONT></EM>      <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 596 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#580_7">Indice_Symb</A> := <A HREF="src__objets_prolog__adb.htm#389_13">Symbole_Libre</A>;
+<EM><FONT SIZE=-1> 597 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#75_4">Table_Symb</A>(<A HREF="src__objets_prolog__adb.htm#580_7">Indice_Symb</A>) := (<A HREF="src__objets_prolog__adb.htm#111_4">Liste_Vide</A>, <A HREF="src__objets_prolog__adb.htm#560_13">Cree_Pname</A>(<A HREF="src__objets_prolog__ads.htm#110_26">Str</A>, <A HREF="src__objets_prolog__ads.htm#110_40">Print_Quote</A>), <A HREF="src__objets_prolog__adb.htm#91_4">Table_Hashcode</A>(<A HREF="src__objets_prolog__adb.htm#582_7">H</A>));
+<EM><FONT SIZE=-1> 598 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#91_4">Table_Hashcode</A>(<A HREF="src__objets_prolog__adb.htm#582_7">H</A>) := <A HREF="src__objets_prolog__adb.htm#580_7">Indice_Symb</A>;
+<EM><FONT SIZE=-1> 599 </FONT></EM>      <b>return</b> (<A HREF="src__objets_prolog__ads.htm#148_29">Symbole</A>, <A HREF="src__objets_prolog__adb.htm#580_7">Indice_Symb</A>);
+<EM><FONT SIZE=-1> 600 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#110_13">Cree_Symbole</A>;
+<EM><FONT SIZE=-1> 601 </FONT></EM>
+<EM><FONT SIZE=-1> 602 </FONT></EM>
+<EM><FONT SIZE=-1> 603 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#111_13">Cree_Variable</A><FONT COLOR=red><A NAME="603_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#111_27">Str</A><FONT COLOR=red><A NAME="603_27"></A></FONT> : String) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>       <FONT COLOR=green><EM>-- Renvoie l'objet 'variable' correspondant</EM></FONT>
+<EM><FONT SIZE=-1> 604 </FONT></EM>      <FONT COLOR=red><A NAME="604_7">Indice_Symb</A></FONT> : <A HREF="src__objets_prolog__adb.htm#63_12">Indice_Table_Symb</A>;
+<EM><FONT SIZE=-1> 605 </FONT></EM>      <FONT COLOR=red><A NAME="605_7">Indice_Var</A></FONT>        : <A HREF="src__objets_prolog__adb.htm#98_12">Indice_Table_Var</A>;
+<EM><FONT SIZE=-1> 606 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 607 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__ads.htm#111_27">Str</A> = "_" <b>then</b> <b>return</b> (<A HREF="src__objets_prolog__ads.htm#147_29">Variable</A>, 0); <b>end</b> <b>if</b>;       <FONT COLOR=green><EM>-- Variable muette pour optimiser les unifications.</EM></FONT>
+<EM><FONT SIZE=-1> 608 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#604_7">Indice_Symb</A> := <A HREF="src__objets_prolog__ads.htm#110_13">Cree_Symbole</A>(<A HREF="src__objets_prolog__ads.htm#111_27">Str</A>).<A HREF="src__objets_prolog__ads.htm#160_7">Val</A>;
+<EM><FONT SIZE=-1> 609 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__adb.htm#104_4">Topvar</A> /= <A HREF="src__objets_prolog__adb.htm#102_4">Table_Var</A>'First <b>then</b>                       <FONT COLOR=green><EM>-- Si table non vide</EM></FONT>
+<EM><FONT SIZE=-1> 610 </FONT></EM>         <b>for</b> <FONT COLOR=red><A NAME="610_14">I</A></FONT> <b>in</b> <A HREF="src__objets_prolog__adb.htm#102_4">Table_Var</A>'First..<A HREF="src__objets_prolog__adb.htm#104_4">Topvar</A>-1 <b>loop</b>
+<EM><FONT SIZE=-1> 611 </FONT></EM>            <b>if</b> <A HREF="src__objets_prolog__adb.htm#604_7">Indice_Symb</A> = <A HREF="src__objets_prolog__adb.htm#102_4">Table_Var</A>(<A HREF="src__objets_prolog__adb.htm#610_14">I</A>) <b>then</b>
+<EM><FONT SIZE=-1> 612 </FONT></EM>               <b>return</b> (<A HREF="src__objets_prolog__ads.htm#147_29">Variable</A>, <A HREF="src__objets_prolog__adb.htm#610_14">I</A>);
+<EM><FONT SIZE=-1> 613 </FONT></EM>            <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 614 </FONT></EM>         <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 615 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 616 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#102_4">Table_Var</A>(<A HREF="src__objets_prolog__adb.htm#104_4">Topvar</A>) := <A HREF="src__objets_prolog__adb.htm#604_7">Indice_Symb</A>;
+<EM><FONT SIZE=-1> 617 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#605_7">Indice_Var</A> := <A HREF="src__objets_prolog__adb.htm#104_4">Topvar</A>;
+<EM><FONT SIZE=-1> 618 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__adb.htm#104_4">Topvar</A> = <A HREF="src__objets_prolog__adb.htm#102_4">Table_Var</A>'Last <b>then</b> <b>raise</b> <A HREF="src__objets_prolog__ads.htm#17_4">Table_Var_Pleine</A>; <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 619 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#104_4">Topvar</A> := <A HREF="src__objets_prolog__adb.htm#104_4">Topvar</A> + 1;
+<EM><FONT SIZE=-1> 620 </FONT></EM>      <b>return</b> (<A HREF="src__objets_prolog__ads.htm#147_29">Variable</A>, <A HREF="src__objets_prolog__adb.htm#605_7">Indice_Var</A>);
+<EM><FONT SIZE=-1> 621 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#111_13">Cree_Variable</A>;
+<EM><FONT SIZE=-1> 622 </FONT></EM>
 <EM><FONT SIZE=-1> 623 </FONT></EM>
-<EM><FONT SIZE=-1> 624 </FONT></EM>
-<EM><FONT SIZE=-1> 625 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#117_13">Cree_Vecteur</A><FONT COLOR=red><A NAME="625_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#117_26">Obj1</A><FONT COLOR=red><A NAME="625_26"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>          <FONT COLOR=green><EM>-- Renvoie le vecteur &lt;OBJ1&gt;</EM></FONT>
-<EM><FONT SIZE=-1> 626 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 627 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#110_13">Cree_Doublet_V</A>(<A HREF="src__objets_prolog__ads.htm#117_26">Obj1</A>, <A HREF="src__objets_prolog__adb.htm#112_4">Vecteur_Vide</A>);
-<EM><FONT SIZE=-1> 628 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#117_13">Cree_Vecteur</A>;
+<EM><FONT SIZE=-1> 624 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#112_13">Cree_Variable</A><FONT COLOR=red><A NAME="624_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#112_27">Num</A><FONT COLOR=red><A NAME="624_27"></A></FONT> : Natural) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>      <FONT COLOR=green><EM>-- Création d'une variable à partir de son numéro.</EM></FONT>
+<EM><FONT SIZE=-1> 625 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 626 </FONT></EM>      <b>return</b> (<A HREF="src__objets_prolog__ads.htm#147_29">Variable</A>, <A HREF="src__objets_prolog__ads.htm#112_27">Num</A>);
+<EM><FONT SIZE=-1> 627 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#112_13">Cree_Variable</A>;
+<EM><FONT SIZE=-1> 628 </FONT></EM>
 <EM><FONT SIZE=-1> 629 </FONT></EM>
-<EM><FONT SIZE=-1> 630 </FONT></EM>
-<EM><FONT SIZE=-1> 631 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#118_13">Cree_Vecteur</A><FONT COLOR=red><A NAME="631_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#118_26">Obj1</A><FONT COLOR=red><A NAME="631_26"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#118_32">Obj2</A><FONT COLOR=red><A NAME="631_32"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>     <FONT COLOR=green><EM>-- Renvoie le vecteur &lt;OBJ1, OBJ2&gt;</EM></FONT>
-<EM><FONT SIZE=-1> 632 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 633 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#110_13">Cree_Doublet_V</A>(<A HREF="src__objets_prolog__ads.htm#118_26">Obj1</A>, <A HREF="src__objets_prolog__ads.htm#110_13">Cree_Doublet_V</A>(<A HREF="src__objets_prolog__ads.htm#118_32">Obj2</A>, <A HREF="src__objets_prolog__adb.htm#112_4">Vecteur_Vide</A>));
-<EM><FONT SIZE=-1> 634 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#118_13">Cree_Vecteur</A>;
+<EM><FONT SIZE=-1> 630 </FONT></EM>   <b>procedure</b> <A HREF="src__objets_prolog__ads.htm#113_14">Raz_Variables</A><FONT COLOR=red><A NAME="630_14"></A></FONT> <b>is</b>                               <FONT COLOR=green><EM>-- Vide la table des variables (nécessaire lorsqu'on change de regle)</EM></FONT>
+<EM><FONT SIZE=-1> 631 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 632 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#104_4">Topvar</A> := <A HREF="src__objets_prolog__adb.htm#102_4">Table_Var</A>'First;
+<EM><FONT SIZE=-1> 633 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#113_14">Raz_Variables</A>;
+<EM><FONT SIZE=-1> 634 </FONT></EM>
 <EM><FONT SIZE=-1> 635 </FONT></EM>
-<EM><FONT SIZE=-1> 636 </FONT></EM>
-<EM><FONT SIZE=-1> 637 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#119_13">Cree_Vecteur</A><FONT COLOR=red><A NAME="637_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#119_26">Obj1</A><FONT COLOR=red><A NAME="637_26"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#119_32">Obj2</A><FONT COLOR=red><A NAME="637_32"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#119_38">Obj3</A><FONT COLOR=red><A NAME="637_38"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b> <FONT COLOR=green><EM>-- Renvoie le vecteur &lt;OBJ1, OBJ2, OBJ3&gt;</EM></FONT>
-<EM><FONT SIZE=-1> 638 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 639 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#110_13">Cree_Doublet_V</A>(<A HREF="src__objets_prolog__ads.htm#119_26">Obj1</A>, <A HREF="src__objets_prolog__ads.htm#110_13">Cree_Doublet_V</A>(<A HREF="src__objets_prolog__ads.htm#119_32">Obj2</A>, <A HREF="src__objets_prolog__ads.htm#110_13">Cree_Doublet_V</A>(<A HREF="src__objets_prolog__ads.htm#119_38">Obj3</A>, <A HREF="src__objets_prolog__adb.htm#112_4">Vecteur_Vide</A>)));
-<EM><FONT SIZE=-1> 640 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#119_13">Cree_Vecteur</A>;
+<EM><FONT SIZE=-1> 636 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#114_13">Cree_Entier</A><FONT COLOR=red><A NAME="636_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#114_25">Nombre</A><FONT COLOR=red><A NAME="636_25"></A></FONT>: <A HREF="src__objets_prolog__ads.htm#31_12">Type_Nombre</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>
+<EM><FONT SIZE=-1> 637 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 638 </FONT></EM>      <b>return</b> (<A HREF="src__objets_prolog__ads.htm#149_29">Entier</A>, <A HREF="src__objets_prolog__ads.htm#114_25">Nombre</A>);
+<EM><FONT SIZE=-1> 639 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#114_13">Cree_Entier</A>;
+<EM><FONT SIZE=-1> 640 </FONT></EM>
 <EM><FONT SIZE=-1> 641 </FONT></EM>
-<EM><FONT SIZE=-1> 642 </FONT></EM>
-<EM><FONT SIZE=-1> 643 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#120_13">Vecteur_Liste</A><FONT COLOR=red><A NAME="643_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#120_27">Obj</A><FONT COLOR=red><A NAME="643_27"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>          <FONT COLOR=green><EM>-- Transforme physiquement un vecteur en liste.</EM></FONT>
-<EM><FONT SIZE=-1> 644 </FONT></EM>      <FONT COLOR=red><A NAME="644_7">Objet</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#120_27">Obj</A>;
-<EM><FONT SIZE=-1> 645 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 646 </FONT></EM>      <b>if</b> <b>not</b> <A HREF="src__objets_prolog__ads.htm#76_13">Doublet_V</A>(<A HREF="src__objets_prolog__ads.htm#120_27">Obj</A>) <b>then</b> <b>return</b> <A HREF="src__objets_prolog__ads.htm#120_27">Obj</A>;
-<EM><FONT SIZE=-1> 647 </FONT></EM>      <b>else</b>
-<EM><FONT SIZE=-1> 648 </FONT></EM>         <b>while</b> <A HREF="src__objets_prolog__ads.htm#76_13">Doublet_V</A>(<A HREF="src__objets_prolog__ads.htm#97_13">Reste</A>(<A HREF="src__objets_prolog__adb.htm#644_7">Objet</A>)) <b>loop</b>
-<EM><FONT SIZE=-1> 649 </FONT></EM>            <A HREF="src__objets_prolog__adb.htm#26_4">Rest</A>(<A HREF="src__objets_prolog__adb.htm#644_7">Objet</A>.<A HREF="src__objets_prolog__ads.htm#155_7">Val</A>).<A HREF="src__objets_prolog__ads.htm#154_7">T</A> := <A HREF="src__objets_prolog__ads.htm#147_29">Doublet_L</A>;                 <FONT COLOR=green><EM>-- Modifie physiquement le type du reste de OBJET.</EM></FONT>
-<EM><FONT SIZE=-1> 650 </FONT></EM>            <A HREF="src__objets_prolog__adb.htm#644_7">Objet</A> := <A HREF="src__objets_prolog__ads.htm#97_13">Reste</A>(<A HREF="src__objets_prolog__adb.htm#644_7">Objet</A>);                                  <FONT COLOR=green><EM>-- Maintenant c'est un doublet liste.</EM></FONT>
-<EM><FONT SIZE=-1> 651 </FONT></EM>         <b>end</b> <b>loop</b>;
-<EM><FONT SIZE=-1> 652 </FONT></EM>         <b>return</b> (<A HREF="src__objets_prolog__ads.htm#147_29">Doublet_L</A>, <A HREF="src__objets_prolog__ads.htm#120_27">Obj</A>.<A HREF="src__objets_prolog__ads.htm#155_7">Val</A>);                       <FONT COLOR=green><EM>-- Ne pas oublier de modifier le type du pointeur initial.</EM></FONT>
-<EM><FONT SIZE=-1> 653 </FONT></EM>      <b>end</b> <b>if</b>;
-<EM><FONT SIZE=-1> 654 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#120_13">Vecteur_Liste</A>;
-<EM><FONT SIZE=-1> 655 </FONT></EM>
-<EM><FONT SIZE=-1> 656 </FONT></EM>
-<EM><FONT SIZE=-1> 657 </FONT></EM>   <b>procedure</b> <A HREF="src__objets_prolog__ads.htm#121_14">Id_Liste_Regles</A><FONT COLOR=red><A NAME="657_14"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#121_30">Symb</A><FONT COLOR=red><A NAME="657_30"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#121_36">Liste</A><FONT COLOR=red><A NAME="657_36"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>is</b>          <FONT COLOR=green><EM>-- Rattache la liste de regles LISTE au symbole SYMB.</EM></FONT>
-<EM><FONT SIZE=-1> 658 </FONT></EM>   <b>begin</b>
-<EM><FONT SIZE=-1> 659 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__ads.htm#74_13">Symbole</A>(<A HREF="src__objets_prolog__ads.htm#121_30">Symb</A>) <b>then</b>
-<EM><FONT SIZE=-1> 660 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#75_4">Table_Symb</A>(<A HREF="src__objets_prolog__ads.htm#121_30">Symb</A>.<A HREF="src__objets_prolog__ads.htm#155_7">Val</A>).<A HREF="src__objets_prolog__adb.htm#68_7">Liste_Regles</A> := <A HREF="src__objets_prolog__ads.htm#121_36">Liste</A>;
-<EM><FONT SIZE=-1> 661 </FONT></EM>      <b>end</b> <b>if</b>;
-<EM><FONT SIZE=-1> 662 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#121_14">Id_Liste_Regles</A>;
-<EM><FONT SIZE=-1> 663 </FONT></EM>
-<EM><FONT SIZE=-1> 664 </FONT></EM>
-<EM><FONT SIZE=-1> 665 </FONT></EM><b>begin</b>
-<EM><FONT SIZE=-1> 666 </FONT></EM>
-<EM><FONT SIZE=-1> 667 </FONT></EM>   <FONT COLOR=green><EM>---------------------------</EM></FONT>
-<EM><FONT SIZE=-1> 668 </FONT></EM>   <FONT COLOR=green><EM>--  Pour la mise au point :</EM></FONT>
-<EM><FONT SIZE=-1> 669 </FONT></EM>   <FONT COLOR=green><EM>---------------------------</EM></FONT>
-<EM><FONT SIZE=-1> 670 </FONT></EM>
-<EM><FONT SIZE=-1> 671 </FONT></EM>   <FONT COLOR=green><EM>--PUT_LINE("Elaboration du package OBJETS_PROLOG------------------------------");</EM></FONT>
-<EM><FONT SIZE=-1> 672 </FONT></EM>   <FONT COLOR=green><EM>--PUT("MOT = "); PUT(MOT'SIZE); NEW_LINE;</EM></FONT>
-<EM><FONT SIZE=-1> 673 </FONT></EM>   <FONT COLOR=green><EM>--PUT("R_PNAME = "); PUT(R_PNAME'SIZE); NEW_LINE;</EM></FONT>
-<EM><FONT SIZE=-1> 674 </FONT></EM>   <FONT COLOR=green><EM>--PUT("STRUCT_SYMBOLE = "); PUT(STRUCT_SYMBOLE'SIZE); NEW_LINE;</EM></FONT>
-<EM><FONT SIZE=-1> 675 </FONT></EM>
-<EM><FONT SIZE=-1> 676 </FONT></EM>   <FONT COLOR=green><EM>---------------------------------------------</EM></FONT>
-<EM><FONT SIZE=-1> 677 </FONT></EM>   <FONT COLOR=green><EM>-- Initialisation de la table des hash-codes.</EM></FONT>
-<EM><FONT SIZE=-1> 678 </FONT></EM>   <FONT COLOR=green><EM>---------------------------------------------</EM></FONT>
-<EM><FONT SIZE=-1> 679 </FONT></EM>
-<EM><FONT SIZE=-1> 680 </FONT></EM>   <b>for</b> <FONT COLOR=red><A NAME="680_8">I</A></FONT> <b>in</b> <A HREF="src__objets_prolog__adb.htm#91_4">Table_Hashcode</A>'<b>range</b> <b>loop</b>
-<EM><FONT SIZE=-1> 681 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#91_4">Table_Hashcode</A>(<A HREF="src__objets_prolog__adb.htm#680_8">I</A>) := -1;                              <FONT COLOR=green><EM>-- La fin de la liste est indiquée par -1.</EM></FONT>
-<EM><FONT SIZE=-1> 682 </FONT></EM>   <b>end</b> <b>loop</b>;
-<EM><FONT SIZE=-1> 683 </FONT></EM>
-<EM><FONT SIZE=-1> 684 </FONT></EM>   <FONT COLOR=green><EM>-------------------------------------------------------------------------</EM></FONT>
-<EM><FONT SIZE=-1> 685 </FONT></EM>   <FONT COLOR=green><EM>-- Fabrication des symboles représentant la liste vide et le vecteur vide.</EM></FONT>
-<EM><FONT SIZE=-1> 686 </FONT></EM>   <FONT COLOR=green><EM>--------------------------------------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 642 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#115_13">Cree_Doublet_V</A><FONT COLOR=red><A NAME="642_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#115_28">Car</A><FONT COLOR=red><A NAME="642_28"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#115_33">Cdr</A><FONT COLOR=red><A NAME="642_33"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>     <FONT COLOR=green><EM>-- Renvoie le doublet [CAR | CDR] étiqueté 'VECTEUR'.</EM></FONT>
+<EM><FONT SIZE=-1> 643 </FONT></EM>      <FONT COLOR=red><A NAME="643_7">Adresse</A></FONT> : <A HREF="src__objets_prolog__adb.htm#21_12">Indice_Table_Doublets</A> := <A HREF="src__objets_prolog__adb.htm#401_13">Doublet_Libre</A>;
+<EM><FONT SIZE=-1> 644 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 645 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#25_4">First</A>(<A HREF="src__objets_prolog__adb.htm#643_7">Adresse</A>) := <A HREF="src__objets_prolog__ads.htm#115_28">Car</A>;
+<EM><FONT SIZE=-1> 646 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#26_4">Rest</A>(<A HREF="src__objets_prolog__adb.htm#643_7">Adresse</A>)  := <A HREF="src__objets_prolog__ads.htm#115_33">Cdr</A>;
+<EM><FONT SIZE=-1> 647 </FONT></EM>      <b>return</b> (<A HREF="src__objets_prolog__ads.htm#150_29">Doublet_V</A>, <A HREF="src__objets_prolog__adb.htm#643_7">Adresse</A>);
+<EM><FONT SIZE=-1> 648 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#115_13">Cree_Doublet_V</A>;
+<EM><FONT SIZE=-1> 649 </FONT></EM>
+<EM><FONT SIZE=-1> 650 </FONT></EM>
+<EM><FONT SIZE=-1> 651 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#116_13">Cree_Doublet_F</A><FONT COLOR=red><A NAME="651_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#116_28">Car</A><FONT COLOR=red><A NAME="651_28"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#116_33">Cdr</A><FONT COLOR=red><A NAME="651_33"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>     <FONT COLOR=green><EM>-- Renvoie le doublet [CAR | CDR] étiqueté 'FONCTION'.</EM></FONT>
+<EM><FONT SIZE=-1> 652 </FONT></EM>      <FONT COLOR=red><A NAME="652_7">Adresse</A></FONT> : <A HREF="src__objets_prolog__adb.htm#21_12">Indice_Table_Doublets</A> := <A HREF="src__objets_prolog__adb.htm#401_13">Doublet_Libre</A>;
+<EM><FONT SIZE=-1> 653 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 654 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#25_4">First</A>(<A HREF="src__objets_prolog__adb.htm#652_7">Adresse</A>) := <A HREF="src__objets_prolog__ads.htm#116_28">Car</A>;
+<EM><FONT SIZE=-1> 655 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#26_4">Rest</A>(<A HREF="src__objets_prolog__adb.htm#652_7">Adresse</A>)  := <A HREF="src__objets_prolog__ads.htm#116_33">Cdr</A>;
+<EM><FONT SIZE=-1> 656 </FONT></EM>      <b>return</b> (<A HREF="src__objets_prolog__ads.htm#151_29">Doublet_F</A>, <A HREF="src__objets_prolog__adb.htm#652_7">Adresse</A>);
+<EM><FONT SIZE=-1> 657 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#116_13">Cree_Doublet_F</A>;
+<EM><FONT SIZE=-1> 658 </FONT></EM>
+<EM><FONT SIZE=-1> 659 </FONT></EM>
+<EM><FONT SIZE=-1> 660 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#117_13">Cree_Doublet_L</A><FONT COLOR=red><A NAME="660_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#117_28">Car</A><FONT COLOR=red><A NAME="660_28"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#117_33">Cdr</A><FONT COLOR=red><A NAME="660_33"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>     <FONT COLOR=green><EM>-- Renvoie le doublet [CAR | CDR] étiqueté 'LISTE'.</EM></FONT>
+<EM><FONT SIZE=-1> 661 </FONT></EM>      <FONT COLOR=red><A NAME="661_7">Adresse</A></FONT> : <A HREF="src__objets_prolog__adb.htm#21_12">Indice_Table_Doublets</A> := <A HREF="src__objets_prolog__adb.htm#401_13">Doublet_Libre</A>;
+<EM><FONT SIZE=-1> 662 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 663 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#25_4">First</A>(<A HREF="src__objets_prolog__adb.htm#661_7">Adresse</A>) := <A HREF="src__objets_prolog__ads.htm#117_28">Car</A>;
+<EM><FONT SIZE=-1> 664 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#26_4">Rest</A>(<A HREF="src__objets_prolog__adb.htm#661_7">Adresse</A>)  := <A HREF="src__objets_prolog__ads.htm#117_33">Cdr</A>;
+<EM><FONT SIZE=-1> 665 </FONT></EM>      <b>return</b> (<A HREF="src__objets_prolog__ads.htm#152_29">Doublet_L</A>, <A HREF="src__objets_prolog__adb.htm#661_7">Adresse</A>);
+<EM><FONT SIZE=-1> 666 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#117_13">Cree_Doublet_L</A>;
+<EM><FONT SIZE=-1> 667 </FONT></EM>
+<EM><FONT SIZE=-1> 668 </FONT></EM>
+<EM><FONT SIZE=-1> 669 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#118_13">Concatene</A><FONT COLOR=red><A NAME="669_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#118_23">Obj1</A><FONT COLOR=red><A NAME="669_23"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#118_29">Obj2</A><FONT COLOR=red><A NAME="669_29"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>       <FONT COLOR=green><EM>-- Concatene le vecteur, la fonction ou la liste OBJ1 avec OBJ2.</EM></FONT>
+<EM><FONT SIZE=-1> 670 </FONT></EM>      <FONT COLOR=red><A NAME="670_7">Dernier_Doublet</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#118_23">Obj1</A>;                        <FONT COLOR=green><EM>-- Le résultat sera du meme type que OBJ1 (vecteur, fonction ou liste)</EM></FONT>
+<EM><FONT SIZE=-1> 671 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 672 </FONT></EM>      <b>if</b> <b>not</b> <A HREF="src__objets_prolog__ads.htm#80_13">Doublet</A>(<A HREF="src__objets_prolog__ads.htm#118_23">Obj1</A>) <b>then</b> <b>return</b> <A HREF="src__objets_prolog__ads.htm#118_23">Obj1</A>;
+<EM><FONT SIZE=-1> 673 </FONT></EM>      <b>else</b>
+<EM><FONT SIZE=-1> 674 </FONT></EM>         <b>while</b> <A HREF="src__objets_prolog__ads.htm#80_13">Doublet</A>(<A HREF="src__objets_prolog__ads.htm#99_13">Reste</A>(<A HREF="src__objets_prolog__adb.htm#670_7">Dernier_Doublet</A>)) <b>loop</b>
+<EM><FONT SIZE=-1> 675 </FONT></EM>            <A HREF="src__objets_prolog__adb.htm#670_7">Dernier_Doublet</A> := <A HREF="src__objets_prolog__ads.htm#99_13">Reste</A>(<A HREF="src__objets_prolog__adb.htm#670_7">Dernier_Doublet</A>);
+<EM><FONT SIZE=-1> 676 </FONT></EM>         <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 677 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#26_4">Rest</A>(<A HREF="src__objets_prolog__adb.htm#670_7">Dernier_Doublet</A>.<A HREF="src__objets_prolog__ads.htm#160_7">Val</A>) := <A HREF="src__objets_prolog__ads.htm#118_29">Obj2</A>;                 <FONT COLOR=green><EM>-- Fait pointer le dernier doublet sur OBJ2.</EM></FONT>
+<EM><FONT SIZE=-1> 678 </FONT></EM>         <b>return</b> <A HREF="src__objets_prolog__ads.htm#118_23">Obj1</A>;
+<EM><FONT SIZE=-1> 679 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 680 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#118_13">Concatene</A>;
+<EM><FONT SIZE=-1> 681 </FONT></EM>
+<EM><FONT SIZE=-1> 682 </FONT></EM>
+<EM><FONT SIZE=-1> 683 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#119_13">Cree_Liste</A><FONT COLOR=red><A NAME="683_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#119_24">Obj1</A><FONT COLOR=red><A NAME="683_24"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>            <FONT COLOR=green><EM>-- Renvoie la liste [OBJ1]</EM></FONT>
+<EM><FONT SIZE=-1> 684 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 685 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#117_13">Cree_Doublet_L</A>(<A HREF="src__objets_prolog__ads.htm#119_24">Obj1</A>, <A HREF="src__objets_prolog__adb.htm#111_4">Liste_Vide</A>);
+<EM><FONT SIZE=-1> 686 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#119_13">Cree_Liste</A>;
 <EM><FONT SIZE=-1> 687 </FONT></EM>
-<EM><FONT SIZE=-1> 688 </FONT></EM>   <A HREF="src__objets_prolog__ads.htm#53_14">Call</A>(<A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("[]"));                                <FONT COLOR=green><EM>-- Le symbole '[]' doit etre impérativement le 1er symbole fabriqué.</EM></FONT>
-<EM><FONT SIZE=-1> 689 </FONT></EM>   <A HREF="src__objets_prolog__ads.htm#53_14">Call</A>(<A HREF="src__objets_prolog__ads.htm#105_13">Cree_Symbole</A>("()"));                                <FONT COLOR=green><EM>-- Le symbole '()' doit etre impérativement le 2nd symbole fabriqué.</EM></FONT>
-<EM><FONT SIZE=-1> 690 </FONT></EM>
-<EM><FONT SIZE=-1> 691 </FONT></EM>
-<EM><FONT SIZE=-1> 692 </FONT></EM><b>end</b> <A HREF="src__objets_prolog__ads.htm#8_9">Objets_Prolog</A>
+<EM><FONT SIZE=-1> 688 </FONT></EM>
+<EM><FONT SIZE=-1> 689 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#120_13">Cree_Liste</A><FONT COLOR=red><A NAME="689_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#120_24">Obj1</A><FONT COLOR=red><A NAME="689_24"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#120_30">Obj2</A><FONT COLOR=red><A NAME="689_30"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>      <FONT COLOR=green><EM>-- Renvoie la liste [OBJ1, OBJ2]</EM></FONT>
+<EM><FONT SIZE=-1> 690 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 691 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#117_13">Cree_Doublet_L</A>(<A HREF="src__objets_prolog__ads.htm#120_24">Obj1</A>, <A HREF="src__objets_prolog__ads.htm#117_13">Cree_Doublet_L</A>(<A HREF="src__objets_prolog__ads.htm#120_30">Obj2</A>, <A HREF="src__objets_prolog__adb.htm#111_4">Liste_Vide</A>));
+<EM><FONT SIZE=-1> 692 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#120_13">Cree_Liste</A>;
+<EM><FONT SIZE=-1> 693 </FONT></EM>
+<EM><FONT SIZE=-1> 694 </FONT></EM>
+<EM><FONT SIZE=-1> 695 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#121_13">Cree_Liste</A><FONT COLOR=red><A NAME="695_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#121_24">Obj1</A><FONT COLOR=red><A NAME="695_24"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#121_30">Obj2</A><FONT COLOR=red><A NAME="695_30"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#121_36">Obj3</A><FONT COLOR=red><A NAME="695_36"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b> <FONT COLOR=green><EM>-- Renvoie la liste [OBJ1, OBJ2, OBJ3]</EM></FONT>
+<EM><FONT SIZE=-1> 696 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 697 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#117_13">Cree_Doublet_L</A>(<A HREF="src__objets_prolog__ads.htm#121_24">Obj1</A>, <A HREF="src__objets_prolog__ads.htm#117_13">Cree_Doublet_L</A>(<A HREF="src__objets_prolog__ads.htm#121_30">Obj2</A>, <A HREF="src__objets_prolog__ads.htm#117_13">Cree_Doublet_L</A>(<A HREF="src__objets_prolog__ads.htm#121_36">Obj3</A>, <A HREF="src__objets_prolog__adb.htm#111_4">Liste_Vide</A>)));
+<EM><FONT SIZE=-1> 698 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#121_13">Cree_Liste</A>;
+<EM><FONT SIZE=-1> 699 </FONT></EM>
+<EM><FONT SIZE=-1> 700 </FONT></EM>
+<EM><FONT SIZE=-1> 701 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#122_13">Cree_Vecteur</A><FONT COLOR=red><A NAME="701_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#122_26">Obj1</A><FONT COLOR=red><A NAME="701_26"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>          <FONT COLOR=green><EM>-- Renvoie le vecteur &lt;OBJ1&gt;</EM></FONT>
+<EM><FONT SIZE=-1> 702 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 703 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#115_13">Cree_Doublet_V</A>(<A HREF="src__objets_prolog__ads.htm#122_26">Obj1</A>, <A HREF="src__objets_prolog__adb.htm#112_4">Vecteur_Vide</A>);
+<EM><FONT SIZE=-1> 704 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#122_13">Cree_Vecteur</A>;
+<EM><FONT SIZE=-1> 705 </FONT></EM>
+<EM><FONT SIZE=-1> 706 </FONT></EM>
+<EM><FONT SIZE=-1> 707 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#123_13">Cree_Vecteur</A><FONT COLOR=red><A NAME="707_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#123_26">Obj1</A><FONT COLOR=red><A NAME="707_26"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#123_32">Obj2</A><FONT COLOR=red><A NAME="707_32"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>     <FONT COLOR=green><EM>-- Renvoie le vecteur &lt;OBJ1, OBJ2&gt;</EM></FONT>
+<EM><FONT SIZE=-1> 708 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 709 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#115_13">Cree_Doublet_V</A>(<A HREF="src__objets_prolog__ads.htm#123_26">Obj1</A>, <A HREF="src__objets_prolog__ads.htm#115_13">Cree_Doublet_V</A>(<A HREF="src__objets_prolog__ads.htm#123_32">Obj2</A>, <A HREF="src__objets_prolog__adb.htm#112_4">Vecteur_Vide</A>));
+<EM><FONT SIZE=-1> 710 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#123_13">Cree_Vecteur</A>;
+<EM><FONT SIZE=-1> 711 </FONT></EM>
+<EM><FONT SIZE=-1> 712 </FONT></EM>
+<EM><FONT SIZE=-1> 713 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#124_13">Cree_Vecteur</A><FONT COLOR=red><A NAME="713_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#124_26">Obj1</A><FONT COLOR=red><A NAME="713_26"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#124_32">Obj2</A><FONT COLOR=red><A NAME="713_32"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#124_38">Obj3</A><FONT COLOR=red><A NAME="713_38"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b> <FONT COLOR=green><EM>-- Renvoie le vecteur &lt;OBJ1, OBJ2, OBJ3&gt;</EM></FONT>
+<EM><FONT SIZE=-1> 714 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 715 </FONT></EM>      <b>return</b> <A HREF="src__objets_prolog__ads.htm#115_13">Cree_Doublet_V</A>(<A HREF="src__objets_prolog__ads.htm#124_26">Obj1</A>, <A HREF="src__objets_prolog__ads.htm#115_13">Cree_Doublet_V</A>(<A HREF="src__objets_prolog__ads.htm#124_32">Obj2</A>, <A HREF="src__objets_prolog__ads.htm#115_13">Cree_Doublet_V</A>(<A HREF="src__objets_prolog__ads.htm#124_38">Obj3</A>, <A HREF="src__objets_prolog__adb.htm#112_4">Vecteur_Vide</A>)));
+<EM><FONT SIZE=-1> 716 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#124_13">Cree_Vecteur</A>;
+<EM><FONT SIZE=-1> 717 </FONT></EM>
+<EM><FONT SIZE=-1> 718 </FONT></EM>
+<EM><FONT SIZE=-1> 719 </FONT></EM>   <b>function</b> <A HREF="src__objets_prolog__ads.htm#125_13">Vecteur_Liste</A><FONT COLOR=red><A NAME="719_13"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#125_27">Obj</A><FONT COLOR=red><A NAME="719_27"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>return</b> <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> <b>is</b>          <FONT COLOR=green><EM>-- Transforme physiquement un vecteur en liste.</EM></FONT>
+<EM><FONT SIZE=-1> 720 </FONT></EM>      <FONT COLOR=red><A NAME="720_7">Objet</A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A> := <A HREF="src__objets_prolog__ads.htm#125_27">Obj</A>;
+<EM><FONT SIZE=-1> 721 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 722 </FONT></EM>      <b>if</b> <b>not</b> <A HREF="src__objets_prolog__ads.htm#77_13">Doublet_V</A>(<A HREF="src__objets_prolog__ads.htm#125_27">Obj</A>) <b>then</b> <b>return</b> <A HREF="src__objets_prolog__ads.htm#125_27">Obj</A>;
+<EM><FONT SIZE=-1> 723 </FONT></EM>      <b>else</b>
+<EM><FONT SIZE=-1> 724 </FONT></EM>         <b>while</b> <A HREF="src__objets_prolog__ads.htm#77_13">Doublet_V</A>(<A HREF="src__objets_prolog__ads.htm#99_13">Reste</A>(<A HREF="src__objets_prolog__adb.htm#720_7">Objet</A>)) <b>loop</b>
+<EM><FONT SIZE=-1> 725 </FONT></EM>            <A HREF="src__objets_prolog__adb.htm#26_4">Rest</A>(<A HREF="src__objets_prolog__adb.htm#720_7">Objet</A>.<A HREF="src__objets_prolog__ads.htm#160_7">Val</A>).<A HREF="src__objets_prolog__ads.htm#159_7">T</A> := <A HREF="src__objets_prolog__ads.htm#152_29">Doublet_L</A>;                 <FONT COLOR=green><EM>-- Modifie physiquement le type du reste de OBJET.</EM></FONT>
+<EM><FONT SIZE=-1> 726 </FONT></EM>            <A HREF="src__objets_prolog__adb.htm#720_7">Objet</A> := <A HREF="src__objets_prolog__ads.htm#99_13">Reste</A>(<A HREF="src__objets_prolog__adb.htm#720_7">Objet</A>);                                  <FONT COLOR=green><EM>-- Maintenant c'est un doublet liste.</EM></FONT>
+<EM><FONT SIZE=-1> 727 </FONT></EM>         <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 728 </FONT></EM>         <b>return</b> (<A HREF="src__objets_prolog__ads.htm#152_29">Doublet_L</A>, <A HREF="src__objets_prolog__ads.htm#125_27">Obj</A>.<A HREF="src__objets_prolog__ads.htm#160_7">Val</A>);                       <FONT COLOR=green><EM>-- Ne pas oublier de modifier le type du pointeur initial.</EM></FONT>
+<EM><FONT SIZE=-1> 729 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 730 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#125_13">Vecteur_Liste</A>;
+<EM><FONT SIZE=-1> 731 </FONT></EM>
+<EM><FONT SIZE=-1> 732 </FONT></EM>
+<EM><FONT SIZE=-1> 733 </FONT></EM>   <b>procedure</b> <A HREF="src__objets_prolog__ads.htm#126_14">Id_Liste_Regles</A><FONT COLOR=red><A NAME="733_14"></A></FONT>(<A HREF="src__objets_prolog__ads.htm#126_30">Symb</A><FONT COLOR=red><A NAME="733_30"></A></FONT>, <A HREF="src__objets_prolog__ads.htm#126_36">Liste</A><FONT COLOR=red><A NAME="733_36"></A></FONT> : <A HREF="src__objets_prolog__ads.htm#23_9">Mot</A>) <b>is</b>          <FONT COLOR=green><EM>-- Rattache la liste de regles LISTE au symbole SYMB.</EM></FONT>
+<EM><FONT SIZE=-1> 734 </FONT></EM>   <b>begin</b>
+<EM><FONT SIZE=-1> 735 </FONT></EM>      <b>if</b> <A HREF="src__objets_prolog__ads.htm#75_13">Symbole</A>(<A HREF="src__objets_prolog__ads.htm#126_30">Symb</A>) <b>then</b>
+<EM><FONT SIZE=-1> 736 </FONT></EM>         <A HREF="src__objets_prolog__adb.htm#75_4">Table_Symb</A>(<A HREF="src__objets_prolog__ads.htm#126_30">Symb</A>.<A HREF="src__objets_prolog__ads.htm#160_7">Val</A>).<A HREF="src__objets_prolog__adb.htm#68_7">Liste_Regles</A> := <A HREF="src__objets_prolog__ads.htm#126_36">Liste</A>;
+<EM><FONT SIZE=-1> 737 </FONT></EM>      <b>end</b> <b>if</b>;
+<EM><FONT SIZE=-1> 738 </FONT></EM>   <b>end</b> <A HREF="src__objets_prolog__ads.htm#126_14">Id_Liste_Regles</A>;
+<EM><FONT SIZE=-1> 739 </FONT></EM>
+<EM><FONT SIZE=-1> 740 </FONT></EM>
+<EM><FONT SIZE=-1> 741 </FONT></EM><b>begin</b>
+<EM><FONT SIZE=-1> 742 </FONT></EM>
+<EM><FONT SIZE=-1> 743 </FONT></EM>   <FONT COLOR=green><EM>---------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 744 </FONT></EM>   <FONT COLOR=green><EM>--  Pour la mise au point :</EM></FONT>
+<EM><FONT SIZE=-1> 745 </FONT></EM>   <FONT COLOR=green><EM>---------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 746 </FONT></EM>
+<EM><FONT SIZE=-1> 747 </FONT></EM>   <FONT COLOR=green><EM>--PUT_LINE("Elaboration du package OBJETS_PROLOG------------------------------");</EM></FONT>
+<EM><FONT SIZE=-1> 748 </FONT></EM>   <FONT COLOR=green><EM>--PUT("MOT = "); PUT(MOT'SIZE); NEW_LINE;</EM></FONT>
+<EM><FONT SIZE=-1> 749 </FONT></EM>   <FONT COLOR=green><EM>--PUT("R_PNAME = "); PUT(R_PNAME'SIZE); NEW_LINE;</EM></FONT>
+<EM><FONT SIZE=-1> 750 </FONT></EM>   <FONT COLOR=green><EM>--PUT("STRUCT_SYMBOLE = "); PUT(STRUCT_SYMBOLE'SIZE); NEW_LINE;</EM></FONT>
+<EM><FONT SIZE=-1> 751 </FONT></EM>
+<EM><FONT SIZE=-1> 752 </FONT></EM>   <FONT COLOR=green><EM>---------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 753 </FONT></EM>   <FONT COLOR=green><EM>-- Initialisation de la table des hash-codes.</EM></FONT>
+<EM><FONT SIZE=-1> 754 </FONT></EM>   <FONT COLOR=green><EM>---------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 755 </FONT></EM>
+<EM><FONT SIZE=-1> 756 </FONT></EM>   <b>for</b> <FONT COLOR=red><A NAME="756_8">I</A></FONT> <b>in</b> <A HREF="src__objets_prolog__adb.htm#91_4">Table_Hashcode</A>'<b>range</b> <b>loop</b>
+<EM><FONT SIZE=-1> 757 </FONT></EM>      <A HREF="src__objets_prolog__adb.htm#91_4">Table_Hashcode</A>(<A HREF="src__objets_prolog__adb.htm#756_8">I</A>) := -1;                              <FONT COLOR=green><EM>-- La fin de la liste est indiquée par -1.</EM></FONT>
+<EM><FONT SIZE=-1> 758 </FONT></EM>   <b>end</b> <b>loop</b>;
+<EM><FONT SIZE=-1> 759 </FONT></EM>
+<EM><FONT SIZE=-1> 760 </FONT></EM>   <FONT COLOR=green><EM>-------------------------------------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 761 </FONT></EM>   <FONT COLOR=green><EM>-- Fabrication des symboles représentant la liste vide et le vecteur vide.</EM></FONT>
+<EM><FONT SIZE=-1> 762 </FONT></EM>   <FONT COLOR=green><EM>--------------------------------------------------------------------------</EM></FONT>
+<EM><FONT SIZE=-1> 763 </FONT></EM>
+<EM><FONT SIZE=-1> 764 </FONT></EM>   <A HREF="src__objets_prolog__ads.htm#54_14">Call</A>(<A HREF="src__objets_prolog__ads.htm#110_13">Cree_Symbole</A>("[]"));                                <FONT COLOR=green><EM>-- Le symbole '[]' doit etre impérativement le 1er symbole fabriqué.</EM></FONT>
+<EM><FONT SIZE=-1> 765 </FONT></EM>   <A HREF="src__objets_prolog__ads.htm#54_14">Call</A>(<A HREF="src__objets_prolog__ads.htm#110_13">Cree_Symbole</A>("()"));                                <FONT COLOR=green><EM>-- Le symbole '()' doit etre impérativement le 2nd symbole fabriqué.</EM></FONT>
+<EM><FONT SIZE=-1> 766 </FONT></EM>
+<EM><FONT SIZE=-1> 767 </FONT></EM>
+<EM><FONT SIZE=-1> 768 </FONT></EM><b>end</b> <A HREF="src__objets_prolog__ads.htm#8_9">Objets_Prolog</A>;
 </PRE></BODY></HTML>
