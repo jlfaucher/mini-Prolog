@@ -19,7 +19,7 @@ The syntax is Edinburgh, not Marseille.
 History
 -------
 
-Alain Colmerauer [papers][alain_colmerauer_papers], [site][alain_colmerauer_site].
+Alain Colmerauer [site][alain_colmerauer_site].
 
 M. Van Caneghem. L’Anatomie de Prolog II, thèse d’Etat, October 1984. Supervised by Alain Colmerauer.
 
@@ -731,7 +731,6 @@ It's possible to change the domain of a free argument.
 
 
 [alain_colmerauer_site]: http://alain.colmerauer.free.fr "Alain Colmerauer"
-[alain_colmerauer_papers]: http://pageperso.lif.univ-mrs.fr/~alain.colmerauer/tablematiere.html "Alain Colmerauer papers"
-[gnat_ada]: http://libre.adacore.com "GNAT Ada"
+[gnat_ada]: https://www.adacore.com/download "GNAT Ada"
 [mulisp_musimp]: https://github.com/jlfaucher/FormMath/blob/master/SRC/MUSIMP.LSP "muLISP/muSIMP"
 [prolog_heritage]: http://www.prolog-heritage.org "Prolog Héritage"
