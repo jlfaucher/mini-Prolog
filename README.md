@@ -3,6 +3,9 @@ Port of mini prolog II to Ada-83
 
 Software from the 80s (educational).
 
+<div align="center">
+<img src="images/Mini-Prolog.png" alt="Mini Prolog" width="50%">
+</div>
 
 Description
 -----------
